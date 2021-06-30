@@ -10,8 +10,8 @@ Living in an ephemeral world<br>
 
 ## Status
 
-* This is beta alpha software
-* If we get enough positive feedback, we shall christen a 1.0
+* This is beta software
+* If we get enough positive feedback, we shall christen a 1.0.0
 * Here be Dragons (maybe)
 
 ## Conceptual Prerequisites
