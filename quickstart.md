@@ -16,16 +16,14 @@ Living in an ephemeral world<br>
 
 ## Conceptual Prerequisites
 
-* When ZeroTier joins a network, it creates a virtual network interface.
-* When ZeroTier joins mutiple networks, there will be multiple network interfaces.
-* When ZeroNSD starts, it binds to a ZeroTier network interface.
-* When ZeroTier is joined to multiple networks, it needs multiple ZeroNSDs, one for each interface.
+* ZeroTier Networks are JSON objects in the Central API
+* ZeroTier Identities are the public half of a crypto key pair
+* ZeroTier Members a are associations between Networks and Identities
+* ZeroTier emulates an L2 network (ethernet)
 
 This means:
 
-* ZeroNSD will be accessible from the node it is running on.
-* ZeroNSD will be accessible from other nodes on the ZeroTier network.
-* ZeroNSD will be isolated from other networks the node might be on.
+* Pinging IPV4 addresses, 
 
 ## Technical Prerequisites
 
