@@ -3,8 +3,8 @@
 <p align="center">
 <img src="https://avatars.githubusercontent.com/u/4173285?s=200&v=4" alt="ZeroNSD" style="width:100%;"><br>
 <b><i>
-I'm just an ephemeral girl<br>
-Living in an ephemeral world<br>
+We are Living in an Ephemeral World<br>
+I am an Ephemeral Girl<br>
 </i></b>
 </p>
 
@@ -23,7 +23,8 @@ Living in an ephemeral world<br>
 
 This means:
 
-* Pinging IPV4 addresses, 
+* Pinging IPv4 addresses will yield arp table entries
+* Pinging IPv6 addresses 
 
 ## Technical Prerequisites
 
