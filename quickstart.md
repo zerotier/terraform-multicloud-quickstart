@@ -10,31 +10,29 @@ I am an ephemeral girl<br>
 
 ## Status
 
-* This is beta software
-* If we get enough positive feedback, we shall christen a 1.0.0
-* Here be Dragons (maybe)
+* This is beta software.
+* If we get enough positive feedback, we shall christen a 1.0.0.
+* Here be Dragons (maybe).
 
 ## Conceptual Prerequisites
 
-* ZeroTier Networks are objects in the Central API
-* ZeroTier Identities are public crypto identities installed in nodes; machines, containers, or binaries
-* ZeroTier Members are associations between Networks and Identities
-* ZeroTier virtualizes at L2 (ethernet)
+* ZeroTier Networks are objects in the Central API.
+* ZeroTier Identities are public crypto identities installed in nodes; machines, containers, or binaries.
+* ZeroTier Members are associations between Networks and Identities.
+* ZeroTier virtualizes at L2 (ethernet).
 
 This means:
 
-* We can do a lot of cool stuff
-* Pinging IPv4 addresses will yield arp table entries
-* Pinging IPv6 addresses yields ICMPv6 Neighbor Solicitation
-* Across clouds, and from behind NAT devices
+* We can do a lot of cool stuff.
+* Pinging IPv4 addresses will yield arp table entries.
+* Pinging IPv6 addresses yields ICMPv6 Neighbor Solicitation.
+* Across clouds, and from behind NAT devices.
 
 ## Technical Prerequisites
 
-This Quickstart was written using two machines - one Ubuntu virtual
-machine on Digital Ocean, and one OSX laptop on a residential ISP. To
-follow along step by step, you'll need to provision equivalent
-infrastructure. If you use different platforms, you should be able to
-figure out what to do with minimal effort.
+This quickstart requires 4 environmental variables
+
+AWS_
 
 ## Create a ZeroTier Network
 
