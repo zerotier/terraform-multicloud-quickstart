@@ -19,12 +19,14 @@ I am an ephemeral girl<br>
 * ZeroTier Networks are JSON objects in the Central API
 * ZeroTier Identities are the public half of a crypto key pair
 * ZeroTier Members a are associations between Networks and Identities
-* ZeroTier emulates an L2 network (ethernet)
+* ZeroTier virtualizes an L2 network (ethernet)
 
 This means:
 
+* We can do lots of cool stuff.
 * Pinging IPv4 addresses will yield arp table entries
-* Pinging IPv6 addresses 
+* Pinging IPv6 addresses yield ICMPv6 Neighbor Solicitation
+* Across clouds and from behind NAT devices
 
 ## Technical Prerequisites
 
