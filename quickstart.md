@@ -33,11 +33,3 @@ This means:
 This quickstart requires 4 environmental variables
 
 AWS_
-
-## Create a ZeroTier Network
-
-You may do this manually through the [ZeroTier Central WebUI](https://my.zerotier.com),
-
-![Create a Network](https://i.imgur.com/L6xtGKo.png)
-
-## Install ZeroTier
