@@ -19,7 +19,7 @@ I am an ephemeral girl<br>
 * ZeroTier Networks are objects in the Central API
 * ZeroTier Identities are public crypto identities installed in nodes; machines, containers, or binaries
 * ZeroTier Members are associations between Networks and Identities
-* ZeroTier virtualizes an L2 network (ethernet)
+* ZeroTier virtualizes at L2 (ethernet)
 
 This means:
 
