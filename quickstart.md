@@ -24,7 +24,7 @@ I am an ephemeral girl<br>
 This means:
 
 * We can do a lot of cool stuff.
-* Pinging IPv4 addresses will yield arp table entries.
+* Pinging IPv4 addresses will yield ARP table entries.
 * Pinging IPv6 addresses yields ICMPv6 Neighbor Solicitation.
 * Across clouds, and from behind NAT devices.
 
