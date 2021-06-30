@@ -3,8 +3,8 @@
 <p align="center">
 <img src="https://avatars.githubusercontent.com/u/4173285?s=200&v=4" alt="ZeroNSD" style="width:100%;"><br>
 <b><i>
-We are Living in an Ephemeral World<br>
-I am an Ephemeral Girl<br>
+We are living in an ephemeral world<br>
+I am an ephemeral girl<br>
 </i></b>
 </p>
 
