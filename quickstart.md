@@ -30,9 +30,7 @@ This means:
 
 ## TLDR
 
-This repository is an interactive tutorial that yields a lab
-environment that we can log into and perform various networking party
-tricks.
+This repository yields a lab environment for networking party tricks.
 
 ## Technical Prerequisites
 
