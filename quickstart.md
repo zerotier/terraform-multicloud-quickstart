@@ -17,7 +17,7 @@ And I am an ephemeral girl<br>
 ## Conceptual Prerequisites
 
 * ZeroTier Networks are objects in the Central API.
-* ZeroTier Identities are public crypto identities installed in nodes; machines, containers, or binaries.
+* ZeroTier Identities are the public keys of nodes; machines, containers, or binaries.
 * ZeroTier Members are associations between Networks and Identities.
 * ZeroTier virtualizes at L2 (ethernet).
 
