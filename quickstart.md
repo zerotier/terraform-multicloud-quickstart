@@ -36,7 +36,7 @@ We shall ping.
 We shall tcpdump.   
 We shall do the IPv6.  
 
-No phsycial networking devices were harmed during the production of
+No networking devices were harmed during the production of
 this document.  
 
 ## Technical Prerequisites
