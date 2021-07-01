@@ -30,9 +30,10 @@ This means:
 
 ## Where we're going
 
-This repository yields a lab environment for networking party tricks.
-We shall ping. We shall tcpdump. We shall IPv6.
-No phsycial networking devices were harmed during the production of this document.
+This repository yields a lab environment for networking party tricks.  
+We shall ping. We shall tcpdump. We shall IPv6.  
+No phsycial networking devices were harmed during the production of
+this document.  
 
 ## Technical Prerequisites
 
