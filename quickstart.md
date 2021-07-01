@@ -43,4 +43,16 @@ this document.
 
 This quickstart requires 4 environmental variables
 
-AWS_
+## ASCII Art
+
+|-------|
+|  AWS  | \
+|-------|  \
+            \
+|-------|      -~-~-~-~-~-    ----------
+|  GCP  | --- ( THE CLOUD ) - | Berlin |
+|-------|      -~-~-~-~-~-    ----------
+            /
+|-------|  /
+|  AZU  | /
+|-------|
