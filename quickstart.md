@@ -41,18 +41,18 @@ this document.
 
 ## Technical Prerequisites
 
-This quickstart requires 4 environmental variables
+This quickstart requires the following environmental variables
+    
+```
+AWS_ACCESS_KEY_ID="XXXXXXXXXXXXXXXXXXXX"
+AWS_SECRET_ACCESS_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
-## ASCII Art
+ARM_SUBSCRIPTION_ID="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+ARM_TENANT_ID="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+ARM_CLIENT_ID="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+ARM_CLIENT_SECRET="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
-|-------|  
-|  AWS  | \  
-|-------|  \  
-            \  
-|-------|      -~-~-~-~-~-    ----------  
-|  GCP  | --- ( THE CLOUD ) - | Berlin |  
-|-------|      -~-~-~-~-~-    ----------  
-            /  
-|-------|  /  
-|  AZU  | /  
-|-------|  
+GOOGLE_CREDENTIALS="$(cat key-downloaded-from-gcp-console.json)"
+
+ZEROTIER_CENTRAL_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+```
