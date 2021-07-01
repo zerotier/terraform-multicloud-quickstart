@@ -42,6 +42,11 @@ this document.
 
 ## The plan
 
+The general plan is simple. We shall use Terraform to create a
+ZeroTier network, then spin up and bootstrap a single virtiual machine
+on each of AWS, GCP, and Azure. We shall then log into them and
+explore the "layer2eyness".
+
 ## Technical Prerequisites
 
 This quickstart requires the following environmental variables
