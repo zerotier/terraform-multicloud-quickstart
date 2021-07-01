@@ -31,6 +31,7 @@ This means:
 ## Where we're going
 
 This repository yields a lab environment for networking party tricks.  
+
 We shall ping.  
 We shall tcpdump.   
 We shall do the IPv6.  
