@@ -28,6 +28,12 @@ This means:
 * Pinging IPv6 addresses yields ICMPv6 Neighbor Solicitation.
 * Across clouds, and through NAT devices.
 
+## TLDR
+
+This repository is an interactive tutorial that yields a lab
+environment that we can log into and perform various networking party
+tricks.
+
 ## Technical Prerequisites
 
 This quickstart requires 4 environmental variables
