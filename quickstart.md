@@ -28,9 +28,11 @@ This means:
 * Pinging IPv6 addresses yields ICMPv6 Neighbor Solicitation.
 * Across clouds, and through NAT devices.
 
-## TLDR
+## Where we're going
 
 This repository yields a lab environment for networking party tricks.
+We shall ping. We shall tcpdump. We shall IPv6.
+No phsycial networking devices were harmed during the production of this document.
 
 ## Technical Prerequisites
 
