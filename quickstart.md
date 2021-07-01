@@ -33,7 +33,7 @@ This means:
 This repository yields a lab environment for networking party tricks.  
 We shall ping.  
 We shall tcpdump.   
-We shall the IPv6.  
+We shall do the IPv6.  
 
 No phsycial networking devices were harmed during the production of
 this document.  
