@@ -28,21 +28,24 @@ This means:
 * Pinging IPv6 yields ICMPv6 Neighbor Solicitation.
 * Across clouds, and through NAT devices.
 
-## Where we're going
+## What lies ahead
 
-This repository yields a lab environment for networking party tricks.  
+This repository yields a lab environment for exploring ZeroTier.
 
-We shall ping.  
-We shall tcpdump.   
-We shall do the IPv6.  
+- We shall ping
+- We shall tcpdump
+- We shall manipulate interfaces and bridges
+- We shall do IPv6
 
 No networking devices were harmed during the production of
-this document.  
+this document.
+
+## The plan
 
 ## Technical Prerequisites
 
 This quickstart requires the following environmental variables
-    
+
 ```
 AWS_ACCESS_KEY_ID="XXXXXXXXXXXXXXXXXXXX"
 AWS_SECRET_ACCESS_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
