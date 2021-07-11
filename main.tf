@@ -1,3 +1,4 @@
+
 module "aws_vpc" {
   source               = "./modules/terraform-aws-vpc"
   instance_tenancy     = "default"
@@ -57,4 +58,35 @@ module "aws_network_acl_rule" {
   from_port      = 0
   to_port        = 0
   rule_action    = "allow"
+}
+
+module "aws_security_group" {
+  source = "./modules/terraform-aws-security_group"
+  vpc_id = module.aws_vpc.id
+}
+
+data "aws_ami" "this" {
+  owners      = [ "099720109477" ]
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+}
+
+module "instance" {
+  source                               = "./modules/terraform-aws-instance"
+  ami                                  = data.aws_ami.this.id
+  instance_type                        = "t3.micro"
+  source_dest_check                    = false
+  subnet_id                            = module.aws_subnet.id
+  tags                                 = { "Name" = "qs-aws-fra" }
+#  user_data_base64                     = ""
 }
