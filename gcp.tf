@@ -8,7 +8,7 @@ resource "google_compute_network" "this" {
 }
 
 resource "google_compute_subnetwork" "this" {
-  name          = "qs-gcp-ams"
+  name          = "qs-gcp-ams-zone-00"
   network       = google_compute_network.this.self_link
   ip_cidr_range = "10.2.0.0/16"
   region        = "europe-west4"
