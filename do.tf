@@ -6,11 +6,11 @@ resource "digitalocean_vpc" "example" {
 }
 
 resource "digitalocean_droplet" "this" {
-  image              = "ubuntu-20-04-x64"
-  size               = "s-1vcpu-1gb"
-  name               = "qs-do-fra"
-  region             = "fra1"
+  image    = "ubuntu-20-04-x64"
+  size     = "s-1vcpu-1gb"
+  name     = "qs-do-fra"
+  region   = "fra1"
   vpc_uuid = digitalocean_vpc.example.id
-  tags = []
+  tags     = []
   #  user_data = ""
 }
