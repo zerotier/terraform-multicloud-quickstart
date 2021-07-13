@@ -1,19 +1,19 @@
 terraform {
   required_providers {
-    # aws = {
-    #   source = "hashicorp/aws"
-    # }
-    # google = {
-    #   source = "hashicorp/google"
-    # }
-    # azurerm = {
-    #   source = "hashicorp/azurerm"
-    # }
+    zerotier = {
+      source = "zerotier/zerotier"
+    }
     digitalocean = {
       source = "digitalocean/digitalocean"
     }
-    # zerotier = {
-    #   source = "zerotier/zerotier"
+    aws = {
+      source = "hashicorp/aws"
+    }
+    google = {
+      source = "hashicorp/google"
+    }
+    # azurerm = {
+    #   source = "hashicorp/azurerm"
     # }
   }
 }
