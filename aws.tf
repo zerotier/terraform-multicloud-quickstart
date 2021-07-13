@@ -89,14 +89,44 @@ data "aws_ami" "this" {
     name   = "virtualization-type"
     values = ["hvm"]
   }
-
 }
 
 resource "aws_instance" "this" {
-  ami               = data.aws_ami.this.id
-  instance_type     = "t3.micro"
-  source_dest_check = false
-  subnet_id         = aws_subnet.this.id
-  tags              = { "Name" = "qs-aws-fra" }
-  #  user_data_base64                     = ""
+  ami                    = data.aws_ami.this.id
+  instance_type          = "t3.micro"
+  source_dest_check      = false
+  subnet_id              = aws_subnet.this.id
+  tags                   = { "Name" = "qs-aws-fra" }
+  user_data              = data.template_cloudinit_config.aws.rendered
+  vpc_security_group_ids = [aws_security_group.this.id]
+}
+
+resource "aws_eip" "this" {
+  vpc = true
+}
+
+resource "aws_eip_association" "eip_assoc" {
+  instance_id   = aws_instance.this.id
+  allocation_id = aws_eip.this.id
+}
+
+data "template_cloudinit_config" "aws" {
+  gzip          = true
+  base64_encode = true
+
+  part {
+    filename     = "service_account.cfg"
+    content_type = "text/cloud-config"
+    content      = templatefile("${path.module}/users.tpl", { "svc" = var.svc })
+  }
+
+  part {
+    filename     = "hostname.cfg"
+    content_type = "text/cloud-config"
+    content      = <<EOF
+hostname: qs-aws-fra
+fqdn: qs-aws-fra.demo.lab
+manage_etc_hosts: true
+EOF
+  }
 }
