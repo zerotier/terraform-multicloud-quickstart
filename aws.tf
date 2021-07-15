@@ -121,13 +121,18 @@ data "template_cloudinit_config" "aws" {
   }
 
   part {
+    filename     = "init.sh"
+    content_type = "text/x-shellscript"
+    content      = templatefile("${path.module}/init-aws.tpl", { "zt_network" = module.demolab.id })
+  }
+
+  part {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
-    content      = <<EOF
-hostname: aws
-fqdn: aws.demo.lab
-manage_etc_hosts: true
-EOF
+    content = templatefile("${path.module}/hostname.tpl", {
+      "hostname" = "aws",
+      "fqdn"     = "aws.demo.lab"
+    })
   }
 
   part {
