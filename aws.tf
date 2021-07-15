@@ -4,7 +4,7 @@ resource "aws_vpc" "this" {
   enable_dns_support               = false
   enable_dns_hostnames             = false
   assign_generated_ipv6_cidr_block = false
-  tags                             = { "Name" = "qs-aws-fra" }
+  tags                             = { "Name" = "aws" }
 }
 
 resource "aws_subnet" "this" {
@@ -12,17 +12,17 @@ resource "aws_subnet" "this" {
   cidr_block                      = "10.2.1.0/24"
   assign_ipv6_address_on_creation = false
   vpc_id                          = aws_vpc.this.id
-  tags                            = { "Name" = "qs-aws-fra-zone-00" }
+  tags                            = { "Name" = "aws-zone-00" }
 }
 
 resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.this.id
-  tags   = { "Name" = "qs-aws-fra" }
+  tags   = { "Name" = "aws" }
 }
 
 resource "aws_route_table" "this" {
   vpc_id = aws_vpc.this.id
-  tags   = { "Name" = "qs-aws-fra" }
+  tags   = { "Name" = "aws" }
 }
 
 resource "aws_route_table_association" "this" {
@@ -38,7 +38,7 @@ resource "aws_route" "the_internet" {
 
 resource "aws_network_acl" "this" {
   vpc_id = aws_vpc.this.id
-  tags   = { "Name" = "qs-aws-fra" }
+  tags   = { "Name" = "aws" }
 }
 
 resource "aws_network_acl_rule" "this" {
@@ -96,7 +96,7 @@ resource "aws_instance" "this" {
   instance_type          = "t3.micro"
   source_dest_check      = false
   subnet_id              = aws_subnet.this.id
-  tags                   = { "Name" = "qs-aws-fra" }
+  tags                   = { "Name" = "aws" }
   user_data              = data.template_cloudinit_config.aws.rendered
   vpc_security_group_ids = [aws_security_group.this.id]
 }
@@ -124,9 +124,29 @@ data "template_cloudinit_config" "aws" {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
     content      = <<EOF
-hostname: qs-aws-fra
-fqdn: qs-aws-fra.demo.lab
+hostname: aws
+fqdn: aws.demo.lab
 manage_etc_hosts: true
 EOF
+  }
+
+  part {
+    filename     = "zerotier.cfg"
+    content_type = "text/cloud-config"
+    content = templatefile(
+      "${path.module}/writefiles.tpl", {
+        "files" = [
+          {
+            "path"    = "/var/lib/zerotier-one/identity.public",
+            "mode"    = "0644",
+            "content" = zerotier_identity.instances["aws"].public_key
+          },
+          {
+            "path"    = "/var/lib/zerotier-one/identity.secret",
+            "mode"    = "0600",
+            "content" = zerotier_identity.instances["aws"].private_key
+          }
+        ]
+    })
   }
 }
