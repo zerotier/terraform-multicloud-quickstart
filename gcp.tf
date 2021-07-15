@@ -22,6 +22,15 @@ resource "google_compute_address" "this" {
   project      = data.google_project.this.project_id
 }
 
+resource "google_compute_firewall" "this" {
+  name    = "allow-all"
+  network = google_compute_network.this.self_link
+
+  allow { protocol = "tcp" }
+  allow { protocol = "udp" }
+  allow { protocol = "icmp" }
+}
+
 resource "google_compute_instance" "this" {
   can_ip_forward = true
   description    = "qs-gcp-ams"
@@ -49,15 +58,6 @@ resource "google_compute_instance" "this" {
   }
 }
 
-resource "google_compute_firewall" "this" {
-  name    = "allow-all"
-  network = google_compute_network.this.self_link
-
-  allow { protocol = "tcp" }
-  allow { protocol = "udp" }
-  allow { protocol = "icmp" }
-}
-
 data "template_cloudinit_config" "gcp" {
   gzip          = false
   base64_encode = false
@@ -71,10 +71,35 @@ data "template_cloudinit_config" "gcp" {
   part {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
-    content      = <<EOF
-hostname: qs-gcp-ams
-fqdn: qs-gcp-ams.demo.lab
-manage_etc_hosts: true
-EOF
+    content = templatefile("${path.module}/hostname.tpl", {
+      "hostname" = "gcp",
+      "fqdn"     = "gcp.demo.lab"
+    })
+  }
+
+  part {
+    filename     = "zerotier.cfg"
+    content_type = "text/cloud-config"
+    content = templatefile(
+      "${path.module}/writefiles.tpl", {
+        "files" = [
+          {
+            "path"    = "/var/lib/zerotier-one/identity.public",
+            "mode"    = "0644",
+            "content" = zerotier_identity.instances["gcp"].public_key
+          },
+          {
+            "path"    = "/var/lib/zerotier-one/identity.secret",
+            "mode"    = "0600",
+            "content" = zerotier_identity.instances["gcp"].private_key
+          }
+        ]
+    })
+  }
+
+  part {
+    filename     = "init.sh"
+    content_type = "text/x-shellscript"
+    content      = templatefile("${path.module}/init-gcp.tpl", { "zt_network" = module.demolab.id })
   }
 }

@@ -1,7 +1,7 @@
 
 resource "aws_vpc" "this" {
   cidr_block                       = "10.2.0.0/16"
-  enable_dns_support               = false
+  enable_dns_support               = true
   enable_dns_hostnames             = false
   assign_generated_ipv6_cidr_block = false
   tags                             = { "Name" = "aws" }
@@ -121,12 +121,6 @@ data "template_cloudinit_config" "aws" {
   }
 
   part {
-    filename     = "init.sh"
-    content_type = "text/x-shellscript"
-    content      = templatefile("${path.module}/init-aws.tpl", { "zt_network" = module.demolab.id })
-  }
-
-  part {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/hostname.tpl", {
@@ -153,5 +147,11 @@ data "template_cloudinit_config" "aws" {
           }
         ]
     })
+  }
+
+  part {
+    filename     = "init.sh"
+    content_type = "text/x-shellscript"
+    content      = templatefile("${path.module}/init-aws.tpl", { "zt_network" = module.demolab.id })
   }
 }

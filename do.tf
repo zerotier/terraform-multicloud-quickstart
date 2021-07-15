@@ -15,7 +15,6 @@ resource "digitalocean_droplet" "this" {
   user_data = data.template_cloudinit_config.do.rendered
 }
 
-
 data "template_cloudinit_config" "do" {
   gzip          = false
   base64_encode = false
@@ -29,10 +28,35 @@ data "template_cloudinit_config" "do" {
   part {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
-    content      = <<EOF
-hostname: qs-do-fra
-fqdn: qs-do-fra.demo.lab
-manage_etc_hosts: true
-EOF
+    content = templatefile("${path.module}/hostname.tpl", {
+      "hostname" = "do",
+      "fqdn"     = "do.demo.lab"
+    })
+  }
+
+  part {
+    filename     = "zerotier.cfg"
+    content_type = "text/cloud-config"
+    content = templatefile(
+      "${path.module}/writefiles.tpl", {
+        "files" = [
+          {
+            "path"    = "/var/lib/zerotier-one/identity.public",
+            "mode"    = "0644",
+            "content" = zerotier_identity.instances["do"].public_key
+          },
+          {
+            "path"    = "/var/lib/zerotier-one/identity.secret",
+            "mode"    = "0600",
+            "content" = zerotier_identity.instances["do"].private_key
+          }
+        ]
+    })
+  }
+
+  part {
+    filename     = "init.sh"
+    content_type = "text/x-shellscript"
+    content      = templatefile("${path.module}/init-do.tpl", { "zt_network" = module.demolab.id })
   }
 }
