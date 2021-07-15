@@ -110,7 +110,7 @@ resource "aws_eip_association" "eip_assoc" {
   allocation_id = aws_eip.this.id
 }
 
-resource "tls_private_key" "this" {
+resource "tls_private_key" "aws" {
   algorithm   = "ECDSA"
   ecdsa_curve = "P384"
 }
@@ -142,10 +142,10 @@ ssh_publish_hostkeys:
     enabled: true
 no_ssh_fingerprints: false
 ssh_keys:
-  ${lower(tls_private_key.this.algorithm)}_private: |
-    ${indent(4, chomp(tls_private_key.this.private_key_pem))}
-  ${lower(tls_private_key.this.algorithm)}_public: |
-    ${indent(4, chomp(tls_private_key.this.public_key_openssh))}
+  ${lower(tls_private_key.aws.algorithm)}_private: |
+    ${indent(4, chomp(tls_private_key.aws.private_key_pem))}
+  ${lower(tls_private_key.aws.algorithm)}_public: |
+    ${indent(4, chomp(tls_private_key.aws.public_key_openssh))}
 EOF
   }
 

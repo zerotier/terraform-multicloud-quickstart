@@ -15,6 +15,11 @@ resource "digitalocean_droplet" "this" {
   user_data = data.template_cloudinit_config.do.rendered
 }
 
+resource "tls_private_key" "do" {
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P384"
+}
+
 data "template_cloudinit_config" "do" {
   gzip          = false
   base64_encode = false
@@ -32,6 +37,21 @@ data "template_cloudinit_config" "do" {
       "hostname" = "do",
       "fqdn"     = "do.demo.lab"
     })
+  }
+
+  part {
+    filename     = "ssh.cfg"
+    content_type = "text/cloud-config"
+    content      = <<EOF
+ssh_publish_hostkeys:
+    enabled: true
+no_ssh_fingerprints: false
+ssh_keys:
+  ${lower(tls_private_key.do.algorithm)}_private: |
+    ${indent(4, chomp(tls_private_key.do.private_key_pem))}
+  ${lower(tls_private_key.do.algorithm)}_public: |
+    ${indent(4, chomp(tls_private_key.do.public_key_openssh))}
+EOF
   }
 
   part {

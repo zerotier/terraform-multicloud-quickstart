@@ -17,3 +17,12 @@ echo "-- zerotier --"
 curl -s https://install.zerotier.com | bash
 
 zerotier-cli join ${zt_network}
+
+echo "-- ZeroTier Systemd Manager --"
+
+wget https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.1.9/zerotier-systemd-manager_0.1.9_linux_amd64.deb
+dpkg -i zerotier-systemd-manager_0.1.9_linux_amd64.deb
+systemctl daemon-reload
+systemctl restart zerotier-one
+systemctl enable zerotier-systemd-manager.timer
+systemctl start zerotier-systemd-manager.timer
