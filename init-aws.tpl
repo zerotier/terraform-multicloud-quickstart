@@ -12,12 +12,32 @@ function apt-get() {
 }
 export DEBIAN_FRONTEND=noninteractive
 
-echo "-- zerotier --"
+echo "-- ZeroTier --"
 
 curl -s https://install.zerotier.com | bash
 
 zerotier-cli join ${zt_network}
 
-echo "-- ZeroNSD --"
+echo "-- ZeroTier Central Token --"
 
 bash -c "echo ${zt_token} > /var/lib/zerotier-one/token"
+chown zerotier-one:zerotier-one /var/lib/zerotier-one/token
+chmod 600 /var/lib/zerotier-one/token
+
+echo "-- ZeroTier Systemd Manager --"
+
+wget https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.1.9/zerotier-systemd-manager_0.1.9_linux_amd64.deb
+dpkg -i zerotier-systemd-manager_0.1.9_linux_amd64.deb
+systemctl daemon-reload
+systemctl restart zerotier-one
+systemctl enable zerotier-systemd-manager.timer
+systemctl start zerotier-systemd-manager.timer
+
+echo "-- ZeroNSD --"
+
+wget https://github.com/zerotier/zeronsd/releases/download/v0.1.7/zeronsd_0.1.7_amd64.deb
+dpkg -i zeronsd_0.1.7_amd64.deb
+
+zeronsd supervise -t /var/lib/zerotier-one/token -w -d ${dnsdomain} ${zt_network}
+systemctl start zeronsd-${zt_network}
+systemctl enable zeronsd-${zt_network}
