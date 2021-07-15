@@ -95,7 +95,8 @@ provider "registry.terraform.io/hashicorp/template" {
 }
 
 provider "registry.terraform.io/zerotier/zerotier" {
-  version = "0.1.62"
+  version     = "0.1.62"
+  constraints = "~> 0.1"
   hashes = [
     "h1:rxTkbNFuoZpkHSPSSGc6p/240oaOxf+p8NS1P3m0wCQ=",
     "zh:1518d71923820b6c2f1417275783e1c4d8d7e951ec66f9475a04ddbb8be8e182",
