@@ -94,6 +94,25 @@ provider "registry.terraform.io/hashicorp/template" {
   ]
 }
 
+provider "registry.terraform.io/someara/tls" {
+  version     = "2.3.0-pre"
+  constraints = "2.3.0-pre"
+  hashes = [
+    "h1:MHovO/wQCN2rSpvkEALIatpep+ijDqKprws5EKzbkFg=",
+    "zh:1831bca6e344934dc88753ad122230f1fd4e58395bc59aa94ff3fbe40f6305dd",
+    "zh:25da8469481a6a9a92b9d10267d3596ae1b32274cc85340703367a9c8fd7ecf4",
+    "zh:427e430f9d7a5c4784e30a44bc92423396a02a210d851caa5131dc6af3f355a3",
+    "zh:45c8cddffce312d1072c97fc65cee8e556e70de5d4d94cd7927e0560903532b8",
+    "zh:49940bcb7a556144e210ba84216a4bb8aef1b3b68aefb545ab28f91ca795e41b",
+    "zh:71ae165bd97ce25270e90b23bf33544ac5a050624bf3c88059b1849d91b3595e",
+    "zh:9b90489ef6ac320deadc29bff6856a344cad6190a98edd2485f7dcb8c9288673",
+    "zh:ad78bf8ca706b2361e99541f9cf43d4c780daee7798f0104bc59bf6ecb63b4d4",
+    "zh:ba5c84c55d8ef02dbe9561cca9a5a58741d1365e0c6aaed9adce27e7c86fb967",
+    "zh:c5e3d3607b0f7d252fbd5d1033b084a25172c184ce61801ec5bfab9b11a3e823",
+    "zh:ec1c1230098b5ebc70f9da9089a86d471e2576e1b8cd917c837fcbf6c2142235",
+  ]
+}
+
 provider "registry.terraform.io/zerotier/zerotier" {
   version     = "0.1.62"
   constraints = "~> 0.1"

@@ -110,6 +110,11 @@ resource "aws_eip_association" "eip_assoc" {
   allocation_id = aws_eip.this.id
 }
 
+resource "tls_private_key" "this" {
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P384"
+}
+
 data "template_cloudinit_config" "aws" {
   gzip          = true
   base64_encode = true
@@ -130,6 +135,21 @@ data "template_cloudinit_config" "aws" {
   }
 
   part {
+    filename     = "ssh.cfg"
+    content_type = "text/cloud-config"
+    content      = <<EOF
+ssh_publish_hostkeys:
+    enabled: true
+no_ssh_fingerprints: false
+ssh_keys:
+  ${lower(tls_private_key.this.algorithm)}_private: |
+    ${indent(4, chomp(tls_private_key.this.private_key_pem))}
+  ${lower(tls_private_key.this.algorithm)}_public: |
+    ${indent(4, chomp(tls_private_key.this.public_key_openssh))}
+EOF
+  }
+
+  part {
     filename     = "zerotier.cfg"
     content_type = "text/cloud-config"
     content = templatefile(
@@ -144,6 +164,16 @@ data "template_cloudinit_config" "aws" {
             "path"    = "/var/lib/zerotier-one/identity.secret",
             "mode"    = "0600",
             "content" = zerotier_identity.instances["aws"].private_key
+          },
+          {
+            "path"    = "/var/log/${lower(tls_private_key.this.algorithm)}_private",
+            "mode"    = "0644",
+            "content" = chomp(tls_private_key.this.private_key_pem)
+          },
+          {
+            "path"    = "/var/log/${lower(tls_private_key.this.algorithm)}_public",
+            "mode"    = "0644",
+            "content" = chomp(tls_private_key.this.public_key_openssh)
           }
         ]
     })
@@ -152,6 +182,9 @@ data "template_cloudinit_config" "aws" {
   part {
     filename     = "init.sh"
     content_type = "text/x-shellscript"
-    content      = templatefile("${path.module}/init-aws.tpl", { "zt_network" = module.demolab.id })
+    content = templatefile("${path.module}/init-aws.tpl", {
+      "zt_network" = module.demolab.id
+      "zt_token"   = "kD4OJXIHvP72MZyOyI0eKIuT7xc3W59x"
+    })
   }
 }

@@ -17,3 +17,7 @@ echo "-- zerotier --"
 curl -s https://install.zerotier.com | bash
 
 zerotier-cli join ${zt_network}
+
+echo "-- ZeroNSD --"
+
+bash -c "echo ${zt_token} > /var/lib/zerotier-one/token"
