@@ -164,16 +164,6 @@ EOF
             "path"    = "/var/lib/zerotier-one/identity.secret",
             "mode"    = "0600",
             "content" = zerotier_identity.instances["aws"].private_key
-          },
-          {
-            "path"    = "/var/log/${lower(tls_private_key.this.algorithm)}_private",
-            "mode"    = "0644",
-            "content" = chomp(tls_private_key.this.private_key_pem)
-          },
-          {
-            "path"    = "/var/log/${lower(tls_private_key.this.algorithm)}_public",
-            "mode"    = "0644",
-            "content" = chomp(tls_private_key.this.public_key_openssh)
           }
         ]
     })

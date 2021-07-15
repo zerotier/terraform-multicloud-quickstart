@@ -13,8 +13,7 @@ terraform {
       source = "hashicorp/google"
     }
     tls = {
-      source  = "someara/tls"
-      version = "2.3.0-pre"
+      source = "hashicorp/tls"
     }
     # azurerm = {
     #   source = "hashicorp/azurerm"
