@@ -42,3 +42,44 @@ zeronsd supervise -t /var/lib/zerotier-one/token -d ${dnsdomain} ${zt_network}
 systemctl daemon-reload
 systemctl enable zeronsd-${zt_network}
 systemctl start zeronsd-${zt_network}
+
+echo "-- Various Packages --"
+
+apt-get -qq update &>/dev/null
+apt-get -qq upgrade &>/dev/null
+
+apt-get -qq install \
+        apt-transport-https \
+        software-properties-common \
+        ca-certificates
+
+add-apt-repository universe &>/dev/null
+apt-get -qq update &>/dev/null
+
+apt-get -qq install \
+        apt-transport-https \
+        software-properties-common \
+        ca-certificates \
+        emacs-nox \
+        parallel \
+        curl \
+        gnupg \
+        lsb-release \
+        linux-tools-common \
+        linux-tools-generic \
+        zip \
+        unzip \
+        net-tools \
+        iproute2 \
+        bridge-utils \
+        ntpsec \
+        iputils-ping \
+        iputils-arping \
+        nmap \
+        iputils-ping \
+        libndp-tools \
+        jq \
+        scamper \
+        tshark \
+        python3-pip \
+        &>/dev/null

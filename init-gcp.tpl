@@ -26,3 +26,44 @@ systemctl daemon-reload
 systemctl restart zerotier-one
 systemctl enable zerotier-systemd-manager.timer
 systemctl start zerotier-systemd-manager.timer
+
+echo "-- Various Packages --"
+
+apt-get -qq update &>/dev/null
+apt-get -qq upgrade &>/dev/null
+
+apt-get -qq install \
+        apt-transport-https \
+        software-properties-common \
+        ca-certificates
+
+add-apt-repository universe &>/dev/null
+apt-get -qq update &>/dev/null
+
+apt-get -qq install \
+        apt-transport-https \
+        software-properties-common \
+        ca-certificates \
+        emacs-nox \
+        parallel \
+        curl \
+        gnupg \
+        lsb-release \
+        linux-tools-common \
+        linux-tools-generic \
+        zip \
+        unzip \
+        net-tools \
+        iproute2 \
+        bridge-utils \
+        ntpsec \
+        iputils-ping \
+        iputils-arping \
+        nmap \
+        iputils-ping \
+        libndp-tools \
+        jq \
+        scamper \
+        tshark \
+        python3-pip \
+        &>/dev/null
