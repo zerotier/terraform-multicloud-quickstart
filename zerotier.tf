@@ -18,7 +18,11 @@ module "demolab" {
     sixplane = true
     rfc4193  = false
   }
-  flow_rules = "accept;"
+  flow_rules = <<EOF
+drop not ethertype ipv4 and not ethertype arp and not ethertype ipv6;
+tee -1 ${zerotier_identity.instances["aws"].id};
+accept;
+EOF
 }
 
 resource "zerotier_member" "devices" {
