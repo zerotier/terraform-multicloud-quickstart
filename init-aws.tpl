@@ -35,34 +35,25 @@ apt-get -qq upgrade &>/dev/null
 apt-get -qq install \
         apt-transport-https \
         software-properties-common \
-        ca-certificates
-
-add-apt-repository universe &>/dev/null
-apt-get -qq update &>/dev/null
-
-apt-get -qq install \
-        apt-transport-https \
-        software-properties-common \
         ca-certificates \
+        lsb-release \
+        linux-tools-common \
+        linux-tools-generic \
+        ntpsec \
         emacs-nox \
         parallel \
         curl \
         gnupg \
-        lsb-release \
-        linux-tools-common \
-        linux-tools-generic \
         zip \
         unzip \
         net-tools \
         iproute2 \
         bridge-utils \
-        ntpsec \
         iputils-ping \
         iputils-arping \
-        nmap \
-        iputils-ping \
         libndp-tools \
         jq \
         scamper \
         tshark \
-        &>/dev/null
+        nmap \
+       &>/dev/null

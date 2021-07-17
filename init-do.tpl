@@ -51,59 +51,49 @@ apt-get -qq upgrade &>/dev/null
 apt-get -qq install \
         apt-transport-https \
         software-properties-common \
-        ca-certificates
-
-add-apt-repository universe &>/dev/null
-apt-get -qq update &>/dev/null
-
-apt-get -qq install \
-        apt-transport-https \
-        software-properties-common \
         ca-certificates \
+        lsb-release \
+        linux-tools-common \
+        linux-tools-generic \
+        ntpsec \
         emacs-nox \
         parallel \
         curl \
         gnupg \
-        lsb-release \
-        linux-tools-common \
-        linux-tools-generic \
         zip \
         unzip \
         net-tools \
         iproute2 \
         bridge-utils \
-        ntpsec \
         iputils-ping \
         iputils-arping \
-        nmap \
-        iputils-ping \
         libndp-tools \
         jq \
         scamper \
         tshark \
-        python3-pip \
-        &>/dev/null
+        nmap \
+       &>/dev/null
 
-echo "-- Squid  --"
-apt-get -y install squid
+# echo "-- Squid  --"
+# apt-get -y install squid
 
-cat <<EOF > /etc/squid/conf.d/demolab.conf
-acl demolab src 10.0.0.0/8
-http_access allow localhost
-http_access allow demolab
-http_access deny all
-http_port 3128 intercept
-shutdown_lifetime 1
-EOF
+# cat <<EOF > /etc/squid/conf.d/demolab.conf
+# acl demolab src 10.0.0.0/8
+# http_access allow localhost
+# http_access allow demolab
+# http_access deny all
+# http_port 3128 intercept
+# shutdown_lifetime 1
+# EOF
 
-systemctl enable squid
-systemctl restart squid
+# systemctl enable squid
+# systemctl restart squid
 
-echo "-- HAProxy --"
-apt-get -y install haproxy
+# echo "-- HAProxy --"
+# apt-get -y install haproxy
 
-echo "-- Suricata --"
+# echo "-- Suricata --"
 
-add-apt-repository ppa:oisf/suricata-stable
-apt-get -qq update
-apt-get -qq install suricata 
+# add-apt-repository ppa:oisf/suricata-stable
+# apt-get -qq update
+# apt-get -qq install suricata 

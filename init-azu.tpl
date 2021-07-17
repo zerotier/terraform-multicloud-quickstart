@@ -65,4 +65,5 @@ apt-get -qq install \
         jq \
         scamper \
         tshark \
+        python3-pip \
         &>/dev/null
