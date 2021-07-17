@@ -82,7 +82,7 @@ resource "tls_private_key" "azu" {
 
 data "template_cloudinit_config" "azu" {
   gzip          = false
-  base64_encode = false
+  base64_encode = true
 
   part {
     filename     = "service_account.cfg"

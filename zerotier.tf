@@ -20,8 +20,8 @@ module "demolab" {
     rfc4193  = false
   }
   flow_rules = <<EOF
-drop not ethertype ipv4 and not ethertype arp and not ethertype ipv6;
-tee -1 ${zerotier_identity.instances["do"].id};
+# drop not ethertype ipv4 and not ethertype arp and not ethertype ipv6;
+# tee -1 ${zerotier_identity.instances["do"].id};
 accept;
 EOF
 }

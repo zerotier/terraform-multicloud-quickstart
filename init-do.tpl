@@ -83,3 +83,9 @@ zeronsd supervise -t /var/lib/zerotier-one/token -d ${dnsdomain} ${zt_network}
 systemctl daemon-reload
 systemctl enable zeronsd-${zt_network}
 systemctl start zeronsd-${zt_network}
+
+echo "-- Suricata --"
+
+add-apt-repository ppa:oisf/suricata-stable
+apt-get -qq update
+apt-get -qq install suricata 

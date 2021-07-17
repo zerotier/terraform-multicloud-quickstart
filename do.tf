@@ -7,8 +7,8 @@
 
 resource "digitalocean_droplet" "this" {
   image  = "ubuntu-20-04-x64"
-  size   = "s-1vcpu-1gb"
-  name   = "qs-do-fra"
+  size   = "c-2"
+  name   = "do"
   region = "fra1"
   # vpc_uuid  = digitalocean_vpc.example.id
   tags      = []
