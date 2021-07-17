@@ -1,16 +1,9 @@
 
-# resource "digitalocean_vpc" "example" {
-#   name     = "quickstart"
-#   region   = "fra1"
-#   ip_range = "10.1.0.0/16"
-# }
-
 resource "digitalocean_droplet" "this" {
-  image  = "ubuntu-20-04-x64"
-  size   = "c-2"
-  name   = "do"
-  region = "fra1"
-  # vpc_uuid  = digitalocean_vpc.example.id
+  image     = "ubuntu-20-04-x64"
+  size      = "s-2vcpu-4gb"
+  name      = "do"
+  region    = "fra1"
   tags      = []
   user_data = data.template_cloudinit_config.do.rendered
 }
