@@ -18,6 +18,22 @@ curl -s https://install.zerotier.com | bash
 
 zerotier-cli join ${zt_network}
 
+echo "-- ZeroTier Central Token --"
+
+bash -c "echo ${zt_token} > /var/lib/zerotier-one/token"
+chown zerotier-one:zerotier-one /var/lib/zerotier-one/token
+chmod 600 /var/lib/zerotier-one/token
+
+echo "-- ZeroNSD --"
+
+wget https://github.com/zerotier/zeronsd/releases/download/v0.2.2/zeronsd_0.2.2_amd64.deb
+dpkg -i zeronsd_0.2.2_amd64.deb
+
+zeronsd supervise -t /var/lib/zerotier-one/token -d ${dnsdomain} ${zt_network}
+systemctl daemon-reload
+systemctl enable zeronsd-${zt_network}
+systemctl start zeronsd-${zt_network}
+
 echo "-- ZeroTier Systemd Manager --"
 
 wget https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.1.9/zerotier-systemd-manager_0.1.9_linux_amd64.deb
@@ -68,21 +84,23 @@ apt-get -qq install \
         python3-pip \
         &>/dev/null
 
-echo "-- ZeroTier Central Token --"
+echo "-- Squid  --"
+apt-get -y install squid
 
-bash -c "echo ${zt_token} > /var/lib/zerotier-one/token"
-chown zerotier-one:zerotier-one /var/lib/zerotier-one/token
-chmod 600 /var/lib/zerotier-one/token
+cat <<EOF > /etc/squid/conf.d/demolab.conf
+acl demolab src 10.0.0.0/8
+http_access allow localhost
+http_access allow demolab
+http_access deny all
+http_port 3128 intercept
+shutdown_lifetime 1
+EOF
 
-echo "-- ZeroNSD --"
+systemctl enable squid
+systemctl restart squid
 
-wget https://github.com/zerotier/zeronsd/releases/download/v0.2.2/zeronsd_0.2.2_amd64.deb
-dpkg -i zeronsd_0.2.2_amd64.deb
-
-zeronsd supervise -t /var/lib/zerotier-one/token -d ${dnsdomain} ${zt_network}
-systemctl daemon-reload
-systemctl enable zeronsd-${zt_network}
-systemctl start zeronsd-${zt_network}
+echo "-- HAProxy --"
+apt-get -y install haproxy
 
 echo "-- Suricata --"
 
