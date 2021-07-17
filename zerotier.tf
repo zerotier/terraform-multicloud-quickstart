@@ -1,13 +1,4 @@
 
-resource "zerotier_identity" "instances" {
-  for_each = { for i in [
-    "do",
-    "aws",
-    "gcp",
-    "azu"
-  ] : i => (i) }
-}
-
 module "demolab" {
   source      = "zerotier/network/zerotier"
   version     = "0.0.17"
@@ -15,9 +6,9 @@ module "demolab" {
   description = "ZeroTier Demo Lab"
   subnets     = ["10.9.8.0/24"]
   assign_ipv6 = {
-    zerotier = false
+    zerotier = true
     sixplane = true
-    rfc4193  = false
+    rfc4193  = true
   }
   flow_rules = <<EOF
 # drop not ethertype ipv4 and not ethertype arp and not ethertype ipv6;
@@ -32,6 +23,15 @@ resource "zerotier_member" "devices" {
   member_id   = each.value.member_id
   description = each.value.description
   network_id  = module.demolab.id
+}
+
+resource "zerotier_identity" "instances" {
+  for_each = { for i in [
+    "do",
+    "aws",
+    "gcp",
+    "azu"
+  ] : i => (i) }
 }
 
 resource "zerotier_member" "instances" {
