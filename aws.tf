@@ -1,6 +1,6 @@
 
 resource "aws_vpc" "this" {
-  cidr_block                       = "10.2.0.0/16"
+  cidr_block                       = "192.168.0.0/16"
   enable_dns_support               = true
   enable_dns_hostnames             = false
   assign_generated_ipv6_cidr_block = false
@@ -9,7 +9,7 @@ resource "aws_vpc" "this" {
 
 resource "aws_subnet" "this" {
   availability_zone               = "eu-central-1a"
-  cidr_block                      = "10.2.1.0/24"
+  cidr_block                      = "192.168.1.0/24"
   assign_ipv6_address_on_creation = false
   vpc_id                          = aws_vpc.this.id
   tags                            = { "Name" = "aws-zone-00" }
