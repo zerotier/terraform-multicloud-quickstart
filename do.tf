@@ -6,10 +6,10 @@
 # }
 
 resource "digitalocean_droplet" "this" {
-  image     = "ubuntu-20-04-x64"
-  size      = "s-1vcpu-1gb"
-  name      = "qs-do-fra"
-  region    = "fra1"
+  image  = "ubuntu-20-04-x64"
+  size   = "s-1vcpu-1gb"
+  name   = "qs-do-fra"
+  region = "fra1"
   # vpc_uuid  = digitalocean_vpc.example.id
   tags      = []
   user_data = data.template_cloudinit_config.do.rendered
@@ -77,6 +77,10 @@ EOF
   part {
     filename     = "init.sh"
     content_type = "text/x-shellscript"
-    content      = templatefile("${path.module}/init-do.tpl", { "zt_network" = module.demolab.id })
+    content = templatefile("${path.module}/init-do.tpl", {
+      "dnsdomain"  = "demo.lab"
+      "zt_network" = module.demolab.id
+      "zt_token"   = "kD4OJXIHvP72MZyOyI0eKIuT7xc3W59x"
+    })
   }
 }

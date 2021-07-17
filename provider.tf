@@ -15,9 +15,9 @@ terraform {
     tls = {
       source = "hashicorp/tls"
     }
-    # azurerm = {
-    #   source = "hashicorp/azurerm"
-    # }
+    azurerm = {
+      source = "hashicorp/azurerm"
+    }
   }
 }
 
@@ -30,6 +30,6 @@ provider "google" {
   project = "lab1-8af32caf"
 }
 
-# provider "azurerm" {
-#   features {}
-# }
+provider "azurerm" {
+  features {}
+}
