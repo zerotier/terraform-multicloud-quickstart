@@ -43,6 +43,15 @@ systemctl daemon-reload
 systemctl enable zeronsd-${zt_network}
 systemctl start zeronsd-${zt_network}
 
+echo "-- iptables NAT --"
+
+for i in $$(ls /sys/class/net | grep ^zt) ; do
+    echo "* configuring NAT on $${i} ..."
+    echo "net.ipv4.conf.$${i}.forwarding=1" > /etc/sysctl.d/21-net.ipv4.conf.$${i}.conf
+    echo "net.ipv6.conf.$${i}.forwarding=1" > /etc/sysctl.d/21-net.ipv6.conf.$${i}.conf
+    echo iptables -t nat -A POSTROUTING -o "$${i}" -j MASQUERADE
+done
+
 echo "-- Various Packages --"
 
 apt-get -qq update &>/dev/null
@@ -55,6 +64,7 @@ apt-get -qq install \
         lsb-release \
         linux-tools-common \
         linux-tools-generic \
+        iptables-persistent \
         ntpsec \
         emacs-nox \
         parallel \
