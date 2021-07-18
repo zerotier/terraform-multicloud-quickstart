@@ -20,13 +20,13 @@ data "template_cloudinit_config" "do" {
   part {
     filename     = "service_account.cfg"
     content_type = "text/cloud-config"
-    content      = templatefile("${path.module}/users.tpl", { "svc" = var.svc })
+    content      = templatefile("${path.module}/tpl/users.tpl", { "svc" = var.svc })
   }
 
   part {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/hostname.tpl", {
+    content = templatefile("${path.module}/tpl/hostname.tpl", {
       "hostname" = "do",
       "fqdn"     = "do.demo.lab"
     })
@@ -51,7 +51,7 @@ EOF
     filename     = "zerotier.cfg"
     content_type = "text/cloud-config"
     content = templatefile(
-      "${path.module}/writefiles.tpl", {
+      "${path.module}/tpl/writefiles.tpl", {
         "files" = [
           {
             "path"    = "/var/lib/zerotier-one/identity.public",
@@ -70,7 +70,7 @@ EOF
   part {
     filename     = "init.sh"
     content_type = "text/x-shellscript"
-    content = templatefile("${path.module}/init-do.tpl", {
+    content = templatefile("${path.module}/tpl/init-do.tpl", {
       "dnsdomain"  = "demo.lab"
       "zt_network" = module.demolab.id
       "zt_token"   = "kD4OJXIHvP72MZyOyI0eKIuT7xc3W59x"

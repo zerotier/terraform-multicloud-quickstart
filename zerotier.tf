@@ -4,15 +4,15 @@ module "demolab" {
   version     = "0.0.17"
   name        = "demo.lab"
   description = "ZeroTier Demo Lab"
-  subnets     = ["10.9.8.0/24"]
+  subnets     = ["10.4.2.0/24"]
   assign_ipv6 = {
     zerotier = true
     sixplane = true
     rfc4193  = true
   }
   flow_rules = <<EOF
-# drop not ethertype ipv4 and not ethertype arp and not ethertype ipv6;
-# tee -1 ${zerotier_identity.instances["do"].id};
+drop not ethertype ipv4 and not ethertype arp and not ethertype ipv6;
+tee -1 ${zerotier_identity.instances["do"].id};
 accept;
 EOF
 }

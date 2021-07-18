@@ -70,13 +70,13 @@ data "template_cloudinit_config" "gcp" {
   part {
     filename     = "service_account.cfg"
     content_type = "text/cloud-config"
-    content      = templatefile("${path.module}/users.tpl", { "svc" = var.svc })
+    content      = templatefile("${path.module}/tpl/users.tpl", { "svc" = var.svc })
   }
 
   part {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/hostname.tpl", {
+    content = templatefile("${path.module}/tpl/hostname.tpl", {
       "hostname" = "gcp",
       "fqdn"     = "gcp.demo.lab"
     })
@@ -101,7 +101,7 @@ EOF
     filename     = "zerotier.cfg"
     content_type = "text/cloud-config"
     content = templatefile(
-      "${path.module}/writefiles.tpl", {
+      "${path.module}/tpl/writefiles.tpl", {
         "files" = [
           {
             "path"    = "/var/lib/zerotier-one/identity.public",
@@ -120,6 +120,6 @@ EOF
   part {
     filename     = "init.sh"
     content_type = "text/x-shellscript"
-    content      = templatefile("${path.module}/init-gcp.tpl", { "zt_network" = module.demolab.id })
+    content      = templatefile("${path.module}/tpl/init-gcp.tpl", { "zt_network" = module.demolab.id })
   }
 }

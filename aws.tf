@@ -122,13 +122,13 @@ data "template_cloudinit_config" "aws" {
   part {
     filename     = "service_account.cfg"
     content_type = "text/cloud-config"
-    content      = templatefile("${path.module}/users.tpl", { "svc" = var.svc })
+    content      = templatefile("${path.module}/tpl/users.tpl", { "svc" = var.svc })
   }
 
   part {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/hostname.tpl", {
+    content = templatefile("${path.module}/tpl/hostname.tpl", {
       "hostname" = "aws",
       "fqdn"     = "aws.demo.lab"
     })
@@ -153,7 +153,7 @@ EOF
     filename     = "zerotier.cfg"
     content_type = "text/cloud-config"
     content = templatefile(
-      "${path.module}/writefiles.tpl", {
+      "${path.module}/tpl/writefiles.tpl", {
         "files" = [
           {
             "path"    = "/var/lib/zerotier-one/identity.public",
@@ -172,7 +172,7 @@ EOF
   part {
     filename     = "init.sh"
     content_type = "text/x-shellscript"
-    content = templatefile("${path.module}/init-aws.tpl", {
+    content = templatefile("${path.module}/tpl/init-aws.tpl", {
       "dnsdomain"  = "demo.lab"
       "zt_network" = module.demolab.id
     })
