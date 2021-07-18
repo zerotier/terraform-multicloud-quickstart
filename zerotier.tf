@@ -34,9 +34,30 @@ resource "zerotier_identity" "instances" {
   ] : i => (i) }
 }
 
-resource "zerotier_member" "instances" {
-  for_each   = zerotier_identity.instances
-  name       = each.key
-  member_id  = each.value.id
-  network_id = module.demolab.id
+resource "zerotier_member" "do" {
+  name           = "do"
+  member_id      = zerotier_identity.instances["do"].id
+  network_id     = module.demolab.id
+  ip_assignments = ["10.4.2.1"]
+}
+
+resource "zerotier_member" "aws" {
+  name           = "aws"
+  member_id      = zerotier_identity.instances["aws"].id
+  network_id     = module.demolab.id
+  ip_assignments = ["10.4.2.2"]
+}
+
+resource "zerotier_member" "gcp" {
+  name           = "gcp"
+  member_id      = zerotier_identity.instances["gcp"].id
+  network_id     = module.demolab.id
+  ip_assignments = ["10.4.2.3"]
+}
+
+resource "zerotier_member" "azu" {
+  name           = "azu"
+  member_id      = zerotier_identity.instances["azu"].id
+  network_id     = module.demolab.id
+  ip_assignments = ["10.4.2.4"]
 }
