@@ -29,7 +29,9 @@ systemctl start zerotier-systemd-manager.timer
 
 echo "-- iptables NAT --"
 
-for i in $$(ls /sys/class/net | grep ^zt) ; do
+mosdef=$(ip route | grep ^default | awk '{ print $5 }')
+
+for i in $(ls /sys/class/net | grep $mosdef) ; do
     echo "* configuring NAT on $${i} ..."
     echo "net.ipv4.conf.$${i}.forwarding=1" > /etc/sysctl.d/21-net.ipv4.conf.$${i}.conf
     echo "net.ipv6.conf.$${i}.forwarding=1" > /etc/sysctl.d/21-net.ipv6.conf.$${i}.conf

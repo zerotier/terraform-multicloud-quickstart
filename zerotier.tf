@@ -35,10 +35,10 @@ resource "zerotier_identity" "instances" {
 }
 
 resource "zerotier_member" "do" {
-  name           = "do"
-  member_id      = zerotier_identity.instances["do"].id
-  network_id     = module.demolab.id
-  ip_assignments = ["10.4.2.1"]
+  name       = "do"
+  member_id  = zerotier_identity.instances["do"].id
+  network_id = module.demolab.id
+  # ip_assignments = ["10.4.2.1"]
 }
 
 resource "zerotier_member" "aws" {
