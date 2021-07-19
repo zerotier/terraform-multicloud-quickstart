@@ -8,7 +8,7 @@ resource "aws_vpc" "this" {
 }
 
 resource "aws_subnet" "this" {
-  availability_zone               = "eu-central-1a"
+  availability_zone               = "us-east-2a"
   cidr_block                      = "192.168.1.0/24"
   assign_ipv6_address_on_creation = false
   vpc_id                          = aws_vpc.this.id
