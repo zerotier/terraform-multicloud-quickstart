@@ -68,12 +68,22 @@ EOF
   }
 
   part {
-    filename     = "init.sh"
+    filename     = "init-common.sh"
     content_type = "text/x-shellscript"
-    content = templatefile("${path.module}/tpl/init-do.tpl", {
+    content = templatefile("${path.module}/tpl/init-common.tpl", {
       "dnsdomain"  = "demo.lab"
       "zt_network" = module.demolab.id
       "zt_token"   = "kD4OJXIHvP72MZyOyI0eKIuT7xc3W59x"
     })
   }
+
+  part {
+    filename     = "init-zeronsd.sh"
+    content_type = "text/x-shellscript"
+    content = templatefile("${path.module}/tpl/init-zeronsd.tpl", {
+      "dnsdomain"  = "demo.lab"
+      "zt_network" = module.demolab.id
+      "zt_token"   = "kD4OJXIHvP72MZyOyI0eKIuT7xc3W59x"
+    })
+  }  
 }

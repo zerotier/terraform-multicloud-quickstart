@@ -170,9 +170,9 @@ EOF
   }
 
   part {
-    filename     = "init.sh"
+    filename     = "init-common.sh"
     content_type = "text/x-shellscript"
-    content = templatefile("${path.module}/tpl/init-aws.tpl", {
+    content = templatefile("${path.module}/tpl/init-common.tpl", {
       "dnsdomain"  = "demo.lab"
       "zt_network" = module.demolab.id
     })

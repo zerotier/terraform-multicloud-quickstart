@@ -29,7 +29,7 @@ systemctl start zerotier-systemd-manager.timer
 
 echo "-- iptables NAT --"
 
-echo "net.ipv4.conf.forwarding=1" > /etc/sysctl.d/21-net.ipv4.conf.forwarding.conf
+echo "net.ipv4.ip_forward=1" > /etc/sysctl.d/21-net.net.ipv4.ip_forward.conf
 
 mosdef=$(ip route | grep ^default | awk '{ print $5 }')
 
@@ -50,35 +50,25 @@ apt-get -qq upgrade &>/dev/null
 apt-get -qq install \
         apt-transport-https \
         software-properties-common \
-        ca-certificates
-
-add-apt-repository universe &>/dev/null
-apt-get -qq update &>/dev/null
-
-apt-get -qq install \
-        apt-transport-https \
-        software-properties-common \
         ca-certificates \
+        lsb-release \
+        linux-tools-common \
+        linux-tools-generic \
+        ntpsec \
         emacs-nox \
         parallel \
         curl \
         gnupg \
-        lsb-release \
-        linux-tools-common \
-        linux-tools-generic \
         zip \
         unzip \
         net-tools \
         iproute2 \
         bridge-utils \
-        ntpsec \
         iputils-ping \
         iputils-arping \
-        nmap \
-        iputils-ping \
         libndp-tools \
         jq \
         scamper \
         tshark \
-        python3-pip \
-        &>/dev/null
+        nmap \
+       &>/dev/null
