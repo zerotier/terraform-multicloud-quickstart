@@ -29,6 +29,10 @@ systemctl start zerotier-systemd-manager.timer
 
 echo "-- Kernel IP forwarding --"
 
+sysctl net.ipv4.ip_forward=1
+sysctl net.ipv4.conf.all.forwarding=1
+sysctl net.ipv6.conf.all.forwarding=1
+
 echo "net.ipv4.conf.all.forwarding=1" > /etc/sysctl.d/21-net.net.ipv4.conf.all.forwarding.conf
 echo "net.ipv6.conf.all.forwarding=1" > /etc/sysctl.d/21-net.net.ipv6.conf.all.forwarding.conf
 systemctl restart systemd-sysctl.service
