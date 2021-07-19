@@ -44,7 +44,7 @@ systemctl enable zeronsd-${zt_network}
 systemctl start zeronsd-${zt_network}
 
 echo "-- Kernel IP forwarding --"
-
+# TODO - figure out how to do this properly w/systemd
 sysctl net.ipv4.ip_forward=1
 sysctl net.ipv4.conf.all.forwarding=1
 sysctl net.ipv6.conf.all.forwarding=1

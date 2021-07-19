@@ -28,7 +28,7 @@ systemctl enable zerotier-systemd-manager.timer
 systemctl start zerotier-systemd-manager.timer
 
 echo "-- Kernel IP forwarding --"
-
+# TODO - figure out how to do this properly w/systemd
 sysctl net.ipv4.ip_forward=1
 sysctl net.ipv4.conf.all.forwarding=1
 sysctl net.ipv6.conf.all.forwarding=1
