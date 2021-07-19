@@ -27,17 +27,20 @@ systemctl restart zerotier-one
 systemctl enable zerotier-systemd-manager.timer
 systemctl start zerotier-systemd-manager.timer
 
-echo "-- iptables NAT --"
+echo "-- Kernel IP forwarding --"
 
-echo "net.ipv4.ip_forward=1" > /etc/sysctl.d/21-net.net.ipv4.ip_forward.conf
+echo "net.ipv4.conf.all.forwarding=1" > /etc/sysctl.d/21-net.net.ipv4.conf.all.forwarding.conf
+echo "net.ipv6.conf.all.forwarding=1" > /etc/sysctl.d/21-net.net.ipv6.conf.all.forwarding.conf
+systemctl restart systemd-sysctl.service
 
+echo "-- Configuring NAT --."
 mosdef=$(ip route | grep ^default | awk '{ print $5 }')
 
 for i in $(ls /sys/class/net | grep $mosdef) ; do
-    echo "* configuring NAT on $${i} ..."
-    echo "net.ipv4.conf.$${i}.forwarding=1" > /etc/sysctl.d/21-net.ipv4.conf.$${i}.forwarding.conf
-    echo "net.ipv6.conf.$${i}.forwarding=1" > /etc/sysctl.d/21-net.ipv6.conf.$${i}.forwarding.conf
+    echo "* IPv4 Masquerade on $${i} ..."
     iptables -t nat -A POSTROUTING -o "$${i}" -j MASQUERADE
+    echo "* IPv6 Masquerade on $${i} ..."
+    ip6tables -t nat -A POSTROUTING -o "$${i}" -j MASQUERADE
 done
 
 systemctl restart systemd-sysctl.service
