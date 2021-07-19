@@ -51,7 +51,7 @@ for i in $(ls /sys/class/net | grep $mosdef) ; do
     echo "* configuring NAT on $${i} ..."
     echo "net.ipv4.conf.$${i}.forwarding=1" > /etc/sysctl.d/21-net.ipv4.conf.$${i}.conf
     echo "net.ipv6.conf.$${i}.forwarding=1" > /etc/sysctl.d/21-net.ipv6.conf.$${i}.conf
-    echo iptables -t nat -A POSTROUTING -o "$${i}" -j MASQUERADE
+    iptables -t nat -A POSTROUTING -o "$${i}" -j MASQUERADE
 done
 
 echo "-- Various Packages --"
