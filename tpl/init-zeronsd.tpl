@@ -12,6 +12,21 @@ function apt-get() {
 }
 export DEBIAN_FRONTEND=noninteractive
 
+echo "-- ZeroTier --"
+
+curl -s https://install.zerotier.com | bash
+
+zerotier-cli join ${zt_network}
+
+echo "-- ZeroTier Systemd Manager --"
+
+wget https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.1.9/zerotier-systemd-manager_0.1.9_linux_amd64.deb
+dpkg -i zerotier-systemd-manager_0.1.9_linux_amd64.deb
+systemctl daemon-reload
+systemctl restart zerotier-one
+systemctl enable zerotier-systemd-manager.timer
+systemctl start zerotier-systemd-manager.timer
+
 echo "-- ZeroTier Central Token --"
 
 bash -c "echo ${zt_token} > /var/lib/zerotier-one/token"
@@ -27,3 +42,50 @@ zeronsd supervise -t /var/lib/zerotier-one/token -d ${dnsdomain} ${zt_network}
 systemctl daemon-reload
 systemctl enable zeronsd-${zt_network}
 systemctl start zeronsd-${zt_network}
+
+
+echo "-- iptables NAT --"
+
+echo "net.ipv4.ip_forward=1" > /etc/sysctl.d/21-net.net.ipv4.ip_forward.conf
+
+mosdef=$(ip route | grep ^default | awk '{ print $5 }')
+
+for i in $(ls /sys/class/net | grep $mosdef) ; do
+    echo "* configuring NAT on $${i} ..."
+    echo "net.ipv4.conf.$${i}.forwarding=1" > /etc/sysctl.d/21-net.ipv4.conf.$${i}.forwarding.conf
+    echo "net.ipv6.conf.$${i}.forwarding=1" > /etc/sysctl.d/21-net.ipv6.conf.$${i}.forwarding.conf
+    iptables -t nat -A POSTROUTING -o "$${i}" -j MASQUERADE
+done
+
+systemctl restart systemd-sysctl.service
+
+echo "-- Various Packages --"
+
+apt-get -qq update &>/dev/null
+apt-get -qq upgrade &>/dev/null
+
+apt-get -qq install \
+        apt-transport-https \
+        software-properties-common \
+        ca-certificates \
+        lsb-release \
+        linux-tools-common \
+        linux-tools-generic \
+        ntpsec \
+        emacs-nox \
+        parallel \
+        curl \
+        gnupg \
+        zip \
+        unzip \
+        net-tools \
+        iproute2 \
+        bridge-utils \
+        iputils-ping \
+        iputils-arping \
+        libndp-tools \
+        jq \
+        scamper \
+        tshark \
+        nmap \
+       &>/dev/null
