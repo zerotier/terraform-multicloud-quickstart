@@ -47,8 +47,6 @@ for i in $(ls /sys/class/net | grep $mosdef) ; do
     ip6tables -t nat -A POSTROUTING -o "$${i}" -j MASQUERADE
 done
 
-systemctl restart systemd-sysctl.service
-
 echo "-- Various Packages --"
 
 apt-get -qq update &>/dev/null
