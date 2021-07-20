@@ -48,35 +48,19 @@ data "template_cloudinit_config" "do" {
   part {
     filename     = "ssh.cfg"
     content_type = "text/cloud-config"
-    content      = <<EOF
-ssh_publish_hostkeys:
-    enabled: true
-no_ssh_fingerprints: false
-ssh_keys:
-  ${lower(tls_private_key.do.algorithm)}_private: |
-    ${indent(4, chomp(tls_private_key.do.private_key_pem))}
-  ${lower(tls_private_key.do.algorithm)}_public: |
-    ${indent(4, chomp(tls_private_key.do.public_key_openssh))}
-EOF
+    content = templatefile("${path.module}/tpl/ssh.tpl", {
+      "algorithm"   = lower(tls_private_key.do.algorithm)
+      "private_key" = indent(4, chomp(tls_private_key.do.private_key_pem))
+      "public_key"  = indent(4, chomp(tls_private_key.do.public_key_openssh))
+    })
   }
 
   part {
     filename     = "zerotier.cfg"
     content_type = "text/cloud-config"
-    content = templatefile(
-      "${path.module}/tpl/writefiles.tpl", {
-        "files" = [
-          {
-            "path"    = "/var/lib/zerotier-one/identity.public",
-            "mode"    = "0644",
-            "content" = zerotier_identity.instances["do"].public_key
-          },
-          {
-            "path"    = "/var/lib/zerotier-one/identity.secret",
-            "mode"    = "0600",
-            "content" = zerotier_identity.instances["do"].private_key
-          }
-        ]
+    content = templatefile("${path.module}/tpl/zt_identity.tpl", {
+      "public_key"  = zerotier_identity.instances["do"].public_key
+      "private_key" = zerotier_identity.instances["do"].private_key
     })
   }
 
