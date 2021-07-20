@@ -1,43 +1,80 @@
+locals {
+  name     = "azu"
+  location = "brazilsouth"
+}
 
 resource "azurerm_resource_group" "this" {
-  location = "westeurope"
-  name     = "quickstart"
+  location = local.location
+  name     = local.name
+}
+
+resource "azurerm_network_security_group" "this" {
+  name                = local.name
+  resource_group_name = azurerm_resource_group.this.name
+  location            = azurerm_resource_group.this.location
+}
+
+resource "azurerm_public_ip" "this_v4" {
+  name                = "${local.name}-v4"
+  resource_group_name = azurerm_resource_group.this.name
+  location            = azurerm_resource_group.this.location
+  sku                 = "Standard"
+  allocation_method   = "Static"
+  ip_version          = "IPv4"
+}
+
+resource "azurerm_public_ip" "this_v6" {
+  name                = "${local.name}-v6"
+  resource_group_name = azurerm_resource_group.this.name
+  location            = azurerm_resource_group.this.location
+  sku                 = "Standard"
+  allocation_method   = "Static"
+  ip_version          = "IPv6"
 }
 
 resource "azurerm_virtual_network" "this" {
-  name                = "azu"
+  name                = local.name
   resource_group_name = azurerm_resource_group.this.name
-  address_space       = ["192.168.0.0/16"]
-  location            = "westeurope"
+  location            = azurerm_resource_group.this.location
+  address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
 }
 
-resource "azurerm_subnet" "this" {
-  name                 = "azu-zone-00"
+resource "azurerm_subnet" "this_v4" {
+  name                 = "${local.name}-zone-00-v4"
   resource_group_name  = azurerm_resource_group.this.name
   virtual_network_name = azurerm_virtual_network.this.name
   address_prefixes     = ["192.168.1.0/24"]
 }
 
-resource "azurerm_public_ip" "this" {
-  name                = "azu"
-  resource_group_name = azurerm_resource_group.this.name
-  location            = "westeurope"
-  sku                 = "Basic"
-  allocation_method   = "Static"
-  ip_version          = "IPv4"
+resource "azurerm_subnet" "this_v6" {
+  name                 = "${local.name}-zone-00-v6"
+  resource_group_name  = azurerm_resource_group.this.name
+  virtual_network_name = azurerm_virtual_network.this.name
+  address_prefixes     = ["ace:cab:deca:deed::/64"]
 }
 
 resource "azurerm_network_interface" "this" {
-  name                = "azu"
-  location            = "westeurope"
-  resource_group_name = azurerm_resource_group.this.name
+  name                          = local.name
+  resource_group_name           = azurerm_resource_group.this.name
+  location                      = azurerm_resource_group.this.location
+  enable_ip_forwarding          = false
+  enable_accelerated_networking = false
 
   ip_configuration {
-    name                          = "azu"
-    subnet_id                     = azurerm_subnet.this.id
-    public_ip_address_id          = azurerm_public_ip.this.id
+    name                          = "${local.name}-v4"
+    subnet_id                     = azurerm_subnet.this_v4.id
+    public_ip_address_id          = azurerm_public_ip.this_v4.id
     private_ip_address_allocation = "Dynamic"
+    primary                       = "true"
   }
+
+  # ip_configuration {
+  #   name                          = "${local.name}-v6"
+  #   subnet_id                     = azurerm_subnet.this_v6.id
+  #   public_ip_address_id          = azurerm_public_ip.this_v6.id
+  #   private_ip_address_version    = "IPv6"
+  #   private_ip_address_allocation = "Dynamic"
+  # }
 }
 
 resource "tls_private_key" "azu-rsa" {
@@ -45,11 +82,16 @@ resource "tls_private_key" "azu-rsa" {
   rsa_bits  = "2048"
 }
 
+resource "tls_private_key" "azu" {
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P384"
+}
+
 resource "azurerm_linux_virtual_machine" "this" {
-  name                = "azu"
+  name                = local.name
   resource_group_name = azurerm_resource_group.this.name
-  location            = "westeurope"
-  size                = "Standard_B1ls"
+  location            = azurerm_resource_group.this.location
+  size                = "Standard_D2_v4"
   admin_username      = "notroot"
   network_interface_ids = [
     azurerm_network_interface.this.id
@@ -72,12 +114,7 @@ resource "azurerm_linux_virtual_machine" "this" {
     version   = "latest"
   }
 
-  custom_data = data.template_cloudinit_config.azu.rendered
-}
-
-resource "tls_private_key" "azu" {
-  algorithm   = "ECDSA"
-  ecdsa_curve = "P384"
+  # custom_data = data.template_cloudinit_config.azu.rendered
 }
 
 data "template_cloudinit_config" "azu" {
@@ -94,8 +131,8 @@ data "template_cloudinit_config" "azu" {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/tpl/hostname.tpl", {
-      "hostname" = "azu",
-      "fqdn"     = "azu.demo.lab"
+      "hostname" = local.name,
+      "fqdn"     = "${local.name}.demo.lab"
     })
   }
 

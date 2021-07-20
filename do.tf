@@ -4,6 +4,7 @@ resource "digitalocean_droplet" "this" {
   size      = "s-2vcpu-4gb"
   name      = "do"
   region    = "fra1"
+  ipv6      = true
   tags      = []
   user_data = data.template_cloudinit_config.do.rendered
 }
