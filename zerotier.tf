@@ -7,7 +7,7 @@ module "demolab" {
   subnets     = ["10.4.2.0/24"]
   assign_ipv6 = {
     zerotier = true
-    sixplane = true
+    sixplane = false
     rfc4193  = true
   }
   flow_rules = <<EOF

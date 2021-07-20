@@ -1,9 +1,18 @@
 
-resource "digitalocean_droplet" "this" {
-  image     = "ubuntu-20-04-x64"
-  size      = "s-2vcpu-4gb"
+locals {
   name      = "do"
+  image     = "ubuntu-20-04-x64"
   region    = "fra1"
+  size      = "s-2vcpu-4gb"
+  zt_token  = "kD4OJXIHvP72MZyOyI0eKIuT7xc3W59x"
+  dnsdomain = module.demolab.name
+}
+
+resource "digitalocean_droplet" "this" {
+  image     = local.image
+  size      = local.size
+  name      = local.name
+  region    = local.region
   ipv6      = true
   tags      = []
   user_data = data.template_cloudinit_config.do.rendered
@@ -28,8 +37,8 @@ data "template_cloudinit_config" "do" {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/tpl/hostname.tpl", {
-      "hostname" = "do",
-      "fqdn"     = "do.demo.lab"
+      "hostname" = local.name,
+      "fqdn"     = "${local.name}.${local.dnsdomain}"
     })
   }
 
@@ -72,9 +81,9 @@ EOF
     filename     = "init-zeronsd.sh"
     content_type = "text/x-shellscript"
     content = templatefile("${path.module}/tpl/init-zeronsd.tpl", {
-      "dnsdomain"  = "demo.lab"
+      "dnsdomain"  = local.dnsdomain
       "zt_network" = module.demolab.id
-      "zt_token"   = "kD4OJXIHvP72MZyOyI0eKIuT7xc3W59x"
+      "zt_token"   = local.zt_token
     })
   }
 }

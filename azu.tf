@@ -1,3 +1,4 @@
+
 locals {
   name     = "azu"
   location = "brazilsouth"

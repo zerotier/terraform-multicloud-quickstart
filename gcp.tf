@@ -1,25 +1,34 @@
 
+locals {
+  name         = "gcp"
+  machine_type = "e2-medium"
+  region       = "europe-west4"
+  zone         = "europe-west4-a"
+  image        = "ubuntu-os-cloud/ubuntu-2004-lts"
+  dnsdomain    = module.demolab.name
+}
+
 data "google_project" "this" {}
 
 resource "google_compute_network" "this" {
-  name                    = "qs-gcp-ams"
+  name                    = local.name
   project                 = data.google_project.this.project_id
   auto_create_subnetworks = false
 }
 
 resource "google_compute_subnetwork" "this" {
-  name          = "qs-gcp-ams-zone-00"
+  name          = "${local.name}-zone-00"
   network       = google_compute_network.this.self_link
+  region        = local.region
   ip_cidr_range = "192.168.1.0/24"
-  region        = "europe-west4"
 }
 
 resource "google_compute_address" "this" {
-  name         = "qs-gcp-ams"
-  address_type = "EXTERNAL"
-  description  = "qs-gcp-ams"
-  region       = "europe-west4"
+  name         = local.name
+  description  = local.name
+  region       = local.region
   project      = data.google_project.this.project_id
+  address_type = "EXTERNAL"
 }
 
 resource "google_compute_firewall" "this" {
@@ -33,16 +42,16 @@ resource "google_compute_firewall" "this" {
 
 resource "google_compute_instance" "this" {
   can_ip_forward = true
-  description    = "qs-gcp-ams"
-  hostname       = "qs-gcp-ams.demo.lab"
-  machine_type   = "e2-medium"
-  name           = "qs-gcp-ams"
+  machine_type   = local.machine_type
+  description    = local.name
+  hostname       = "${local.name}.${local.dnsdomain}"
+  name           = local.name
   project        = data.google_project.this.project_id
-  zone           = "europe-west4-a"
+  zone           = local.zone
 
   boot_disk {
     initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-2004-lts"
+      image = local.image
     }
   }
 
@@ -77,11 +86,10 @@ data "template_cloudinit_config" "gcp" {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/tpl/hostname.tpl", {
-      "hostname" = "gcp",
-      "fqdn"     = "gcp.demo.lab"
+      "hostname" = local.name,
+      "fqdn"     = "${local.name}.${dnsdomain}"
     })
   }
-
   part {
     filename     = "ssh.cfg"
     content_type = "text/cloud-config"
@@ -121,7 +129,7 @@ EOF
     filename     = "init-common.sh"
     content_type = "text/x-shellscript"
     content = templatefile("${path.module}/tpl/init-common.tpl", {
-      "dnsdomain"  = "demo.lab"
+      "dnsdomain"  = local.dnsdomain
       "zt_network" = module.demolab.id
     })
   }
