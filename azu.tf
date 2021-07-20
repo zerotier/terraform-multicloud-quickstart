@@ -8,12 +8,6 @@ resource "azurerm_resource_group" "this" {
   name     = local.name
 }
 
-# resource "azurerm_network_security_group" "this" {
-#   name                = local.name
-#   resource_group_name = azurerm_resource_group.this.name
-#   location            = azurerm_resource_group.this.location
-# }
-
 resource "azurerm_public_ip" "this_v4" {
   name                = "${local.name}-v4"
   resource_group_name = azurerm_resource_group.this.name
@@ -68,13 +62,13 @@ resource "azurerm_network_interface" "this" {
     primary                       = "true"
   }
 
-  # ip_configuration {
-  #   name                          = "${local.name}-v6"
-  #   subnet_id                     = azurerm_subnet.this_v6.id
-  #   public_ip_address_id          = azurerm_public_ip.this_v6.id
-  #   private_ip_address_version    = "IPv6"
-  #   private_ip_address_allocation = "Dynamic"
-  # }
+  ip_configuration {
+    name                          = "${local.name}-v6"
+    subnet_id                     = azurerm_subnet.this_v6.id
+    public_ip_address_id          = azurerm_public_ip.this_v6.id
+    private_ip_address_version    = "IPv6"
+    private_ip_address_allocation = "Dynamic"
+  }
 }
 
 resource "tls_private_key" "azu-rsa" {
