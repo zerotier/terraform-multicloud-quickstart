@@ -8,11 +8,11 @@ resource "azurerm_resource_group" "this" {
   name     = local.name
 }
 
-resource "azurerm_network_security_group" "this" {
-  name                = local.name
-  resource_group_name = azurerm_resource_group.this.name
-  location            = azurerm_resource_group.this.location
-}
+# resource "azurerm_network_security_group" "this" {
+#   name                = local.name
+#   resource_group_name = azurerm_resource_group.this.name
+#   location            = azurerm_resource_group.this.location
+# }
 
 resource "azurerm_public_ip" "this_v4" {
   name                = "${local.name}-v4"
@@ -57,7 +57,7 @@ resource "azurerm_network_interface" "this" {
   name                          = local.name
   resource_group_name           = azurerm_resource_group.this.name
   location                      = azurerm_resource_group.this.location
-  enable_ip_forwarding          = false
+  enable_ip_forwarding          = true
   enable_accelerated_networking = false
 
   ip_configuration {
@@ -114,7 +114,7 @@ resource "azurerm_linux_virtual_machine" "this" {
     version   = "latest"
   }
 
-  # custom_data = data.template_cloudinit_config.azu.rendered
+  custom_data = data.template_cloudinit_config.azu.rendered
 }
 
 data "template_cloudinit_config" "azu" {
