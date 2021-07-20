@@ -1,9 +1,8 @@
 
 locals {
-  name              = "aws"
-  availability_zone = "us-east-2a"
-  instance_type     = "t3.micro"
-  dnsdomain         = module.demolab.name
+  aws_name              = "aws"
+  aws_availability_zone = "us-east-2a"
+  aws_instance_type     = "t3.micro"
 }
 
 resource "aws_vpc" "this" {
@@ -11,26 +10,26 @@ resource "aws_vpc" "this" {
   enable_dns_support               = true
   enable_dns_hostnames             = false
   assign_generated_ipv6_cidr_block = true
-  tags                             = { "Name" = local.name }
+  tags                             = { "Name" = local.aws_name }
 }
 
 resource "aws_subnet" "this" {
-  availability_zone               = local.availability_zone
+  availability_zone               = local.aws_availability_zone
   cidr_block                      = cidrsubnet(aws_vpc.this.cidr_block, 8, 0)
   ipv6_cidr_block                 = cidrsubnet(aws_vpc.this.ipv6_cidr_block, 8, 0)
   assign_ipv6_address_on_creation = true
   vpc_id                          = aws_vpc.this.id
-  tags                            = { "Name" = "${local.name}-zone-00" }
+  tags                            = { "Name" = "${local.aws_name}-zone-00" }
 }
 
 resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.this.id
-  tags   = { "Name" = local.name }
+  tags   = { "Name" = local.aws_name }
 }
 
 resource "aws_route_table" "this" {
   vpc_id = aws_vpc.this.id
-  tags   = { "Name" = local.name }
+  tags   = { "Name" = local.aws_name }
 }
 
 resource "aws_route_table_association" "this" {
@@ -52,7 +51,7 @@ resource "aws_route" "the_internet_v6" {
 
 resource "aws_network_acl" "this" {
   vpc_id = aws_vpc.this.id
-  tags   = { "Name" = local.name }
+  tags   = { "Name" = local.aws_name }
 }
 
 resource "aws_network_acl_rule" "allow_all" {
@@ -117,10 +116,10 @@ data "aws_ami" "this" {
 
 resource "aws_instance" "this" {
   ami                    = data.aws_ami.this.id
-  instance_type          = local.instance_type
+  instance_type          = local.aws_instance_type
   source_dest_check      = false
   subnet_id              = aws_subnet.this.id
-  tags                   = { "Name" = local.name }
+  tags                   = { "Name" = local.aws_name }
   user_data              = data.template_cloudinit_config.aws.rendered
   vpc_security_group_ids = [aws_security_group.this.id]
 }
@@ -153,8 +152,8 @@ data "template_cloudinit_config" "aws" {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/tpl/hostname.tpl", {
-      "hostname" = local.name
-      "fqdn"     = "${local.name}.${local.dnsdomain}"
+      "hostname" = local.aws_name
+      "fqdn"     = "${local.aws_name}.${local.dnsdomain}"
     })
   }
 

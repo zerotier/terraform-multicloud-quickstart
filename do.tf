@@ -1,18 +1,21 @@
 
 locals {
-  name      = "do"
-  image     = "ubuntu-20-04-x64"
-  region    = "fra1"
-  size      = "s-2vcpu-4gb"
   zt_token  = "kD4OJXIHvP72MZyOyI0eKIuT7xc3W59x"
   dnsdomain = module.demolab.name
 }
 
+locals {
+  do_name   = "do"
+  do_image  = "ubuntu-20-04-x64"
+  do_region = "fra1"
+  do_size   = "s-2vcpu-4gb"
+}
+
 resource "digitalocean_droplet" "this" {
-  image     = local.image
-  size      = local.size
-  name      = local.name
-  region    = local.region
+  image     = local.do_image
+  size      = local.do_size
+  name      = local.do_name
+  region    = local.do_region
   ipv6      = true
   tags      = []
   user_data = data.template_cloudinit_config.do.rendered
@@ -37,8 +40,8 @@ data "template_cloudinit_config" "do" {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/tpl/hostname.tpl", {
-      "hostname" = local.name,
-      "fqdn"     = "${local.name}.${local.dnsdomain}"
+      "hostname" = local.do_name,
+      "fqdn"     = "${local.do_name}.${local.dnsdomain}"
     })
   }
 

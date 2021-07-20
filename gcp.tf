@@ -1,31 +1,30 @@
 
 locals {
-  name         = "gcp"
-  machine_type = "e2-medium"
-  region       = "europe-west4"
-  zone         = "europe-west4-a"
-  image        = "ubuntu-os-cloud/ubuntu-2004-lts"
-  dnsdomain    = module.demolab.name
+  gcp_name         = "gcp"
+  gcp_machine_type = "e2-medium"
+  gcp_region       = "europe-west4"
+  gcp_zone         = "europe-west4-a"
+  gcp_image        = "ubuntu-os-cloud/ubuntu-2004-lts"
 }
 
 data "google_project" "this" {}
 
 resource "google_compute_network" "this" {
-  name                    = local.name
+  name                    = local.gcp_name
   project                 = data.google_project.this.project_id
   auto_create_subnetworks = false
 }
 
 resource "google_compute_subnetwork" "this" {
-  name          = "${local.name}-zone-00"
+  name          = "${local.gcp_name}-zone-00"
   network       = google_compute_network.this.self_link
   region        = local.region
   ip_cidr_range = "192.168.1.0/24"
 }
 
 resource "google_compute_address" "this" {
-  name         = local.name
-  description  = local.name
+  name         = local.gcp_name
+  description  = local.gcp_name
   region       = local.region
   project      = data.google_project.this.project_id
   address_type = "EXTERNAL"
@@ -42,16 +41,16 @@ resource "google_compute_firewall" "this" {
 
 resource "google_compute_instance" "this" {
   can_ip_forward = true
-  machine_type   = local.machine_type
-  description    = local.name
-  hostname       = "${local.name}.${local.dnsdomain}"
-  name           = local.name
+  machine_type   = local.gcp_machine_type
+  description    = local.gcp_name
+  hostname       = "${local.gcp_name}.${local.dnsdomain}"
+  name           = local.gcp_name
   project        = data.google_project.this.project_id
-  zone           = local.zone
+  zone           = local.gcp_zone
 
   boot_disk {
     initialize_params {
-      image = local.image
+      image = local.gcp_image
     }
   }
 
@@ -86,8 +85,8 @@ data "template_cloudinit_config" "gcp" {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/tpl/hostname.tpl", {
-      "hostname" = local.name,
-      "fqdn"     = "${local.name}.${dnsdomain}"
+      "hostname" = local.gcp_name,
+      "fqdn"     = "${local.gcp_name}.${dnsdomain}"
     })
   }
   part {
