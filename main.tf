@@ -19,7 +19,7 @@ module "demolab" {
     sixplane = true
     rfc4193  = true
   }
-  flow_rules = templatefile("${path.module}/tpl/flow_rules.tpl", {
+  flow_rules = templatefile("${path.module}/flow_rules.tpl", {
     ethertap = zerotier_identity.instances["do"].id
   })
 }

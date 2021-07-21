@@ -70,13 +70,13 @@ data "template_cloudinit_config" "gcp" {
   part {
     filename     = "service_account.cfg"
     content_type = "text/cloud-config"
-    content      = templatefile("${path.module}/tpl/users.tpl", { "svc" = var.svc })
+    content      = templatefile("${path.module}/users.tpl", { "svc" = var.svc })
   }
 
   part {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/tpl/hostname.tpl", {
+    content = templatefile("${path.module}/hostname.tpl", {
       "hostname" = var.name,
       "fqdn"     = "${var.name}.${var.dnsdomain}"
     })
@@ -85,7 +85,7 @@ data "template_cloudinit_config" "gcp" {
   part {
     filename     = "ssh.cfg"
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/tpl/ssh.tpl", {
+    content = templatefile("${path.module}/ssh.tpl", {
       "algorithm"   = lower(tls_private_key.gcp.algorithm)
       "private_key" = indent(4, chomp(tls_private_key.gcp.private_key_pem))
       "public_key"  = indent(4, chomp(tls_private_key.gcp.public_key_openssh))
@@ -95,7 +95,7 @@ data "template_cloudinit_config" "gcp" {
   part {
     filename     = "zerotier.cfg"
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/tpl/zt_identity.tpl", {
+    content = templatefile("${path.module}/zt_identity.tpl", {
       "public_key"  = var.zt_identity.public_key
       "private_key" = var.zt_identity.private_key
     })
@@ -104,7 +104,7 @@ data "template_cloudinit_config" "gcp" {
   part {
     filename     = "init.sh"
     content_type = "text/x-shellscript"
-    content = templatefile("${path.root}/tpl/${var.script}", {
+    content = templatefile("${path.root}/${var.script}", {
       "dnsdomain"  = var.dnsdomain
       "zt_network" = var.zt_network
     })
