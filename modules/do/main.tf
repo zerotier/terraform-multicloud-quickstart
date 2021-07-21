@@ -1,21 +1,9 @@
 
-locals {
-  zt_token  = "kD4OJXIHvP72MZyOyI0eKIuT7xc3W59x"
-  dnsdomain = module.demolab.name
-}
-
-locals {
-  do_name   = "do"
-  do_image  = "ubuntu-20-04-x64"
-  do_region = "fra1"
-  do_size   = "s-2vcpu-4gb"
-}
-
 resource "digitalocean_droplet" "this" {
-  image     = local.do_image
-  size      = local.do_size
-  name      = local.do_name
-  region    = local.do_region
+  image     = var.image
+  size      = var.size
+  name      = var.name
+  region    = var.region
   ipv6      = true
   tags      = []
   user_data = data.template_cloudinit_config.do.rendered
@@ -40,8 +28,8 @@ data "template_cloudinit_config" "do" {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/tpl/hostname.tpl", {
-      "hostname" = local.do_name,
-      "fqdn"     = "${local.do_name}.${local.dnsdomain}"
+      "hostname" = var.name,
+      "fqdn"     = "${var.name}.${var.dnsdomain}"
     })
   }
 
@@ -59,18 +47,18 @@ data "template_cloudinit_config" "do" {
     filename     = "zerotier.cfg"
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/tpl/zt_identity.tpl", {
-      "public_key"  = zerotier_identity.instances["do"].public_key
-      "private_key" = zerotier_identity.instances["do"].private_key
+      "public_key"  = var.zt_identity.public_key
+      "private_key" = var.zt_identity.private_key
     })
   }
 
   part {
-    filename     = "init-zeronsd.sh"
+    filename     = "init.sh"
     content_type = "text/x-shellscript"
-    content = templatefile("${path.module}/tpl/init-zeronsd.tpl", {
-      "dnsdomain"  = local.dnsdomain
-      "zt_network" = module.demolab.id
-      "zt_token"   = local.zt_token
+    content = templatefile("${path.root}/tpl/${var.script}", {
+      "dnsdomain"  = var.dnsdomain
+      "zt_network" = var.zt_network
+      "zt_token"   = var.zt_token
     })
   }
 }

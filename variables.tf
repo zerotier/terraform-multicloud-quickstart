@@ -7,6 +7,10 @@ variable "svc" {
   }
 }
 
+variable "zt_token" {
+  default = "kD4OJXIHvP72MZyOyI0eKIuT7xc3W59x"
+}
+
 variable "devices" {
   default = {
     # api = {
@@ -44,6 +48,10 @@ variable "devices" {
     # dennisk = {
     #   member_id   = "0f445b05f4"
     #   description = "Dennis Kittrel"
-    # }    
+    # }
+    # erikh = {
+    #   member_id = "7d22465c2b"
+    #   description = "Erik Hollensbe"
+    # }
   }
 }
