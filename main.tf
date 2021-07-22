@@ -135,7 +135,8 @@ module "aws" {
   name              = "aws"
   cidr_block        = "192.168.0.0/16"
   availability_zone = "us-east-2a"
-  instance_type     = "t3.medium"
+  instance_type     = "t3.micro"
+  # instance_type     = "t3.medium"
   dnsdomain         = module.primary.name
   zt_networks = {
     primary = {
@@ -152,78 +153,78 @@ module "aws" {
   script      = "init-common.tpl"
 }
 
-#
-# Google Compute Platform
-#
+# #
+# # Google Compute Platform
+# #
 
-resource "zerotier_member" "gcp-primary" {
-  name       = "gcp"
-  member_id  = zerotier_identity.instances["gcp"].id
-  network_id = module.primary.id
-}
+# resource "zerotier_member" "gcp-primary" {
+#   name       = "gcp"
+#   member_id  = zerotier_identity.instances["gcp"].id
+#   network_id = module.primary.id
+# }
 
-resource "zerotier_member" "gcp-backplane" {
-  name       = "gcp"
-  member_id  = zerotier_identity.instances["gcp"].id
-  network_id = module.backplane.id
-}
+# resource "zerotier_member" "gcp-backplane" {
+#   name       = "gcp"
+#   member_id  = zerotier_identity.instances["gcp"].id
+#   network_id = module.backplane.id
+# }
 
-module "gcp" {
-  source        = "./modules/gcp"
-  name          = "gcp"
-  ip_cidr_range = "192.168.0.0/16"
-  region        = "europe-west4"
-  zone          = "europe-west4-a"
-  dnsdomain     = module.primary.name
-  zt_networks = {
-    primary = {
-      id        = module.primary.id
-      dnsdomain = module.primary.name
-    }
-    backplane = {
-      id        = module.backplane.id
-      dnsdomain = module.backplane.name
-    }
-  }
-  zt_identity = zerotier_identity.instances["gcp"]
-  svc         = var.svc
-  script      = "init-common.tpl"
-}
+# module "gcp" {
+#   source        = "./modules/gcp"
+#   name          = "gcp"
+#   ip_cidr_range = "192.168.0.0/16"
+#   region        = "europe-west4"
+#   zone          = "europe-west4-a"
+#   dnsdomain     = module.primary.name
+#   zt_networks = {
+#     primary = {
+#       id        = module.primary.id
+#       dnsdomain = module.primary.name
+#     }
+#     backplane = {
+#       id        = module.backplane.id
+#       dnsdomain = module.backplane.name
+#     }
+#   }
+#   zt_identity = zerotier_identity.instances["gcp"]
+#   svc         = var.svc
+#   script      = "init-common.tpl"
+# }
 
-#
-# Microsoft Azure
-#
+# #
+# # Microsoft Azure
+# #
 
-resource "zerotier_member" "azu-primary" {
-  name       = "azu"
-  member_id  = zerotier_identity.instances["azu"].id
-  network_id = module.primary.id
-}
+# resource "zerotier_member" "azu-primary" {
+#   name       = "azu"
+#   member_id  = zerotier_identity.instances["azu"].id
+#   network_id = module.primary.id
+# }
 
-resource "zerotier_member" "azu-backplane" {
-  name       = "azu"
-  member_id  = zerotier_identity.instances["azu"].id
-  network_id = module.backplane.id
-}
+# resource "zerotier_member" "azu-backplane" {
+#   name       = "azu"
+#   member_id  = zerotier_identity.instances["azu"].id
+#   network_id = module.backplane.id
+# }
 
-module "azu" {
-  source              = "./modules/azu"
-  name                = "azu"
-  address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
-  v4_address_prefixes = ["192.168.1.0/24"]
-  v6_address_prefixes = ["ace:cab:deca:deed::/64"]
-  dnsdomain           = module.primary.name
-  zt_networks = {
-    primary = {
-      id        = module.primary.id
-      dnsdomain = module.primary.name
-    }
-    backplane = {
-      id        = module.backplane.id
-      dnsdomain = module.backplane.name
-    }
-  }
-  zt_identity = zerotier_identity.instances["azu"]
-  svc         = var.svc
-  script      = "init-common.tpl"
-}
+# module "azu" {
+#   source              = "./modules/azu"
+#   name                = "azu"
+#   address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
+#   v4_address_prefixes = ["192.168.1.0/24"]
+#   v6_address_prefixes = ["ace:cab:deca:deed::/64"]
+#   dnsdomain           = module.primary.name
+#   zt_networks = {
+#     primary = {
+#       id        = module.primary.id
+#       dnsdomain = module.primary.name
+#     }
+#     backplane = {
+#       id        = module.backplane.id
+#       dnsdomain = module.backplane.name
+#     }
+#   }
+#   zt_identity = zerotier_identity.instances["azu"]
+#   svc         = var.svc
+#   script      = "init-common.tpl"
+# }
