@@ -24,7 +24,7 @@ resource "zerotier_identity" "instances" {
 #   })
 # }
 
-module "primary" {
+module "frontplane" {
   source      = "zerotier/network/zerotier"
   version     = "0.0.17"
   name        = "demo.lab"
@@ -60,12 +60,12 @@ module "backplane" {
 # People
 #
 
-resource "zerotier_member" "devices-primary" {
+resource "zerotier_member" "devices-frontplane" {
   for_each    = var.devices
   name        = each.key
   member_id   = each.value.member_id
   description = each.value.description
-  network_id  = module.primary.id
+  network_id  = module.frontplane.id
 }
 
 resource "zerotier_member" "devices-backplane" {
@@ -80,10 +80,10 @@ resource "zerotier_member" "devices-backplane" {
 # Digital Ocean
 #
 
-resource "zerotier_member" "do-primary" {
+resource "zerotier_member" "do-frontplane" {
   name       = "do"
   member_id  = zerotier_identity.instances["do"].id
-  network_id = module.primary.id
+  network_id = module.frontplane.id
 }
 
 resource "zerotier_member" "do-backplane" {
@@ -97,11 +97,11 @@ module "do" {
   name      = "do"
   image     = "ubuntu-20-04-x64"
   region    = "fra1"
-  dnsdomain = module.primary.name
+  dnsdomain = module.frontplane.name
   zt_networks = {
-    primary = {
-      id        = module.primary.id
-      dnsdomain = module.primary.name
+    frontplane = {
+      id        = module.frontplane.id
+      dnsdomain = module.frontplane.name
     }
     backplane = {
       id        = module.backplane.id
@@ -118,10 +118,10 @@ module "do" {
 # Amazon Web Services
 #
 
-resource "zerotier_member" "aws-primary" {
+resource "zerotier_member" "aws-frontplane" {
   name       = "aws"
   member_id  = zerotier_identity.instances["aws"].id
-  network_id = module.primary.id
+  network_id = module.frontplane.id
 }
 
 resource "zerotier_member" "aws-backplane" {
@@ -137,11 +137,11 @@ module "aws" {
   availability_zone = "us-east-2a"
   instance_type     = "t3.micro"
   # instance_type     = "t3.medium"
-  dnsdomain         = module.primary.name
+  dnsdomain = module.frontplane.name
   zt_networks = {
-    primary = {
-      id        = module.primary.id
-      dnsdomain = module.primary.name
+    frontplane = {
+      id        = module.frontplane.id
+      dnsdomain = module.frontplane.name
     }
     backplane = {
       id        = module.backplane.id
@@ -157,10 +157,10 @@ module "aws" {
 # # Google Compute Platform
 # #
 
-# resource "zerotier_member" "gcp-primary" {
+# resource "zerotier_member" "gcp-frontplane" {
 #   name       = "gcp"
 #   member_id  = zerotier_identity.instances["gcp"].id
-#   network_id = module.primary.id
+#   network_id = module.frontplane.id
 # }
 
 # resource "zerotier_member" "gcp-backplane" {
@@ -175,11 +175,11 @@ module "aws" {
 #   ip_cidr_range = "192.168.0.0/16"
 #   region        = "europe-west4"
 #   zone          = "europe-west4-a"
-#   dnsdomain     = module.primary.name
+#   dnsdomain     = module.frontplane.name
 #   zt_networks = {
-#     primary = {
-#       id        = module.primary.id
-#       dnsdomain = module.primary.name
+#     frontplane = {
+#       id        = module.frontplane.id
+#       dnsdomain = module.frontplane.name
 #     }
 #     backplane = {
 #       id        = module.backplane.id
@@ -195,10 +195,10 @@ module "aws" {
 # # Microsoft Azure
 # #
 
-# resource "zerotier_member" "azu-primary" {
+# resource "zerotier_member" "azu-frontplane" {
 #   name       = "azu"
 #   member_id  = zerotier_identity.instances["azu"].id
-#   network_id = module.primary.id
+#   network_id = module.frontplane.id
 # }
 
 # resource "zerotier_member" "azu-backplane" {
@@ -213,11 +213,11 @@ module "aws" {
 #   address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
 #   v4_address_prefixes = ["192.168.1.0/24"]
 #   v6_address_prefixes = ["ace:cab:deca:deed::/64"]
-#   dnsdomain           = module.primary.name
+#   dnsdomain           = module.frontplane.name
 #   zt_networks = {
-#     primary = {
-#       id        = module.primary.id
-#       dnsdomain = module.primary.name
+#     frontplane = {
+#       id        = module.frontplane.id
+#       dnsdomain = module.frontplane.name
 #     }
 #     backplane = {
 #       id        = module.backplane.id

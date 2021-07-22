@@ -1,8 +1,8 @@
 
 output "networks" {
   value = {
-    primary   = module.primary.id
-    backplane = module.backplane.id
+    frontplane = module.frontplane.id
+    backplane  = module.backplane.id
   }
 }
 
