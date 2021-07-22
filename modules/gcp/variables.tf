@@ -28,7 +28,8 @@ variable "zone" {
 variable "zt_identity" {
 }
 
-variable "zt_network" {
+variable "zt_networks" {
+  type = map(map(string))
 }
 
 variable "svc" {}

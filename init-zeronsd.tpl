@@ -42,7 +42,11 @@ dpkg -i zeronsd_0.2.2_amd64.deb
 
 %{ for zt_net in zt_networks }
 zeronsd supervise -t /var/lib/zerotier-one/token -d ${zt_net.dnsdomain} ${zt_net.id}
+%{ endfor ~}
+
 systemctl daemon-reload
+
+%{ for zt_net in zt_networks }
 systemctl enable zeronsd-${zt_net.id}
 systemctl start zeronsd-${zt_net.id}
 %{ endfor ~}

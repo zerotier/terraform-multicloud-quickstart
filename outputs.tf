@@ -1,10 +1,10 @@
 
-output "networks" {
-  value = {
-    demolab   = module.demolab.id
-    backplane = module.backplane.id
-  }
-}
+# output "networks" {
+#   value = {
+#     primary   = module.primary.id
+#     backplane = module.backplane.id
+#   }
+# }
 
 output "identities" {
   value = {

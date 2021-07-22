@@ -18,7 +18,10 @@ variable "name" {
   default = "aws"
 }
 
-variable "zt_network" {}
+variable "zt_networks" {
+  type = map(map(string))
+}
+
 variable "zt_identity" {}
 variable "svc" {}
 variable "script" {}

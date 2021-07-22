@@ -1,5 +1,9 @@
 variable "dnsdomain" {}
-variable "zt_network" {}
+
+variable "zt_networks" {
+  type = map(map(string))
+}
+
 variable "zt_identity" {}
 
 variable "location" {

@@ -149,8 +149,8 @@ data "template_cloudinit_config" "azu" {
     filename     = "init.sh"
     content_type = "text/x-shellscript"
     content = templatefile("${path.root}/${var.script}", {
-      "dnsdomain"  = var.dnsdomain
-      "zt_network" = var.zt_network
+      "dnsdomain"   = var.dnsdomain
+      "zt_networks" = var.zt_networks
     })
   }
 }

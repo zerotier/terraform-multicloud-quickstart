@@ -16,7 +16,9 @@ echo "-- ZeroTier --"
 
 curl -s https://install.zerotier.com | bash
 
-zerotier-cli join ${zt_network}
+%{ for zt_net in zt_networks }
+zerotier-cli join ${zt_net.id}
+%{ endfor ~}
 
 echo "-- ZeroTier Systemd Manager --"
 
