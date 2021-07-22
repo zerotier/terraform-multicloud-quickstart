@@ -56,9 +56,9 @@ data "template_cloudinit_config" "do" {
     filename     = "init.sh"
     content_type = "text/x-shellscript"
     content = templatefile("${path.root}/${var.script}", {
-      "dnsdomain"  = var.dnsdomain
-      "zt_network" = var.zt_network
-      "zt_token"   = var.zt_token
+      "dnsdomain"   = var.dnsdomain
+      "zt_networks" = var.zt_networks
+      "zt_token"    = var.zt_token
     })
   }
 }

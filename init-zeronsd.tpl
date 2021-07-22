@@ -16,7 +16,9 @@ echo "-- ZeroTier --"
 
 curl -s https://install.zerotier.com | bash
 
-zerotier-cli join ${zt_network}
+%{ for zt_net in zt_networks }
+zerotier-cli join ${zt_net.id}
+%{ endfor ~}
 
 echo "-- ZeroTier Systemd Manager --"
 
@@ -38,10 +40,12 @@ echo "-- ZeroNSD --"
 wget https://github.com/zerotier/zeronsd/releases/download/v0.2.2/zeronsd_0.2.2_amd64.deb
 dpkg -i zeronsd_0.2.2_amd64.deb
 
-zeronsd supervise -t /var/lib/zerotier-one/token -d ${dnsdomain} ${zt_network}
+%{ for zt_net in zt_networks }
+zeronsd supervise -t /var/lib/zerotier-one/token -d ${zt_net.dnsdomain} ${zt_net.id}
 systemctl daemon-reload
-systemctl enable zeronsd-${zt_network}
-systemctl start zeronsd-${zt_network}
+systemctl enable zeronsd-${zt_net.id}
+systemctl start zeronsd-${zt_net.id}
+%{ endfor ~}
 
 echo "-- Kernel IP forwarding --"
 # TODO - figure out how to do this properly w/systemd
@@ -93,3 +97,17 @@ apt-get -qq install \
         tshark \
         nmap \
        &>/dev/null
+
+echo "-- Docker --"
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o  /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo \
+"deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+ $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+apt-get -qq update
+apt-get -qq install docker-ce docker-ce-cli containerd.io docker-compose
+
+echo "-- Nginx Hello  --"
+docker run -d -it --rm -p 80:80 nginxdemos/hello

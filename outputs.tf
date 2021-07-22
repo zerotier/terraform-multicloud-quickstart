@@ -1,7 +1,8 @@
 
 output "networks" {
   value = {
-    demolab = module.demolab.id
+    demolab   = module.demolab.id
+    backplane = module.backplane.id
   }
 }
 

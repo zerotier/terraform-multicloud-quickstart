@@ -77,3 +77,17 @@ apt-get -qq install \
         tshark \
         nmap \
        &>/dev/null
+
+echo "-- Docker --"
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o  /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo \
+"deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+ $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+apt-get -qq update
+apt-get -qq install docker-ce docker-ce-cli containerd.io docker-compose
+
+echo "-- Nginx Hello  --"
+docker run -d -it --rm -p 80:80 nginxdemos/hello

@@ -14,7 +14,10 @@ variable "size" {
   default = "s-2vcpu-4gb"
 }
 
-variable "zt_network" {}
+variable "zt_networks" {
+  type = map(map(string))
+}
+
 variable "zt_identity" {}
 variable "svc" {}
 
