@@ -46,16 +46,16 @@ module "backplane" {
 # People
 #
 
-resource "zerotier_member" "devices-frontplane" {
-  for_each    = var.devices
+resource "zerotier_member" "people-frontplane" {
+  for_each    = var.people
   name        = each.key
   member_id   = each.value.member_id
   description = each.value.description
   network_id  = module.frontplane.id
 }
 
-resource "zerotier_member" "devices-backplane" {
-  for_each    = var.devices
+resource "zerotier_member" "people-backplane" {
+  for_each    = var.people
   name        = each.key
   member_id   = each.value.member_id
   description = each.value.description
@@ -68,6 +68,7 @@ resource "zerotier_member" "devices-backplane" {
 
 resource "zerotier_member" "do-frontplane" {
   name           = "do"
+  description    = "Digital Ocean"
   member_id      = zerotier_identity.instances["do"].id
   network_id     = module.frontplane.id
   ip_assignments = ["10.4.2.1"]
@@ -75,6 +76,7 @@ resource "zerotier_member" "do-frontplane" {
 
 resource "zerotier_member" "do-backplane" {
   name           = "do"
+  description    = "Digital Ocean"
   member_id      = zerotier_identity.instances["do"].id
   network_id     = module.backplane.id
   ip_assignments = ["10.4.3.1"]
@@ -108,6 +110,7 @@ module "do" {
 
 resource "zerotier_member" "aws-frontplane" {
   name           = "aws"
+  description    = "Amazon Web Services"
   member_id      = zerotier_identity.instances["aws"].id
   network_id     = module.frontplane.id
   ip_assignments = ["10.4.2.2"]
@@ -115,6 +118,7 @@ resource "zerotier_member" "aws-frontplane" {
 
 resource "zerotier_member" "aws-backplane" {
   name           = "aws"
+  description    = "Amazon Web Services"
   member_id      = zerotier_identity.instances["aws"].id
   network_id     = module.backplane.id
   ip_assignments = ["10.4.3.2"]
@@ -143,23 +147,25 @@ module "aws" {
   script      = "init-common.tpl"
 }
 
-# #
-# # Google Compute Platform
-# #
+#
+# Google Compute Platform
+#
 
-# resource "zerotier_member" "gcp-frontplane" {
-#   name           = "gcp"
-#   member_id      = zerotier_identity.instances["gcp"].id
-#   network_id     = module.frontplane.id
-#   ip_assignments = ["10.4.2.3"]
-# }
+resource "zerotier_member" "gcp-frontplane" {
+  name           = "gcp"
+  description    = "Google Compute Platform"
+  member_id      = zerotier_identity.instances["gcp"].id
+  network_id     = module.frontplane.id
+  ip_assignments = ["10.4.2.3"]
+}
 
-# resource "zerotier_member" "gcp-backplane" {
-#   name           = "gcp"
-#   member_id      = zerotier_identity.instances["gcp"].id
-#   network_id     = module.backplane.id
-#   ip_assignments = ["10.4.3.3"]
-# }
+resource "zerotier_member" "gcp-backplane" {
+  name           = "gcp"
+  description    = "Google Compute Platform"
+  member_id      = zerotier_identity.instances["gcp"].id
+  network_id     = module.backplane.id
+  ip_assignments = ["10.4.3.3"]
+}
 
 # module "gcp" {
 #   source        = "./modules/gcp"
@@ -183,23 +189,25 @@ module "aws" {
 #   script      = "init-common.tpl"
 # }
 
-# #
-# # Microsoft Azure
-# #
+#
+# Microsoft Azure
+#
 
-# resource "zerotier_member" "azu-frontplane" {
-#   name           = "azu"
-#   member_id      = zerotier_identity.instances["azu"].id
-#   network_id     = module.frontplane.id
-#   ip_assignments = ["10.4.2.4"]
-# }
+resource "zerotier_member" "azu-frontplane" {
+  name           = "azu"
+  description    = "Microsoft Azure"
+  member_id      = zerotier_identity.instances["azu"].id
+  network_id     = module.frontplane.id
+  ip_assignments = ["10.4.2.4"]
+}
 
-# resource "zerotier_member" "azu-backplane" {
-#   name           = "azu"
-#   member_id      = zerotier_identity.instances["azu"].id
-#   network_id     = module.backplane.id
-#   ip_assignments = ["10.4.3.4"]
-# }
+resource "zerotier_member" "azu-backplane" {
+  name           = "azu"
+  description    = "Microsoft Azure"
+  member_id      = zerotier_identity.instances["azu"].id
+  network_id     = module.backplane.id
+  ip_assignments = ["10.4.3.4"]
+}
 
 # module "azu" {
 #   source              = "./modules/azu"
