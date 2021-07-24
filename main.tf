@@ -12,21 +12,8 @@ resource "zerotier_identity" "instances" {
   ] : i => (i) }
 }
 
-# resource "zerotier_network" "demolab" {
-#   name        = "demo.lab"
-#   description = "ZeroTier Demo Lab"
-#   assignment_pool {
-#     cidr = "10.4.2.0/24"
-#   }
-#   private = true
-#   flow_rules = templatefile("${path.module}/flow_rules.tpl", {
-#     ethertap = zerotier_identity.instances["do"].id
-#   })
-# }
-
 module "frontplane" {
-  source      = "zerotier/network/zerotier"
-  version     = "0.0.17"
+  source      = "./modules/terraform-zerotier-network"
   name        = "demo.lab"
   description = "ZeroTier Demo Lab"
   subnets     = ["10.4.2.0/24"]
@@ -41,8 +28,7 @@ module "frontplane" {
 }
 
 module "backplane" {
-  source      = "zerotier/network/zerotier"
-  version     = "0.0.17"
+  source      = "./modules/terraform-zerotier-network"
   name        = "demo.lan"
   description = "ZeroTier Demo Backplane"
   subnets     = ["10.4.3.0/24"]
@@ -81,15 +67,17 @@ resource "zerotier_member" "devices-backplane" {
 #
 
 resource "zerotier_member" "do-frontplane" {
-  name       = "do"
-  member_id  = zerotier_identity.instances["do"].id
-  network_id = module.frontplane.id
+  name           = "do"
+  member_id      = zerotier_identity.instances["do"].id
+  network_id     = module.frontplane.id
+  ip_assignments = ["10.4.2.1"]
 }
 
 resource "zerotier_member" "do-backplane" {
-  name       = "do"
-  member_id  = zerotier_identity.instances["do"].id
-  network_id = module.backplane.id
+  name           = "do"
+  member_id      = zerotier_identity.instances["do"].id
+  network_id     = module.backplane.id
+  ip_assignments = ["10.4.3.1"]
 }
 
 module "do" {
@@ -119,15 +107,17 @@ module "do" {
 #
 
 resource "zerotier_member" "aws-frontplane" {
-  name       = "aws"
-  member_id  = zerotier_identity.instances["aws"].id
-  network_id = module.frontplane.id
+  name           = "aws"
+  member_id      = zerotier_identity.instances["aws"].id
+  network_id     = module.frontplane.id
+  ip_assignments = ["10.4.2.2"]
 }
 
 resource "zerotier_member" "aws-backplane" {
-  name       = "aws"
-  member_id  = zerotier_identity.instances["aws"].id
-  network_id = module.backplane.id
+  name           = "aws"
+  member_id      = zerotier_identity.instances["aws"].id
+  network_id     = module.backplane.id
+  ip_assignments = ["10.4.3.2"]
 }
 
 module "aws" {
@@ -158,15 +148,17 @@ module "aws" {
 # #
 
 # resource "zerotier_member" "gcp-frontplane" {
-#   name       = "gcp"
-#   member_id  = zerotier_identity.instances["gcp"].id
-#   network_id = module.frontplane.id
+#   name           = "gcp"
+#   member_id      = zerotier_identity.instances["gcp"].id
+#   network_id     = module.frontplane.id
+#   ip_assignments = ["10.4.2.3"]
 # }
 
 # resource "zerotier_member" "gcp-backplane" {
-#   name       = "gcp"
-#   member_id  = zerotier_identity.instances["gcp"].id
-#   network_id = module.backplane.id
+#   name           = "gcp"
+#   member_id      = zerotier_identity.instances["gcp"].id
+#   network_id     = module.backplane.id
+#   ip_assignments = ["10.4.3.3"]
 # }
 
 # module "gcp" {
@@ -196,15 +188,17 @@ module "aws" {
 # #
 
 # resource "zerotier_member" "azu-frontplane" {
-#   name       = "azu"
-#   member_id  = zerotier_identity.instances["azu"].id
-#   network_id = module.frontplane.id
+#   name           = "azu"
+#   member_id      = zerotier_identity.instances["azu"].id
+#   network_id     = module.frontplane.id
+#   ip_assignments = ["10.4.2.4"]
 # }
 
 # resource "zerotier_member" "azu-backplane" {
-#   name       = "azu"
-#   member_id  = zerotier_identity.instances["azu"].id
-#   network_id = module.backplane.id
+#   name           = "azu"
+#   member_id      = zerotier_identity.instances["azu"].id
+#   network_id     = module.backplane.id
+#   ip_assignments = ["10.4.3.4"]
 # }
 
 # module "azu" {
