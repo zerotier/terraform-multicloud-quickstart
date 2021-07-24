@@ -13,7 +13,7 @@ resource "zerotier_identity" "instances" {
 }
 
 module "frontplane" {
-  source      = "./modules/terraform-zerotier-network"
+  source      = "./modules/network"
   name        = "demo.lab"
   description = "ZeroTier Demo Lab"
   subnets     = ["10.4.2.0/24"]
@@ -28,7 +28,7 @@ module "frontplane" {
 }
 
 module "backplane" {
-  source      = "./modules/terraform-zerotier-network"
+  source      = "./modules/network"
   name        = "demo.lan"
   description = "ZeroTier Demo Backplane"
   subnets     = ["10.4.3.0/24"]
