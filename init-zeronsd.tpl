@@ -48,7 +48,7 @@ systemctl daemon-reload
 
 %{ for zt_net in zt_networks }
 systemctl enable zeronsd-${zt_net.id}
-systemctl start zeronsd-${zt_net.id}
+systemctl restart zeronsd-${zt_net.id}
 %{ endfor ~}
 
 echo "-- Kernel IP forwarding --"
@@ -113,5 +113,22 @@ echo \
 apt-get -qq update
 apt-get -qq install docker-ce docker-ce-cli containerd.io docker-compose
 
-echo "-- Nginx Hello  --"
-docker run -d -it --rm -p 80:80 nginxdemos/hello
+
+echo "-- ZeroTier 6PLANE Docker Networks  --"
+
+ZT_IDENT="$(cat /var/lib/zerotier-one/identity.public | cut -f 1 -d :)"
+
+%{ for zt_net in zt_networks }
+LOWER=$(echo ${zt_net.id} | cut -c 1-8)
+UPPER=$(echo ${zt_net.id} | cut -c 9-16)
+PREFIX=$(printf 'fc%x\n' $(( 0x$LOWER ^ 0x$UPPER )))
+SIXPLANE=$(echo "$${PREFIX}$${ZT_IDENT}" | sed 's/.\{4\}/&:/g' | awk -F":" '{ print $1":"$2":"$3":"$4":"$5"::/80" }')
+
+docker network create --ipv6 --subnet $${SIXPLANE} ${zt_net.dnsdomain}
+%{ endfor ~}
+
+%{ for zt_net in zt_networks }
+
+echo "-- Nginx Hello --"
+docker run -d -it --rm -p ${zt_net.ipv4}:80:80 --network ${zt_net.dnsdomain} nginxdemos/hello
+%{ endfor ~}

@@ -90,12 +90,14 @@ module "do" {
   dnsdomain = module.frontplane.name
   zt_networks = {
     frontplane = {
-      id        = module.frontplane.id
-      dnsdomain = module.frontplane.name
+      id             = module.frontplane.id
+      dnsdomain      = module.frontplane.name
+      ipv4           = resource.zerotier_member.do-frontplane.ip_assignments[0]
     }
     backplane = {
-      id        = module.backplane.id
-      dnsdomain = module.backplane.name
+      id             = module.backplane.id
+      dnsdomain      = module.backplane.name
+      ipv4           = resource.zerotier_member.do-backplane.ip_assignments[0]
     }
   }
   zt_identity = zerotier_identity.instances["do"]
@@ -134,12 +136,14 @@ module "aws" {
   dnsdomain = module.frontplane.name
   zt_networks = {
     frontplane = {
-      id        = module.frontplane.id
-      dnsdomain = module.frontplane.name
+      id             = module.frontplane.id
+      dnsdomain      = module.frontplane.name
+      ipv4           = resource.zerotier_member.aws-frontplane.ip_assignments[0]
     }
     backplane = {
-      id        = module.backplane.id
-      dnsdomain = module.backplane.name
+      id             = module.backplane.id
+      dnsdomain      = module.backplane.name
+      ipv4           = resource.zerotier_member.aws-backplane.ip_assignments[0]
     }
   }
   zt_identity = zerotier_identity.instances["aws"]
@@ -147,25 +151,25 @@ module "aws" {
   script      = "init-common.tpl"
 }
 
-#
-# Google Compute Platform
-#
+# #
+# # Google Compute Platform
+# #
 
-resource "zerotier_member" "gcp-frontplane" {
-  name           = "gcp"
-  description    = "Google Compute Platform"
-  member_id      = zerotier_identity.instances["gcp"].id
-  network_id     = module.frontplane.id
-  ip_assignments = ["10.4.2.3"]
-}
+# resource "zerotier_member" "gcp-frontplane" {
+#   name           = "gcp"
+#   description    = "Google Compute Platform"
+#   member_id      = zerotier_identity.instances["gcp"].id
+#   network_id     = module.frontplane.id
+#   ip_assignments = ["10.4.2.3"]
+# }
 
-resource "zerotier_member" "gcp-backplane" {
-  name           = "gcp"
-  description    = "Google Compute Platform"
-  member_id      = zerotier_identity.instances["gcp"].id
-  network_id     = module.backplane.id
-  ip_assignments = ["10.4.3.3"]
-}
+# resource "zerotier_member" "gcp-backplane" {
+#   name           = "gcp"
+#   description    = "Google Compute Platform"
+#   member_id      = zerotier_identity.instances["gcp"].id
+#   network_id     = module.backplane.id
+#   ip_assignments = ["10.4.3.3"]
+# }
 
 # module "gcp" {
 #   source        = "./modules/gcp"
@@ -176,12 +180,14 @@ resource "zerotier_member" "gcp-backplane" {
 #   dnsdomain     = module.frontplane.name
 #   zt_networks = {
 #     frontplane = {
-#       id        = module.frontplane.id
-#       dnsdomain = module.frontplane.name
+#       id             = module.frontplane.id
+#       dnsdomain      = module.frontplane.name
+#       ip_assignments = resource.gcp-frontplane.ip_assignments
 #     }
 #     backplane = {
-#       id        = module.backplane.id
-#       dnsdomain = module.backplane.name
+#       id             = module.backplane.id
+#       dnsdomain      = module.backplane.name
+#       ip_assignments = resource.gcp-backplane.ip_assignments
 #     }
 #   }
 #   zt_identity = zerotier_identity.instances["gcp"]
@@ -189,25 +195,25 @@ resource "zerotier_member" "gcp-backplane" {
 #   script      = "init-common.tpl"
 # }
 
-#
-# Microsoft Azure
-#
+# #
+# # Microsoft Azure
+# #
 
-resource "zerotier_member" "azu-frontplane" {
-  name           = "azu"
-  description    = "Microsoft Azure"
-  member_id      = zerotier_identity.instances["azu"].id
-  network_id     = module.frontplane.id
-  ip_assignments = ["10.4.2.4"]
-}
+# resource "zerotier_member" "azu-frontplane" {
+#   name           = "azu"
+#   description    = "Microsoft Azure"
+#   member_id      = zerotier_identity.instances["azu"].id
+#   network_id     = module.frontplane.id
+#   ip_assignments = ["10.4.2.4"]
+# }
 
-resource "zerotier_member" "azu-backplane" {
-  name           = "azu"
-  description    = "Microsoft Azure"
-  member_id      = zerotier_identity.instances["azu"].id
-  network_id     = module.backplane.id
-  ip_assignments = ["10.4.3.4"]
-}
+# resource "zerotier_member" "azu-backplane" {
+#   name           = "azu"
+#   description    = "Microsoft Azure"
+#   member_id      = zerotier_identity.instances["azu"].id
+#   network_id     = module.backplane.id
+#   ip_assignments = ["10.4.3.4"]
+# }
 
 # module "azu" {
 #   source              = "./modules/azu"
@@ -218,12 +224,14 @@ resource "zerotier_member" "azu-backplane" {
 #   dnsdomain           = module.frontplane.name
 #   zt_networks = {
 #     frontplane = {
-#       id        = module.frontplane.id
-#       dnsdomain = module.frontplane.name
+#       id             = module.frontplane.id
+#       dnsdomain      = module.frontplane.name
+#       ip_assignments = resource.azu-frontplane.ip_assignments
 #     }
 #     backplane = {
-#       id        = module.backplane.id
-#       dnsdomain = module.backplane.name
+#       id             = module.backplane.id
+#       dnsdomain      = module.backplane.name
+#       ip_assignments = resource.azu-backplane.ip_assignments
 #     }
 #   }
 #   zt_identity = zerotier_identity.instances["azu"]

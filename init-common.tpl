@@ -104,7 +104,7 @@ SIXPLANE=$(echo "$${PREFIX}$${ZT_IDENT}" | sed 's/.\{4\}/&:/g' | awk -F":" '{ pr
 docker network create --ipv6 --subnet $${SIXPLANE} ${zt_net.dnsdomain}
 %{ endfor ~}
 
-echo "-- Nginx Hello --"
 %{ for zt_net in zt_networks }
-docker run -d -it --rm -p 80:80 --network=${zt_net.dnsdomain} nginxdemos/hello
+echo "-- Nginx Hello --"
+docker run -d -it --rm -p ${zt_net.ipv4}:80:80 --network ${zt_net.dnsdomain} nginxdemos/hello
 %{ endfor ~}
