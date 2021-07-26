@@ -22,8 +22,8 @@ zerotier-cli join ${zt_net.id}
 
 echo "-- ZeroTier Systemd Manager --"
 
-wget https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.1.9/zerotier-systemd-manager_0.1.9_linux_amd64.deb
-dpkg -i zerotier-systemd-manager_0.1.9_linux_amd64.deb
+wget https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.2.0/zerotier-systemd-manager_0.2.0_linux_amd64.deb
+dpkg -i zerotier-systemd-manager_0.2.0_linux_amd64.deb
 systemctl daemon-reload
 systemctl restart zerotier-one
 systemctl enable zerotier-systemd-manager.timer
