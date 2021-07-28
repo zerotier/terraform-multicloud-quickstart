@@ -129,7 +129,6 @@ docker network create --ipv6 --subnet $${SIXPLANE} ${zt_net.dnsdomain}
 %{ endfor ~}
 
 %{ for zt_net in zt_networks }
-
 echo "-- Nginx Hello --"
 docker run -d -it --rm -p ${zt_net.ipv4}:80:80 --network ${zt_net.dnsdomain} nginxdemos/hello
 %{ endfor ~}

@@ -1,8 +1,7 @@
 
 output "networks" {
   value = {
-    frontplane = module.frontplane.id
-    backplane  = module.backplane.id
+    quickstart = zerotier_network.quickstart.id
   }
 }
 

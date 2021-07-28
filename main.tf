@@ -1,7 +1,10 @@
-
 #
 # ZeroTier Central
 #
+
+resource "zerotier_token" "this" {
+  name = "quickstart"
+}
 
 resource "zerotier_identity" "instances" {
   for_each = { for i in [
@@ -12,30 +15,20 @@ resource "zerotier_identity" "instances" {
   ] : i => (i) }
 }
 
-module "frontplane" {
-  source      = "./modules/network"
-  name        = "demo.lab"
-  description = "ZeroTier Demo Lab"
-  subnets     = ["10.4.2.0/24"]
-  assign_ipv6 = {
+resource "zerotier_network" "quickstart" {
+  name        = "quickstart.lab"
+  description = "ZeroTier Terraform Quickstart"
+  assignment_pool {
+    start = "10.4.2.1/24"
+    end   = "10.4.2.254/24"
+  }
+  assign_ipv6 {
     zerotier = true
     sixplane = true
     rfc4193  = true
   }
-  flow_rules = templatefile("${path.module}/flow_rules.tpl", {
-    ethertap = zerotier_identity.instances["do"].id
-  })
-}
-
-module "backplane" {
-  source      = "./modules/network"
-  name        = "demo.lan"
-  description = "ZeroTier Demo Backplane"
-  subnets     = ["10.4.3.0/24"]
-  assign_ipv6 = {
-    zerotier = true
-    sixplane = true
-    rfc4193  = true
+  route {
+    target = "10.4.2.0/24"
   }
   flow_rules = templatefile("${path.module}/flow_rules.tpl", {
     ethertap = zerotier_identity.instances["aws"].id
@@ -46,40 +39,24 @@ module "backplane" {
 # People
 #
 
-resource "zerotier_member" "people-frontplane" {
+resource "zerotier_member" "people" {
   for_each    = var.people
   name        = each.key
   member_id   = each.value.member_id
   description = each.value.description
-  network_id  = module.frontplane.id
-}
-
-resource "zerotier_member" "people-backplane" {
-  for_each    = var.people
-  name        = each.key
-  member_id   = each.value.member_id
-  description = each.value.description
-  network_id  = module.backplane.id
+  network_id  = zerotier_network.quickstart.id
 }
 
 #
 # Digital Ocean
 #
 
-resource "zerotier_member" "do-frontplane" {
+resource "zerotier_member" "do" {
   name           = "do"
   description    = "Digital Ocean"
   member_id      = zerotier_identity.instances["do"].id
-  network_id     = module.frontplane.id
+  network_id     = zerotier_network.quickstart.id
   ip_assignments = ["10.4.2.1"]
-}
-
-resource "zerotier_member" "do-backplane" {
-  name           = "do"
-  description    = "Digital Ocean"
-  member_id      = zerotier_identity.instances["do"].id
-  network_id     = module.backplane.id
-  ip_assignments = ["10.4.3.1"]
 }
 
 module "do" {
@@ -87,22 +64,17 @@ module "do" {
   name      = "do"
   image     = "ubuntu-20-04-x64"
   region    = "fra1"
-  dnsdomain = module.frontplane.name
+  dnsdomain = zerotier_network.quickstart.name
   zt_networks = {
-    frontplane = {
-      id        = module.frontplane.id
-      dnsdomain = module.frontplane.name
-      ipv4      = resource.zerotier_member.do-frontplane.ip_assignments[0]
-    }
-    backplane = {
-      id        = module.backplane.id
-      dnsdomain = module.backplane.name
-      ipv4      = resource.zerotier_member.do-backplane.ip_assignments[0]
+    quickstart = {
+      id        = zerotier_network.quickstart.id
+      dnsdomain = zerotier_network.quickstart.name
+      ipv4      = resource.zerotier_member.do.ip_assignments[0]
     }
   }
   zt_identity = zerotier_identity.instances["do"]
   svc         = var.svc
-  zt_token    = var.zt_token
+  zt_token    = zerotier_token.this.token
   script      = "init-zeronsd.tpl"
 }
 
@@ -110,20 +82,12 @@ module "do" {
 # Amazon Web Services
 #
 
-resource "zerotier_member" "aws-frontplane" {
+resource "zerotier_member" "aws" {
   name           = "aws"
   description    = "Amazon Web Services"
   member_id      = zerotier_identity.instances["aws"].id
-  network_id     = module.frontplane.id
+  network_id     = zerotier_network.quickstart.id
   ip_assignments = ["10.4.2.2"]
-}
-
-resource "zerotier_member" "aws-backplane" {
-  name           = "aws"
-  description    = "Amazon Web Services"
-  member_id      = zerotier_identity.instances["aws"].id
-  network_id     = module.backplane.id
-  ip_assignments = ["10.4.3.2"]
 }
 
 module "aws" {
@@ -131,19 +95,13 @@ module "aws" {
   name              = "aws"
   cidr_block        = "192.168.0.0/16"
   availability_zone = "us-east-2a"
-  # instance_type     = "t3.micro"
-  instance_type = "t3.medium"
-  dnsdomain     = module.frontplane.name
+  instance_type     = "t3.micro"
+  dnsdomain     = zerotier_network.quickstart.name
   zt_networks = {
-    frontplane = {
-      id        = module.frontplane.id
-      dnsdomain = module.frontplane.name
-      ipv4      = resource.zerotier_member.aws-frontplane.ip_assignments[0]
-    }
-    backplane = {
-      id        = module.backplane.id
-      dnsdomain = module.backplane.name
-      ipv4      = resource.zerotier_member.aws-backplane.ip_assignments[0]
+    quickstart = {
+      id        = zerotier_network.quickstart.id
+      dnsdomain = zerotier_network.quickstart.name
+      ipv4      = resource.zerotier_member.aws.ip_assignments[0]
     }
   }
   zt_identity = zerotier_identity.instances["aws"]
@@ -151,90 +109,65 @@ module "aws" {
   script      = "init-common.tpl"
 }
 
-#
-# Google Compute Platform
-#
+# #
+# # Google Compute Platform
+# #
 
-resource "zerotier_member" "gcp-frontplane" {
-  name           = "gcp"
-  description    = "Google Compute Platform"
-  member_id      = zerotier_identity.instances["gcp"].id
-  network_id     = module.frontplane.id
-  ip_assignments = ["10.4.2.3"]
-}
+# resource "zerotier_member" "gcp" {
+#   name           = "gcp"
+#   description    = "Google Compute Platform"
+#   member_id      = zerotier_identity.instances["gcp"].id
+#   network_id     = zerotier_network.quickstart.id
+#   ip_assignments = ["10.4.2.3"]
+# }
 
-resource "zerotier_member" "gcp-backplane" {
-  name           = "gcp"
-  description    = "Google Compute Platform"
-  member_id      = zerotier_identity.instances["gcp"].id
-  network_id     = module.backplane.id
-  ip_assignments = ["10.4.3.3"]
-}
 
-module "gcp" {
-  source        = "./modules/gcp"
-  name          = "gcp"
-  ip_cidr_range = "192.168.0.0/16"
-  region        = "europe-west4"
-  zone          = "europe-west4-a"
-  dnsdomain     = module.frontplane.name
-  zt_networks = {
-    frontplane = {
-      id        = module.frontplane.id
-      dnsdomain = module.frontplane.name
-      ipv4      = resource.zerotier_member.gcp-frontplane.ip_assignments[0]
-    }
-    backplane = {
-      id        = module.backplane.id
-      dnsdomain = module.backplane.name
-      ipv4      = resource.zerotier_member.gcp-backplane.ip_assignments[0]
-    }
-  }
-  zt_identity = zerotier_identity.instances["gcp"]
-  svc         = var.svc
-  script      = "init-common.tpl"
-}
+# module "gcp" {
+#   source        = "./modules/gcp"
+#   name          = "gcp"
+#   ip_cidr_range = "192.168.0.0/16"
+#   region        = "europe-west4"
+#   zone          = "europe-west4-a"
+#   dnsdomain     = zerotier_network.quickstart.name
+#   zt_networks = {
+#     quickstart = {
+#       id        = zerotier_network.quickstart.id
+#       dnsdomain = zerotier_network.quickstart.name
+#       ipv4      = resource.zerotier_member.gcp.ip_assignments[0]
+#     }
+#   }
+#   zt_identity = zerotier_identity.instances["gcp"]
+#   svc         = var.svc
+#   script      = "init-common.tpl"
+# }
 
-#
-# Microsoft Azure
-#
+# #
+# # Microsoft Azure
+# #
 
-resource "zerotier_member" "azu-frontplane" {
-  name           = "azu"
-  description    = "Microsoft Azure"
-  member_id      = zerotier_identity.instances["azu"].id
-  network_id     = module.frontplane.id
-  ip_assignments = ["10.4.2.4"]
-}
+# resource "zerotier_member" "azu" {
+#   name           = "azu"
+#   description    = "Microsoft Azure"
+#   member_id      = zerotier_identity.instances["azu"].id
+#   network_id     = zerotier_network.quickstart.id
+#   ip_assignments = ["10.4.2.4"]
+# }
 
-resource "zerotier_member" "azu-backplane" {
-  name           = "azu"
-  description    = "Microsoft Azure"
-  member_id      = zerotier_identity.instances["azu"].id
-  network_id     = module.backplane.id
-  ip_assignments = ["10.4.3.4"]
-}
-
-module "azu" {
-  source              = "./modules/azu"
-  name                = "azu"
-  address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
-  v4_address_prefixes = ["192.168.1.0/24"]
-  v6_address_prefixes = ["ace:cab:deca:deed::/64"]
-  dnsdomain           = module.frontplane.name
-  zt_networks = {
-    frontplane = {
-      id        = module.frontplane.id
-      dnsdomain = module.frontplane.name
-      ipv4      = resource.zerotier_member.azu-frontplane.ip_assignments[0]
-    }
-    backplane = {
-      id        = module.backplane.id
-      dnsdomain = module.backplane.name
-      ipv4      = resource.zerotier_member.azu-backplane.ip_assignments[0]
-    }
-  }
-  zt_identity = zerotier_identity.instances["azu"]
-  svc         = var.svc
-  script      = "init-common.tpl"
-}
+# module "azu" {
+#   source              = "./modules/azu"
+#   name                = "azu"
+#   address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
+#   v4_address_prefixes = ["192.168.1.0/24"]
+#   v6_address_prefixes = ["ace:cab:deca:deed::/64"]
+#   dnsdomain           = zerotier_network.quickstart.name
+#   zt_networks = {
+#     quickstart = {
+#       id        = zerotier_network.quickstart.id
+#       dnsdomain = zerotier_network.quickstart.name
+#       ipv4      = resource.zerotier_member.azu.ip_assignments[0]
+#     }
+#   }
+#   zt_identity = zerotier_identity.instances["azu"]
+#   svc         = var.svc
+#   script      = "init-common.tpl"
+# }

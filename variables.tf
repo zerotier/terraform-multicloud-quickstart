@@ -7,10 +7,6 @@ variable "svc" {
   }
 }
 
-variable "zt_token" {
-  default = "kD4OJXIHvP72MZyOyI0eKIuT7xc3W59x"
-}
-
 variable "people" {
   default = {
     # api = {
