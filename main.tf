@@ -16,7 +16,7 @@ resource "zerotier_identity" "instances" {
 }
 
 resource "zerotier_network" "quickstart" {
-  name        = "quickstart.lab"
+  name        = "demo.lab"
   description = "ZeroTier Terraform Quickstart"
   assignment_pool {
     start = "10.4.2.1/24"
@@ -109,65 +109,65 @@ module "aws" {
   script      = "init-common.tpl"
 }
 
-# #
-# # Google Compute Platform
-# #
+#
+# Google Compute Platform
+#
 
-# resource "zerotier_member" "gcp" {
-#   name           = "gcp"
-#   description    = "Google Compute Platform"
-#   member_id      = zerotier_identity.instances["gcp"].id
-#   network_id     = zerotier_network.quickstart.id
-#   ip_assignments = ["10.4.2.3"]
-# }
+resource "zerotier_member" "gcp" {
+  name           = "gcp"
+  description    = "Google Compute Platform"
+  member_id      = zerotier_identity.instances["gcp"].id
+  network_id     = zerotier_network.quickstart.id
+  ip_assignments = ["10.4.2.3"]
+}
 
 
-# module "gcp" {
-#   source        = "./modules/gcp"
-#   name          = "gcp"
-#   ip_cidr_range = "192.168.0.0/16"
-#   region        = "europe-west4"
-#   zone          = "europe-west4-a"
-#   dnsdomain     = zerotier_network.quickstart.name
-#   zt_networks = {
-#     quickstart = {
-#       id        = zerotier_network.quickstart.id
-#       dnsdomain = zerotier_network.quickstart.name
-#       ipv4      = resource.zerotier_member.gcp.ip_assignments[0]
-#     }
-#   }
-#   zt_identity = zerotier_identity.instances["gcp"]
-#   svc         = var.svc
-#   script      = "init-common.tpl"
-# }
+module "gcp" {
+  source        = "./modules/gcp"
+  name          = "gcp"
+  ip_cidr_range = "192.168.0.0/16"
+  region        = "europe-west4"
+  zone          = "europe-west4-a"
+  dnsdomain     = zerotier_network.quickstart.name
+  zt_networks = {
+    quickstart = {
+      id        = zerotier_network.quickstart.id
+      dnsdomain = zerotier_network.quickstart.name
+      ipv4      = resource.zerotier_member.gcp.ip_assignments[0]
+    }
+  }
+  zt_identity = zerotier_identity.instances["gcp"]
+  svc         = var.svc
+  script      = "init-common.tpl"
+}
 
-# #
-# # Microsoft Azure
-# #
+#
+# Microsoft Azure
+#
 
-# resource "zerotier_member" "azu" {
-#   name           = "azu"
-#   description    = "Microsoft Azure"
-#   member_id      = zerotier_identity.instances["azu"].id
-#   network_id     = zerotier_network.quickstart.id
-#   ip_assignments = ["10.4.2.4"]
-# }
+resource "zerotier_member" "azu" {
+  name           = "azu"
+  description    = "Microsoft Azure"
+  member_id      = zerotier_identity.instances["azu"].id
+  network_id     = zerotier_network.quickstart.id
+  ip_assignments = ["10.4.2.4"]
+}
 
-# module "azu" {
-#   source              = "./modules/azu"
-#   name                = "azu"
-#   address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
-#   v4_address_prefixes = ["192.168.1.0/24"]
-#   v6_address_prefixes = ["ace:cab:deca:deed::/64"]
-#   dnsdomain           = zerotier_network.quickstart.name
-#   zt_networks = {
-#     quickstart = {
-#       id        = zerotier_network.quickstart.id
-#       dnsdomain = zerotier_network.quickstart.name
-#       ipv4      = resource.zerotier_member.azu.ip_assignments[0]
-#     }
-#   }
-#   zt_identity = zerotier_identity.instances["azu"]
-#   svc         = var.svc
-#   script      = "init-common.tpl"
-# }
+module "azu" {
+  source              = "./modules/azu"
+  name                = "azu"
+  address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
+  v4_address_prefixes = ["192.168.1.0/24"]
+  v6_address_prefixes = ["ace:cab:deca:deed::/64"]
+  dnsdomain           = zerotier_network.quickstart.name
+  zt_networks = {
+    quickstart = {
+      id        = zerotier_network.quickstart.id
+      dnsdomain = zerotier_network.quickstart.name
+      ipv4      = resource.zerotier_member.azu.ip_assignments[0]
+    }
+  }
+  zt_identity = zerotier_identity.instances["azu"]
+  svc         = var.svc
+  script      = "init-common.tpl"
+}
