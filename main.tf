@@ -19,8 +19,8 @@ resource "zerotier_network" "quickstart" {
   name        = "demo.lab"
   description = "ZeroTier Terraform Quickstart"
   assignment_pool {
-    start = "10.4.2.1/24"
-    end   = "10.4.2.254/24"
+    start = "10.4.2.1"
+    end   = "10.4.2.254"
   }
   assign_ipv6 {
     zerotier = true
