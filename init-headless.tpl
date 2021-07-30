@@ -12,42 +12,6 @@ function apt-get() {
 }
 export DEBIAN_FRONTEND=noninteractive
 
-echo "-- ZeroTier --"
-
-curl -s https://install.zerotier.com | bash
-
-%{ for zt_net in zt_networks }
-zerotier-cli join ${zt_net.id}
-%{ endfor ~}
-
-echo "-- ZeroTier Systemd Manager --"
-
-wget https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.1.9/zerotier-systemd-manager_0.1.9_linux_amd64.deb
-dpkg -i zerotier-systemd-manager_0.1.9_linux_amd64.deb
-systemctl daemon-reload
-systemctl enable zerotier-systemd-manager.timer
-systemctl restart zerotier-systemd-manager.timer
-
-echo "-- Kernel IP forwarding --"
-# TODO - figure out how to do this properly w/systemd
-sysctl net.ipv4.ip_forward=1
-sysctl net.ipv4.conf.all.forwarding=1
-sysctl net.ipv6.conf.all.forwarding=1
-
-echo "net.ipv4.conf.all.forwarding=1" > /etc/sysctl.d/21-net.net.ipv4.conf.all.forwarding.conf
-echo "net.ipv6.conf.all.forwarding=1" > /etc/sysctl.d/21-net.net.ipv6.conf.all.forwarding.conf
-systemctl restart systemd-sysctl.service
-
-echo "-- Configuring NAT --."
-mosdef=$(ip route | grep ^default | awk '{ print $5 }')
-
-for i in $(ls /sys/class/net | grep $mosdef) ; do
-    echo "* IPv4 Masquerade on $${i} ..."
-    iptables -t nat -A POSTROUTING -o "$${i}" -j MASQUERADE
-    echo "* IPv6 Masquerade on $${i} ..."
-    ip6tables -t nat -A POSTROUTING -o "$${i}" -j MASQUERADE
-done
-
 echo "-- Various Packages --"
 
 apt-get -qq update &>/dev/null

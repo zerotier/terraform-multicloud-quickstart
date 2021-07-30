@@ -25,9 +25,8 @@ echo "-- ZeroTier Systemd Manager --"
 wget https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.2.0/zerotier-systemd-manager_0.2.0_linux_amd64.deb
 dpkg -i zerotier-systemd-manager_0.2.0_linux_amd64.deb
 systemctl daemon-reload
-systemctl restart zerotier-one
 systemctl enable zerotier-systemd-manager.timer
-systemctl start zerotier-systemd-manager.timer
+systemctl restart zerotier-systemd-manager.timer
 
 echo "-- ZeroTier Central Token --"
 

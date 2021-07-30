@@ -90,20 +90,13 @@ resource "zerotier_member" "aws" {
   ip_assignments = ["10.4.2.2"]
 }
 
-module "aws-vpc" {
-  source            = "./modules/aws-vpc"
+module "aws" {
+  source            = "./modules/aws"
   name              = "aws"
   cidr_block        = "192.168.0.0/16"
   availability_zone = "us-east-2a"
-}
-
-module "aws-instance" {
-  source         = "./modules/aws-instance"
-  name           = "aws"
-  instance_type  = "t3.micro"
-  security_group = module.aws-vpc.security_group
-  subnet         = module.aws-vpc.subnet
-  dnsdomain      = zerotier_network.quickstart.name
+  instance_type     = "t3.micro"
+  dnsdomain         = zerotier_network.quickstart.name
   zt_networks = {
     quickstart = {
       id        = zerotier_network.quickstart.id
@@ -116,14 +109,94 @@ module "aws-instance" {
   script      = "init-common.tpl"
 }
 
+#
+# Google Compute Platform
+#
 
-# module "aws" {
-#   source            = "./modules/aws"
+resource "zerotier_member" "gcp" {
+  name           = "gcp"
+  description    = "Google Compute Platform"
+  member_id      = zerotier_identity.instances["gcp"].id
+  network_id     = zerotier_network.quickstart.id
+  ip_assignments = ["10.4.2.3"]
+}
+
+
+module "gcp" {
+  source        = "./modules/gcp"
+  name          = "gcp"
+  ip_cidr_range = "192.168.0.0/16"
+  region        = "europe-west4"
+  zone          = "europe-west4-a"
+  dnsdomain     = zerotier_network.quickstart.name
+  zt_networks = {
+    quickstart = {
+      id        = zerotier_network.quickstart.id
+      dnsdomain = zerotier_network.quickstart.name
+      ipv4      = resource.zerotier_member.gcp.ip_assignments[0]
+    }
+  }
+  zt_identity = zerotier_identity.instances["gcp"]
+  svc         = var.svc
+  script      = "init-common.tpl"
+}
+
+#
+# Microsoft Azure
+#
+
+resource "zerotier_member" "azu" {
+  name           = "azu"
+  description    = "Microsoft Azure"
+  member_id      = zerotier_identity.instances["azu"].id
+  network_id     = zerotier_network.quickstart.id
+  ip_assignments = ["10.4.2.4"]
+}
+
+module "azu" {
+  source              = "./modules/azu"
+  name                = "azu"
+  address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
+  v4_address_prefixes = ["192.168.1.0/24"]
+  v6_address_prefixes = ["ace:cab:deca:deed::/64"]
+  dnsdomain           = zerotier_network.quickstart.name
+  zt_networks = {
+    quickstart = {
+      id        = zerotier_network.quickstart.id
+      dnsdomain = zerotier_network.quickstart.name
+      ipv4      = resource.zerotier_member.azu.ip_assignments[0]
+    }
+  }
+  zt_identity = zerotier_identity.instances["azu"]
+  svc         = var.svc
+  script      = "init-common.tpl"
+}
+
+###########################################################
+############
+###########################################################
+###########################################################
+###########################################################
+
+#
+# Amazon Web Services
+#
+
+
+# module "aws-vpc" {
+#   source            = "./modules/aws-vpc"
 #   name              = "aws"
 #   cidr_block        = "192.168.0.0/16"
 #   availability_zone = "us-east-2a"
-#   instance_type     = "t3.micro"
-#   dnsdomain         = zerotier_network.quickstart.name
+# }
+
+# module "aws-instance" {
+#   source         = "./modules/aws-instance"
+#   name           = "aws"
+#   instance_type  = "t3.micro"
+#   security_group = module.aws-vpc.security_group
+#   subnet         = module.aws-vpc.subnet
+#   dnsdomain      = zerotier_network.quickstart.name
 #   zt_networks = {
 #     quickstart = {
 #       id        = zerotier_network.quickstart.id
@@ -133,68 +206,24 @@ module "aws-instance" {
 #   }
 #   zt_identity = zerotier_identity.instances["aws"]
 #   svc         = var.svc
-#   script      = "init-common.tpl"
+#   script      = "init-headless.tpl"
 # }
 
-# #
-# # Google Compute Platform
-# #
-
-# resource "zerotier_member" "gcp" {
-#   name           = "gcp"
-#   description    = "Google Compute Platform"
-#   member_id      = zerotier_identity.instances["gcp"].id
-#   network_id     = zerotier_network.quickstart.id
-#   ip_assignments = ["10.4.2.3"]
-# }
-
-
-# module "gcp" {
-#   source        = "./modules/gcp"
-#   name          = "gcp"
-#   ip_cidr_range = "192.168.0.0/16"
-#   region        = "europe-west4"
-#   zone          = "europe-west4-a"
-#   dnsdomain     = zerotier_network.quickstart.name
+# module "aws-instance-zt" {
+#   source         = "./modules/aws-instance-zt"
+#   name           = "aws-zt"
+#   instance_type  = "t3.micro"
+#   security_group = module.aws-vpc.security_group
+#   subnet         = module.aws-vpc.subnet
+#   dnsdomain      = zerotier_network.quickstart.name
 #   zt_networks = {
 #     quickstart = {
 #       id        = zerotier_network.quickstart.id
 #       dnsdomain = zerotier_network.quickstart.name
-#       ipv4      = resource.zerotier_member.gcp.ip_assignments[0]
+#       ipv4      = resource.zerotier_member.aws.ip_assignments[0]
 #     }
 #   }
-#   zt_identity = zerotier_identity.instances["gcp"]
-#   svc         = var.svc
-#   script      = "init-common.tpl"
-# }
-
-# #
-# # Microsoft Azure
-# #
-
-# resource "zerotier_member" "azu" {
-#   name           = "azu"
-#   description    = "Microsoft Azure"
-#   member_id      = zerotier_identity.instances["azu"].id
-#   network_id     = zerotier_network.quickstart.id
-#   ip_assignments = ["10.4.2.4"]
-# }
-
-# module "azu" {
-#   source              = "./modules/azu"
-#   name                = "azu"
-#   address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
-#   v4_address_prefixes = ["192.168.1.0/24"]
-#   v6_address_prefixes = ["ace:cab:deca:deed::/64"]
-#   dnsdomain           = zerotier_network.quickstart.name
-#   zt_networks = {
-#     quickstart = {
-#       id        = zerotier_network.quickstart.id
-#       dnsdomain = zerotier_network.quickstart.name
-#       ipv4      = resource.zerotier_member.azu.ip_assignments[0]
-#     }
-#   }
-#   zt_identity = zerotier_identity.instances["azu"]
+#   zt_identity = zerotier_identity.instances["aws"]
 #   svc         = var.svc
 #   script      = "init-common.tpl"
 # }
