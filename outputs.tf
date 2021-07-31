@@ -1,7 +1,7 @@
 
 output "networks" {
   value = {
-    quickstart = zerotier_network.quickstart.id
+    demolab = zerotier_network.demolab.id
   }
 }
 

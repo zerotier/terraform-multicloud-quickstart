@@ -11,3 +11,7 @@ provider "google" {
 provider "azurerm" {
   features {}
 }
+
+provider "ibm" {
+  region = "us-south"
+}
