@@ -100,6 +100,7 @@ apt-get -qq install \
         tshark \
         nmap \
         avahi-utils \
+        cups-client \
         &>/dev/null
 
 echo "-- Docker --"
