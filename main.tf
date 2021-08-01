@@ -52,32 +52,32 @@ resource "zerotier_member" "people" {
 # Digital Ocean
 #
 
-resource "zerotier_member" "do" {
-  name           = "do"
-  description    = "Digital Ocean"
-  member_id      = zerotier_identity.instances["do"].id
-  network_id     = zerotier_network.demolab.id
-  ip_assignments = ["10.4.2.1"]
-}
+# resource "zerotier_member" "do" {
+#   name           = "do"
+#   description    = "Digital Ocean"
+#   member_id      = zerotier_identity.instances["do"].id
+#   network_id     = zerotier_network.demolab.id
+#   ip_assignments = ["10.4.2.1"]
+# }
 
-module "do" {
-  source    = "./modules/do"
-  name      = "do"
-  image     = "ubuntu-20-04-x64"
-  region    = "fra1"
-  dnsdomain = zerotier_network.demolab.name
-  zt_networks = {
-    demolab = {
-      id        = zerotier_network.demolab.id
-      dnsdomain = zerotier_network.demolab.name
-      ipv4      = resource.zerotier_member.do.ip_assignments[0]
-    }
-  }
-  zt_identity = zerotier_identity.instances["do"]
-  svc         = var.svc
-  zt_token    = zerotier_token.this.token
-  script      = "init-zeronsd.tpl"
-}
+# module "do" {
+#   source    = "./modules/do"
+#   name      = "do"
+#   image     = "ubuntu-20-04-x64"
+#   region    = "fra1"
+#   dnsdomain = zerotier_network.demolab.name
+#   zt_networks = {
+#     demolab = {
+#       id        = zerotier_network.demolab.id
+#       dnsdomain = zerotier_network.demolab.name
+#       ipv4      = resource.zerotier_member.do.ip_assignments[0]
+#     }
+#   }
+#   zt_identity = zerotier_identity.instances["do"]
+#   svc         = var.svc
+#   zt_token    = zerotier_token.this.token
+#   script      = "init-zeronsd.tpl"
+# }
 
 #
 # Amazon Web Services
@@ -107,68 +107,70 @@ module "aws" {
   }
   zt_identity = zerotier_identity.instances["aws"]
   svc         = var.svc
-  script      = "init-common.tpl"
+  zt_token    = zerotier_token.this.token
+  script      = "init-zeronsd.tpl"
+  # script      = "init-common.tpl"
 }
 
-#
-# Google Compute Platform
-#
+# #
+# # Google Compute Platform
+# #
 
-resource "zerotier_member" "gcp" {
-  name           = "gcp"
-  description    = "Google Compute Platform"
-  member_id      = zerotier_identity.instances["gcp"].id
-  network_id     = zerotier_network.demolab.id
-  ip_assignments = ["10.4.2.3"]
-}
+# resource "zerotier_member" "gcp" {
+#   name           = "gcp"
+#   description    = "Google Compute Platform"
+#   member_id      = zerotier_identity.instances["gcp"].id
+#   network_id     = zerotier_network.demolab.id
+#   ip_assignments = ["10.4.2.3"]
+# }
 
 
-module "gcp" {
-  source        = "./modules/gcp"
-  name          = "gcp"
-  ip_cidr_range = "192.168.0.0/16"
-  region        = "europe-west4"
-  zone          = "europe-west4-a"
-  dnsdomain     = zerotier_network.demolab.name
-  zt_networks = {
-    demolab = {
-      id        = zerotier_network.demolab.id
-      dnsdomain = zerotier_network.demolab.name
-      ipv4      = resource.zerotier_member.gcp.ip_assignments[0]
-    }
-  }
-  zt_identity = zerotier_identity.instances["gcp"]
-  svc         = var.svc
-  script      = "init-common.tpl"
-}
+# module "gcp" {
+#   source        = "./modules/gcp"
+#   name          = "gcp"
+#   ip_cidr_range = "192.168.0.0/16"
+#   region        = "europe-west4"
+#   zone          = "europe-west4-a"
+#   dnsdomain     = zerotier_network.demolab.name
+#   zt_networks = {
+#     demolab = {
+#       id        = zerotier_network.demolab.id
+#       dnsdomain = zerotier_network.demolab.name
+#       ipv4      = resource.zerotier_member.gcp.ip_assignments[0]
+#     }
+#   }
+#   zt_identity = zerotier_identity.instances["gcp"]
+#   svc         = var.svc
+#   script      = "init-common.tpl"
+# }
 
-#
-# Microsoft Azure
-#
+# #
+# # Microsoft Azure
+# #
 
-resource "zerotier_member" "azu" {
-  name           = "azu"
-  description    = "Microsoft Azure"
-  member_id      = zerotier_identity.instances["azu"].id
-  network_id     = zerotier_network.demolab.id
-  ip_assignments = ["10.4.2.4"]
-}
+# resource "zerotier_member" "azu" {
+#   name           = "azu"
+#   description    = "Microsoft Azure"
+#   member_id      = zerotier_identity.instances["azu"].id
+#   network_id     = zerotier_network.demolab.id
+#   ip_assignments = ["10.4.2.4"]
+# }
 
-module "azu" {
-  source              = "./modules/azu"
-  name                = "azu"
-  address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
-  v4_address_prefixes = ["192.168.1.0/24"]
-  v6_address_prefixes = ["ace:cab:deca:deed::/64"]
-  dnsdomain           = zerotier_network.demolab.name
-  zt_networks = {
-    demolab = {
-      id        = zerotier_network.demolab.id
-      dnsdomain = zerotier_network.demolab.name
-      ipv4      = resource.zerotier_member.azu.ip_assignments[0]
-    }
-  }
-  zt_identity = zerotier_identity.instances["azu"]
-  svc         = var.svc
-  script      = "init-common.tpl"
-}
+# module "azu" {
+#   source              = "./modules/azu"
+#   name                = "azu"
+#   address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
+#   v4_address_prefixes = ["192.168.1.0/24"]
+#   v6_address_prefixes = ["ace:cab:deca:deed::/64"]
+#   dnsdomain           = zerotier_network.demolab.name
+#   zt_networks = {
+#     demolab = {
+#       id        = zerotier_network.demolab.id
+#       dnsdomain = zerotier_network.demolab.name
+#       ipv4      = resource.zerotier_member.azu.ip_assignments[0]
+#     }
+#   }
+#   zt_identity = zerotier_identity.instances["azu"]
+#   svc         = var.svc
+#   script      = "init-common.tpl"
+# }
