@@ -40,11 +40,12 @@ resource "zerotier_network" "demolab" {
 #
 
 resource "zerotier_member" "people" {
-  for_each    = var.people
-  name        = each.key
-  member_id   = each.value.member_id
-  description = each.value.description
-  network_id  = zerotier_network.demolab.id
+  for_each                = var.people
+  name                    = each.key
+  member_id               = each.value.member_id
+  description             = each.value.description
+  network_id              = zerotier_network.demolab.id
+  allow_ethernet_bridging = true
 }
 
 #
@@ -171,59 +172,3 @@ module "azu" {
   svc         = var.svc
   script      = "init-common.tpl"
 }
-
-###########################################################
-############
-###########################################################
-###########################################################
-###########################################################
-
-#
-# Amazon Web Services
-#
-
-
-# module "aws-vpc" {
-#   source            = "./modules/aws-vpc"
-#   name              = "aws"
-#   cidr_block        = "192.168.0.0/16"
-#   availability_zone = "us-east-2a"
-# }
-
-# module "aws-instance" {
-#   source         = "./modules/aws-instance"
-#   name           = "aws"
-#   instance_type  = "t3.micro"
-#   security_group = module.aws-vpc.security_group
-#   subnet         = module.aws-vpc.subnet
-#   dnsdomain      = zerotier_network.demolab.name
-#   zt_networks = {
-#     demolab = {
-#       id        = zerotier_network.demolab.id
-#       dnsdomain = zerotier_network.demolab.name
-#       ipv4      = resource.zerotier_member.aws.ip_assignments[0]
-#     }
-#   }
-#   zt_identity = zerotier_identity.instances["aws"]
-#   svc         = var.svc
-#   script      = "init-headless.tpl"
-# }
-
-# module "aws-instance-zt" {
-#   source         = "./modules/aws-instance-zt"
-#   name           = "aws-zt"
-#   instance_type  = "t3.micro"
-#   security_group = module.aws-vpc.security_group
-#   subnet         = module.aws-vpc.subnet
-#   dnsdomain      = zerotier_network.demolab.name
-#   zt_networks = {
-#     demolab = {
-#       id        = zerotier_network.demolab.id
-#       dnsdomain = zerotier_network.demolab.name
-#       ipv4      = resource.zerotier_member.aws.ip_assignments[0]
-#     }
-#   }
-#   zt_identity = zerotier_identity.instances["aws"]
-#   svc         = var.svc
-#   script      = "init-common.tpl"
-# }

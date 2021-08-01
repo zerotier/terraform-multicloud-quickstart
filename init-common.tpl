@@ -77,7 +77,8 @@ apt-get -qq install \
         scamper \
         tshark \
         nmap \
-       &>/dev/null
+        avahi-utils \
+        &>/dev/null
 
 echo "-- Docker Installation --"
 
