@@ -73,7 +73,7 @@ done
 echo "-- Various Packages --"
 
 apt-get -qq update &>/dev/null
-apt-get -qq upgrade &>/dev/null
+# apt-get -qq upgrade &>/dev/null
 
 apt-get -qq install \
         apt-transport-https \
@@ -99,9 +99,15 @@ apt-get -qq install \
         scamper \
         tshark \
         nmap \
-        avahi-utils \
-        cups-client \
-        &>/dev/null
+    &>/dev/null
+
+echo "-- Printer Demo --"
+
+# apt-get -qq install \
+#         avahi-utils \
+#         cups-daemon \
+#         cups-client \
+#     &>/dev/null
 
 echo "-- Docker --"
 

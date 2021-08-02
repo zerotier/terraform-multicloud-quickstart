@@ -45,39 +45,38 @@ resource "zerotier_member" "people" {
   member_id               = each.value.member_id
   description             = each.value.description
   network_id              = zerotier_network.demolab.id
-  allow_ethernet_bridging = true
 }
 
 #
 # Digital Ocean
 #
 
-# resource "zerotier_member" "do" {
-#   name           = "do"
-#   description    = "Digital Ocean"
-#   member_id      = zerotier_identity.instances["do"].id
-#   network_id     = zerotier_network.demolab.id
-#   ip_assignments = ["10.4.2.1"]
-# }
+resource "zerotier_member" "do" {
+  name           = "do"
+  description    = "Digital Ocean"
+  member_id      = zerotier_identity.instances["do"].id
+  network_id     = zerotier_network.demolab.id
+  ip_assignments = ["10.4.2.1"]
+}
 
-# module "do" {
-#   source    = "./modules/do"
-#   name      = "do"
-#   image     = "ubuntu-20-04-x64"
-#   region    = "fra1"
-#   dnsdomain = zerotier_network.demolab.name
-#   zt_networks = {
-#     demolab = {
-#       id        = zerotier_network.demolab.id
-#       dnsdomain = zerotier_network.demolab.name
-#       ipv4      = resource.zerotier_member.do.ip_assignments[0]
-#     }
-#   }
-#   zt_identity = zerotier_identity.instances["do"]
-#   svc         = var.svc
-#   zt_token    = zerotier_token.this.token
-#   script      = "init-zeronsd.tpl"
-# }
+module "do" {
+  source    = "./modules/do"
+  name      = "do"
+  image     = "ubuntu-20-04-x64"
+  region    = "fra1"
+  dnsdomain = zerotier_network.demolab.name
+  zt_networks = {
+    demolab = {
+      id        = zerotier_network.demolab.id
+      dnsdomain = zerotier_network.demolab.name
+      ipv4      = resource.zerotier_member.do.ip_assignments[0]
+    }
+  }
+  zt_identity = zerotier_identity.instances["do"]
+  svc         = var.svc
+  zt_token    = zerotier_token.this.token
+  script      = "init-zeronsd.tpl"
+}
 
 #
 # Amazon Web Services
@@ -107,9 +106,7 @@ module "aws" {
   }
   zt_identity = zerotier_identity.instances["aws"]
   svc         = var.svc
-  zt_token    = zerotier_token.this.token
-  script      = "init-zeronsd.tpl"
-  # script      = "init-common.tpl"
+  script      = "init-common.tpl"
 }
 
 # #

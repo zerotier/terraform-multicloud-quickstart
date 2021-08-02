@@ -9,10 +9,10 @@ variable "svc" {
 
 variable "people" {
   default = {
-    # api = {
-    #   member_id   = "bcbad4fd5a"
-    #   description = "Adam Ierymenko"
-    # }
+    api = {
+      member_id   = "bcbad4fd5a"
+      description = "Adam Ierymenko"
+    }
     # joseph = {
     #   member_id   = "f55311dff0"
     #   description = "Joseph Henry"
