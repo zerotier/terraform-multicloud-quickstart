@@ -40,11 +40,11 @@ resource "zerotier_network" "demolab" {
 #
 
 resource "zerotier_member" "people" {
-  for_each                = var.people
-  name                    = each.key
-  member_id               = each.value.member_id
-  description             = each.value.description
-  network_id              = zerotier_network.demolab.id
+  for_each    = var.people
+  name        = each.key
+  member_id   = each.value.member_id
+  description = each.value.description
+  network_id  = zerotier_network.demolab.id
 }
 
 #
