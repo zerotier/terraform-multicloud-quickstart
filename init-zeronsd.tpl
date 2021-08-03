@@ -36,8 +36,8 @@ chmod 600 /var/lib/zerotier-one/token
 
 echo "-- ZeroNSD --"
 
-wget https://github.com/zerotier/zeronsd/releases/download/v0.2.3/zeronsd_0.2.3_amd64.deb
-dpkg -i zeronsd_0.2.3_amd64.deb
+wget https://github.com/zerotier/zeronsd/releases/download/v0.2.2/zeronsd_0.2.2_amd64.deb
+dpkg -i zeronsd_0.2.2_amd64.deb
 
 %{ for zt_net in zt_networks }
 zeronsd supervise -t /var/lib/zerotier-one/token -d ${zt_net.dnsdomain} ${zt_net.id}
@@ -47,7 +47,6 @@ systemctl daemon-reload
 
 %{ for zt_net in zt_networks }
 systemctl enable zeronsd-${zt_net.id}
-systemctl start zeronsd-${zt_net.id}
 systemctl restart zeronsd-${zt_net.id}
 %{ endfor ~}
 
