@@ -31,8 +31,7 @@ resource "google_compute_firewall" "this" {
   allow { protocol = "icmp" }
 }
 
-module "instance" {
-  source         = "./modules/instance"
+resource "google_compute_instance" "this" {
   can_ip_forward = true
   machine_type   = var.machine_type
   description    = var.name
@@ -40,12 +39,23 @@ module "instance" {
   name           = var.name
   project        = data.google_project.this.project_id
   zone           = var.zone
-  image          = var.image
-  network_interfaces = [{
+
+  boot_disk {
+    initialize_params {
+      image = var.image
+    }
+  }
+
+  network_interface {
     subnetwork = google_compute_subnetwork.this.id
-    nat_ip     = google_compute_address.this.address
-  }]
-  user_data = data.template_cloudinit_config.gcp.rendered
+    access_config {
+      nat_ip = google_compute_address.this.address
+    }
+  }
+
+  metadata = {
+    user-data = data.template_cloudinit_config.gcp.rendered
+  }
 }
 
 resource "tls_private_key" "gcp" {

@@ -4,8 +4,8 @@ provider "aws" {
 }
 
 provider "google" {
-  region  = "us-central13"
-  project = "lab1-8af32caf"
+  region = "us-central13"
+  #  project = "lab1-8af32caf"
 }
 
 provider "azurerm" {

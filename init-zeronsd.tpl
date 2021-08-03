@@ -47,6 +47,7 @@ systemctl daemon-reload
 
 %{ for zt_net in zt_networks }
 systemctl enable zeronsd-${zt_net.id}
+systemctl start zeronsd-${zt_net.id}
 systemctl restart zeronsd-${zt_net.id}
 %{ endfor ~}
 

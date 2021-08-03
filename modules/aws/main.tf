@@ -108,8 +108,7 @@ data "aws_ami" "this" {
   }
 }
 
-module "instance" {
-  source                 = "./modules/instance"
+resource "aws_instance" "this" {
   ami                    = data.aws_ami.this.id
   instance_type          = var.instance_type
   source_dest_check      = false
@@ -124,7 +123,7 @@ resource "aws_eip" "this" {
 }
 
 resource "aws_eip_association" "eip_assoc" {
-  instance_id   = module.instance.id
+  instance_id   = aws_instance.this.id
   allocation_id = aws_eip.this.id
 }
 

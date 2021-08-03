@@ -1,6 +1,5 @@
 
-module "instance" {
-  source    = "./modules/instance"
+resource "digitalocean_droplet" "this" {
   image     = var.image
   size      = var.size
   name      = var.name
