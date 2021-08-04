@@ -61,6 +61,7 @@ resource "zerotier_member" "do" {
 
 module "do" {
   source    = "./modules/do"
+  for_each  = { for k, b in var.enabled : (k) => k if k == "do" && b }
   name      = "do"
   image     = "ubuntu-20-04-x64"
   region    = "fra1"
@@ -92,6 +93,7 @@ resource "zerotier_member" "aws" {
 
 module "aws" {
   source            = "./modules/aws"
+  for_each          = { for k, b in var.enabled : (k) => k if k == "aws" && b }
   name              = "aws"
   cidr_block        = "192.168.0.0/16"
   availability_zone = "us-east-2a"
@@ -124,6 +126,7 @@ resource "zerotier_member" "gcp" {
 
 module "gcp" {
   source        = "./modules/gcp"
+  for_each      = { for k, b in var.enabled : (k) => k if k == "gcp" && b }
   name          = "gcp"
   ip_cidr_range = "192.168.0.0/16"
   region        = "europe-west4"
@@ -155,6 +158,7 @@ resource "zerotier_member" "azu" {
 
 module "azu" {
   source              = "./modules/azu"
+  for_each            = { for k, b in var.enabled : (k) => k if k == "azu" && b }
   name                = "azu"
   address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
   v4_address_prefixes = ["192.168.1.0/24"]
