@@ -52,15 +52,22 @@ explore the "layer2eyness".
 This quickstart requires the following environmental variables
 
 ```
+# ZeroTier Central
 export ZEROTIER_CENTRAL_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+export ZEROTIER_CENTRAL_URL="https://my.zerotier.com/api"
 
+# Digital Ocean
 export DIGITALOCEAN_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
+# Amazon Web Services
 export AWS_ACCESS_KEY_ID="XXXXXXXXXXXXXXXXXXXX"
 export AWS_SECRET_ACCESS_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
+# Google Compute Platform
 export GOOGLE_CREDENTIALS="$(cat key-downloaded-from-gcp-console.json)"
+export GOOGLE_CLOUD_PROJECT="XXX-XXXXXX"
 
+# Microsoft Azure
 export ARM_SUBSCRIPTION_ID="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 export ARM_TENANT_ID="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 export ARM_CLIENT_ID="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
@@ -68,3 +75,4 @@ export ARM_CLIENT_SECRET="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ```
 
 ![Create a Network](https://i.imgur.com/3GDoBaF.png)
+
