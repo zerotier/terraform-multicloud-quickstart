@@ -2,19 +2,6 @@
 # ZeroTier Central
 #
 
-resource "zerotier_token" "this" {
-  name = "demolab"
-}
-
-resource "zerotier_identity" "instances" {
-  for_each = { for i in [
-    "do",
-    "aws",
-    "gcp",
-    "azu"
-  ] : i => (i) }
-}
-
 resource "zerotier_network" "demolab" {
   name        = "demo.lab"
   description = "ZeroTier Terraform Demolab"
@@ -35,9 +22,14 @@ resource "zerotier_network" "demolab" {
   })
 }
 
-#
-# People
-#
+resource "zerotier_identity" "instances" {
+  for_each = { for i in [
+    "do",
+    "aws",
+    "gcp",
+    "azu"
+  ] : i => (i) }
+}
 
 resource "zerotier_member" "people" {
   for_each    = var.people
@@ -47,16 +39,44 @@ resource "zerotier_member" "people" {
   network_id  = zerotier_network.demolab.id
 }
 
-#
-# Digital Ocean
-#
-
 resource "zerotier_member" "do" {
   name           = "do"
   description    = "Digital Ocean"
   member_id      = zerotier_identity.instances["do"].id
   network_id     = zerotier_network.demolab.id
   ip_assignments = ["10.4.2.1"]
+}
+
+resource "zerotier_member" "aws" {
+  name           = "aws"
+  description    = "Amazon Web Services"
+  member_id      = zerotier_identity.instances["aws"].id
+  network_id     = zerotier_network.demolab.id
+  ip_assignments = ["10.4.2.2"]
+}
+
+resource "zerotier_member" "gcp" {
+  name           = "gcp"
+  description    = "Google Compute Platform"
+  member_id      = zerotier_identity.instances["gcp"].id
+  network_id     = zerotier_network.demolab.id
+  ip_assignments = ["10.4.2.3"]
+}
+
+resource "zerotier_member" "azu" {
+  name           = "azu"
+  description    = "Microsoft Azure"
+  member_id      = zerotier_identity.instances["azu"].id
+  network_id     = zerotier_network.demolab.id
+  ip_assignments = ["10.4.2.4"]
+}
+
+#
+# Digital Ocean
+#
+
+resource "zerotier_token" "this" {
+  name = "demolab"
 }
 
 module "do" {
@@ -83,14 +103,6 @@ module "do" {
 # Amazon Web Services
 #
 
-resource "zerotier_member" "aws" {
-  name           = "aws"
-  description    = "Amazon Web Services"
-  member_id      = zerotier_identity.instances["aws"].id
-  network_id     = zerotier_network.demolab.id
-  ip_assignments = ["10.4.2.2"]
-}
-
 module "aws" {
   source            = "./modules/aws"
   for_each          = { for k, b in var.enabled : (k) => k if k == "aws" && b }
@@ -115,15 +127,6 @@ module "aws" {
 # Google Compute Platform
 #
 
-resource "zerotier_member" "gcp" {
-  name           = "gcp"
-  description    = "Google Compute Platform"
-  member_id      = zerotier_identity.instances["gcp"].id
-  network_id     = zerotier_network.demolab.id
-  ip_assignments = ["10.4.2.3"]
-}
-
-
 module "gcp" {
   source        = "./modules/gcp"
   for_each      = { for k, b in var.enabled : (k) => k if k == "gcp" && b }
@@ -147,14 +150,6 @@ module "gcp" {
 #
 # Microsoft Azure
 #
-
-resource "zerotier_member" "azu" {
-  name           = "azu"
-  description    = "Microsoft Azure"
-  member_id      = zerotier_identity.instances["azu"].id
-  network_id     = zerotier_network.demolab.id
-  ip_assignments = ["10.4.2.4"]
-}
 
 module "azu" {
   source              = "./modules/azu"
