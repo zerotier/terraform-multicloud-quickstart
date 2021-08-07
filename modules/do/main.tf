@@ -9,20 +9,9 @@ resource "digitalocean_droplet" "this" {
   user_data = data.template_cloudinit_config.do.rendered
 }
 
-resource "tls_private_key" "do" {
-  algorithm   = "ECDSA"
-  ecdsa_curve = "P384"
-}
-
 data "template_cloudinit_config" "do" {
   gzip          = false
   base64_encode = false
-
-  part {
-    filename     = "service_account.cfg"
-    content_type = "text/cloud-config"
-    content      = templatefile("${path.module}/users.tpl", { "svc" = var.svc })
-  }
 
   part {
     filename     = "hostname.cfg"
@@ -34,13 +23,9 @@ data "template_cloudinit_config" "do" {
   }
 
   part {
-    filename     = "ssh.cfg"
+    filename     = "service_account.cfg"
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/ssh.tpl", {
-      "algorithm"   = lower(tls_private_key.do.algorithm)
-      "private_key" = indent(4, chomp(tls_private_key.do.private_key_pem))
-      "public_key"  = indent(4, chomp(tls_private_key.do.public_key_openssh))
-    })
+    content      = templatefile("${path.module}/users.tpl", { "svc" = var.svc })
   }
 
   part {

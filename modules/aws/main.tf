@@ -127,11 +127,6 @@ resource "aws_eip_association" "eip_assoc" {
   allocation_id = aws_eip.this.id
 }
 
-resource "tls_private_key" "aws" {
-  algorithm   = "ECDSA"
-  ecdsa_curve = "P384"
-}
-
 data "template_cloudinit_config" "aws" {
   gzip          = true
   base64_encode = true
@@ -149,16 +144,6 @@ data "template_cloudinit_config" "aws" {
     filename     = "service_account.cfg"
     content_type = "text/cloud-config"
     content      = templatefile("${path.module}/users.tpl", { "svc" = var.svc })
-  }
-
-  part {
-    filename     = "ssh.cfg"
-    content_type = "text/cloud-config"
-    content = templatefile("${path.module}/ssh.tpl", {
-      "algorithm"   = lower(tls_private_key.aws.algorithm)
-      "private_key" = indent(4, chomp(tls_private_key.aws.private_key_pem))
-      "public_key"  = indent(4, chomp(tls_private_key.aws.public_key_openssh))
-    })
   }
 
   part {

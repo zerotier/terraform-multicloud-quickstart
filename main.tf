@@ -9,11 +9,6 @@ resource "zerotier_network" "demolab" {
     start = "10.4.2.1"
     end   = "10.4.2.254"
   }
-  assign_ipv6 {
-    zerotier = true
-    sixplane = true
-    rfc4193  = true
-  }
   route {
     target = "10.4.2.0/24"
   }

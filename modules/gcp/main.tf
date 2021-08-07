@@ -58,20 +58,9 @@ resource "google_compute_instance" "this" {
   }
 }
 
-resource "tls_private_key" "gcp" {
-  algorithm   = "ECDSA"
-  ecdsa_curve = "P384"
-}
-
 data "template_cloudinit_config" "gcp" {
   gzip          = false
   base64_encode = false
-
-  part {
-    filename     = "service_account.cfg"
-    content_type = "text/cloud-config"
-    content      = templatefile("${path.module}/users.tpl", { "svc" = var.svc })
-  }
 
   part {
     filename     = "hostname.cfg"
@@ -83,13 +72,9 @@ data "template_cloudinit_config" "gcp" {
   }
 
   part {
-    filename     = "ssh.cfg"
+    filename     = "service_account.cfg"
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/ssh.tpl", {
-      "algorithm"   = lower(tls_private_key.gcp.algorithm)
-      "private_key" = indent(4, chomp(tls_private_key.gcp.private_key_pem))
-      "public_key"  = indent(4, chomp(tls_private_key.gcp.public_key_openssh))
-    })
+    content      = templatefile("${path.module}/users.tpl", { "svc" = var.svc })
   }
 
   part {

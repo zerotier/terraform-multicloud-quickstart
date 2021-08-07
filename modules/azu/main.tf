@@ -72,11 +72,6 @@ resource "tls_private_key" "azu-rsa" {
   rsa_bits  = "2048"
 }
 
-resource "tls_private_key" "azu" {
-  algorithm   = "ECDSA"
-  ecdsa_curve = "P384"
-}
-
 resource "azurerm_linux_virtual_machine" "this" {
   name                = var.name
   resource_group_name = azurerm_resource_group.this.name
@@ -112,12 +107,6 @@ data "template_cloudinit_config" "azu" {
   base64_encode = true
 
   part {
-    filename     = "service_account.cfg"
-    content_type = "text/cloud-config"
-    content      = templatefile("${path.module}/users.tpl", { "svc" = var.svc })
-  }
-
-  part {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/hostname.tpl", {
@@ -127,13 +116,9 @@ data "template_cloudinit_config" "azu" {
   }
 
   part {
-    filename     = "ssh.cfg"
+    filename     = "service_account.cfg"
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/ssh.tpl", {
-      "algorithm"   = lower(tls_private_key.azu.algorithm)
-      "private_key" = indent(4, chomp(tls_private_key.azu.private_key_pem))
-      "public_key"  = indent(4, chomp(tls_private_key.azu.public_key_openssh))
-    })
+    content      = templatefile("${path.module}/users.tpl", { "svc" = var.svc })
   }
 
   part {
