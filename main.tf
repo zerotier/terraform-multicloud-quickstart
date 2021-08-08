@@ -91,6 +91,7 @@ module "do" {
   svc         = var.svc
   zt_token    = zerotier_token.this.token
   script      = "init-zeronsd.tpl"
+  depends_on  = [zerotier_member.do]
 }
 
 #
@@ -109,6 +110,7 @@ module "aws" {
   zt_identity       = zerotier_identity.instances["aws"]
   svc               = var.svc
   script            = "init-common.tpl"
+  depends_on        = [zerotier_member.aws]
 }
 
 #
@@ -127,6 +129,7 @@ module "gcp" {
   zt_identity   = zerotier_identity.instances["gcp"]
   svc           = var.svc
   script        = "init-common.tpl"
+  depends_on    = [zerotier_member.gcp]
 }
 
 #
@@ -145,4 +148,5 @@ module "azu" {
   zt_identity         = zerotier_identity.instances["azu"]
   svc                 = var.svc
   script              = "init-common.tpl"
+  depends_on          = [zerotier_member.azu]
 }

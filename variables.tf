@@ -13,7 +13,6 @@ variable "enabled" {
     aws = true
     gcp = true
     azu = true
-    ibm = true
   }
 }
 
