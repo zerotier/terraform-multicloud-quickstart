@@ -10,9 +10,9 @@ variable "svc" {
 variable "enabled" {
   default = {
     do  = true
-    aws = true
-    gcp = true
-    azu = true
+    aws = false
+    gcp = false
+    azu = false
   }
 }
 
