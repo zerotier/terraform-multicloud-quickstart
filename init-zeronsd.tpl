@@ -22,8 +22,11 @@ zerotier-cli join ${zt_net.id}
 
 echo "-- ZeroTier Systemd Manager --"
 
-wget https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.1.9/zerotier-systemd-manager_0.1.9_linux_amd64.deb
-dpkg -i zerotier-systemd-manager_0.1.9_linux_amd64.deb
+# 0.1.9
+# 0.2.0
+
+wget https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.2.0/zerotier-systemd-manager_0.2.0_linux_amd64.deb
+dpkg -i zerotier-systemd-manager_0.2.0_linux_amd64.deb
 systemctl daemon-reload
 systemctl enable zerotier-systemd-manager.timer
 systemctl restart zerotier-systemd-manager.timer
@@ -36,8 +39,11 @@ chmod 600 /var/lib/zerotier-one/token
 
 echo "-- ZeroNSD --"
 
-wget https://github.com/zerotier/zeronsd/releases/download/v0.2.2/zeronsd_0.2.2_amd64.deb
-dpkg -i zeronsd_0.2.2_amd64.deb
+# 0.2.2
+# 0.2.3
+
+wget https://github.com/zerotier/zeronsd/releases/download/v0.2.3/zeronsd_0.2.3_amd64.deb
+dpkg -i zeronsd_0.2.3_amd64.deb
 
 %{ for zt_net in zt_networks }
 zeronsd supervise -t /var/lib/zerotier-one/token -d ${zt_net.dnsdomain} ${zt_net.id}
