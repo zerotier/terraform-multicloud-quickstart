@@ -85,7 +85,6 @@ module "do" {
     demolab = {
       id        = zerotier_network.demolab.id
       dnsdomain = zerotier_network.demolab.name
-      ipv4      = resource.zerotier_member.do.ip_assignments[0]
     }
   }
   zt_identity = zerotier_identity.instances["do"]
@@ -106,16 +105,10 @@ module "aws" {
   availability_zone = "us-east-2a"
   instance_type     = "t3.micro"
   dnsdomain         = zerotier_network.demolab.name
-  zt_networks = {
-    demolab = {
-      id        = zerotier_network.demolab.id
-      dnsdomain = zerotier_network.demolab.name
-      ipv4      = resource.zerotier_member.aws.ip_assignments[0]
-    }
-  }
-  zt_identity = zerotier_identity.instances["aws"]
-  svc         = var.svc
-  script      = "init-common.tpl"
+  zt_networks       = { demolab = { id = zerotier_network.demolab.id } }
+  zt_identity       = zerotier_identity.instances["aws"]
+  svc               = var.svc
+  script            = "init-common.tpl"
 }
 
 #
@@ -130,16 +123,10 @@ module "gcp" {
   region        = "europe-west4"
   zone          = "europe-west4-a"
   dnsdomain     = zerotier_network.demolab.name
-  zt_networks = {
-    demolab = {
-      id        = zerotier_network.demolab.id
-      dnsdomain = zerotier_network.demolab.name
-      ipv4      = resource.zerotier_member.gcp.ip_assignments[0]
-    }
-  }
-  zt_identity = zerotier_identity.instances["gcp"]
-  svc         = var.svc
-  script      = "init-common.tpl"
+  zt_networks   = { demolab = { id = zerotier_network.demolab.id } }
+  zt_identity   = zerotier_identity.instances["gcp"]
+  svc           = var.svc
+  script        = "init-common.tpl"
 }
 
 #
@@ -154,14 +141,8 @@ module "azu" {
   v4_address_prefixes = ["192.168.1.0/24"]
   v6_address_prefixes = ["ace:cab:deca:deed::/64"]
   dnsdomain           = zerotier_network.demolab.name
-  zt_networks = {
-    demolab = {
-      id        = zerotier_network.demolab.id
-      dnsdomain = zerotier_network.demolab.name
-      ipv4      = resource.zerotier_member.azu.ip_assignments[0]
-    }
-  }
-  zt_identity = zerotier_identity.instances["azu"]
-  svc         = var.svc
-  script      = "init-common.tpl"
+  zt_networks         = { demolab = { id = zerotier_network.demolab.id } }
+  zt_identity         = zerotier_identity.instances["azu"]
+  svc                 = var.svc
+  script              = "init-common.tpl"
 }
