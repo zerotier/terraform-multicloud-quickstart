@@ -50,77 +50,24 @@ systemctl enable zeronsd-${zt_net.id}
 systemctl restart zeronsd-${zt_net.id}
 %{ endfor ~}
 
-echo "-- Kernel IP forwarding --"
-# TODO - figure out how to do this properly w/systemd
-sysctl net.ipv4.ip_forward=1
-sysctl net.ipv4.conf.all.forwarding=1
-sysctl net.ipv6.conf.all.forwarding=1
-
-echo "net.ipv4.conf.all.forwarding=1" > /etc/sysctl.d/21-net.net.ipv4.conf.all.forwarding.conf
-echo "net.ipv6.conf.all.forwarding=1" > /etc/sysctl.d/21-net.net.ipv6.conf.all.forwarding.conf
-systemctl restart systemd-sysctl.service
-
-echo "-- Configuring NAT --."
-mosdef=$(ip route | grep ^default | awk '{ print $5 }')
-
-for i in $(ls /sys/class/net | grep $mosdef) ; do
-    echo "* IPv4 Masquerade on $${i} ..."
-    iptables -t nat -A POSTROUTING -o "$${i}" -j MASQUERADE
-    echo "* IPv6 Masquerade on $${i} ..."
-    ip6tables -t nat -A POSTROUTING -o "$${i}" -j MASQUERADE
-done
-
 echo "-- Various Packages --"
 
 apt-get -qq update &>/dev/null
-# apt-get -qq upgrade &>/dev/null
 
 apt-get -qq install \
         apt-transport-https \
         software-properties-common \
         ca-certificates \
         lsb-release \
-        linux-tools-common \
-        linux-tools-generic \
-        ntpsec \
         emacs-nox \
-        parallel \
         curl \
         gnupg \
-        zip \
-        unzip \
         net-tools \
         iproute2 \
-        bridge-utils \
         iputils-ping \
-        iputils-arping \
         libndp-tools \
-        jq \
-        scamper \
         tshark \
-        nmap \
     &>/dev/null
-
-echo "-- Printer Demo --"
-
-# apt-get -qq install \
-#         avahi-utils \
-#         cups-daemon \
-#         cups-client \
-#     &>/dev/null
-
-echo "-- Docker --"
-
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o  /usr/share/keyrings/docker-archive-keyring.gpg
-
-echo \
-"deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-$(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-apt-get -qq update
-apt-get -qq install docker-ce docker-ce-cli containerd.io
-curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
-
-echo "-- Nginx Hello --"
-docker run -d -it --rm -p 80:80  nginxdemos/hello
+ 
+# echo "-- Nginx Hello --"
+# docker run -d -it --rm -p 80:80  nginxdemos/hello
