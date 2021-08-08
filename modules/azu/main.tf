@@ -109,7 +109,7 @@ data "template_cloudinit_config" "azu" {
   part {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/hostname.tpl", {
+    content = templatefile("${path.root}/hostname.tpl", {
       "hostname" = var.name,
       "fqdn"     = "${var.name}.${var.dnsdomain}"
     })
@@ -118,13 +118,13 @@ data "template_cloudinit_config" "azu" {
   part {
     filename     = "service_account.cfg"
     content_type = "text/cloud-config"
-    content      = templatefile("${path.module}/users.tpl", { "svc" = var.svc })
+    content      = templatefile("${path.root}/users.tpl", { "svc" = var.svc })
   }
 
   part {
     filename     = "zerotier.cfg"
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/zt_identity.tpl", {
+    content = templatefile("${path.root}/zt_identity.tpl", {
       "public_key"  = var.zt_identity.public_key
       "private_key" = var.zt_identity.private_key
     })
