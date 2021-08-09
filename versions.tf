@@ -4,8 +4,8 @@ terraform {
       source = "zerotier/zerotier"
       # version = "0.2.0"
     }
-    ibm = {
-      source = "IBM-Cloud/ibm"
-    }
+    # ibm = {
+    #   source = "IBM-Cloud/ibm"
+    # }
   }
 }
