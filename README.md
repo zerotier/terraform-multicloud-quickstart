@@ -139,3 +139,13 @@ variable "people" {
 terraform init && terraform plan && terraform apply -auto-approve
 ```
 
+## Join Laptop to Lab Network
+
+```
+zerotier-cli join <networkid> allowDNS=1
+```
+
+## Log into and take a look around
+
+```
+```
