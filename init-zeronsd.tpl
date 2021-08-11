@@ -20,17 +20,13 @@ curl -s https://install.zerotier.com | bash
 zerotier-cli join ${zt_net.id}
 %{ endfor ~}
 
-echo "-- ZeroTier Systemd Manager --"
-
-# 0.1.9
-# 0.2.0
-
+echo "-- ZeroTier Systemd Manager --" # 0.1.9 # 0.2.0
 wget -q https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.1.9/zerotier-systemd-manager_0.1.9_linux_amd64.deb
 dpkg -i zerotier-systemd-manager_0.1.9_linux_amd64.deb
-systemctl daemon-reload
+
 systemctl enable zerotier-systemd-manager.timer
-systemctl restart zerotier-systemd-manager.timer
-sleep 2
+systemctl daemon-reload
+systemctl restart zerotier-one
 systemctl restart zerotier-systemd-manager.timer
 
 echo "-- ZeroTier Central Token --"
@@ -39,10 +35,7 @@ bash -c "echo ${zt_token} > /var/lib/zerotier-one/token"
 chown zerotier-one:zerotier-one /var/lib/zerotier-one/token
 chmod 600 /var/lib/zerotier-one/token
 
-echo "-- ZeroNSD --"
-
-# 0.2.2
-# 0.2.3
+echo "-- ZeroNSD --" # 0.2.2 # 0.2.3
 
 wget -q https://github.com/zerotier/zeronsd/releases/download/v0.2.2/zeronsd_0.2.2_amd64.deb
 dpkg -i zeronsd_0.2.2_amd64.deb
@@ -52,14 +45,15 @@ echo "zeronsd supervise -t /var/lib/zerotier-one/token -d ${zt_net.dnsdomain} ${
 zeronsd supervise -t /var/lib/zerotier-one/token -d ${zt_net.dnsdomain} ${zt_net.id}
 %{ endfor ~}
 
+%{ for zt_net in zt_networks }
+echo "systemctl enable zeronsd-${zt_net.id}"
+systemctl enable zeronsd-${zt_net.id}
+%{ endfor ~}
+
 systemctl daemon-reload
 
 %{ for zt_net in zt_networks }
-echo "systemctl enable zeronsd-${zt_net.id}"
 echo "systemctl restart zeronsd-${zt_net.id}"
-systemctl enable zeronsd-${zt_net.id}
-systemctl restart zeronsd-${zt_net.id}
-sleep 1
 systemctl restart zeronsd-${zt_net.id}
 %{ endfor ~}
 
