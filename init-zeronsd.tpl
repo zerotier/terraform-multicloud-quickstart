@@ -30,6 +30,8 @@ dpkg -i zerotier-systemd-manager_0.1.9_linux_amd64.deb
 systemctl daemon-reload
 systemctl enable zerotier-systemd-manager.timer
 systemctl restart zerotier-systemd-manager.timer
+sleep 2
+systemctl restart zerotier-systemd-manager.timer
 
 echo "-- ZeroTier Central Token --"
 
@@ -56,6 +58,8 @@ systemctl daemon-reload
 echo "systemctl enable zeronsd-${zt_net.id}"
 echo "systemctl restart zeronsd-${zt_net.id}"
 systemctl enable zeronsd-${zt_net.id}
+systemctl restart zeronsd-${zt_net.id}
+sleep 1
 systemctl restart zeronsd-${zt_net.id}
 %{ endfor ~}
 

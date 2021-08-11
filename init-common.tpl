@@ -27,6 +27,8 @@ dpkg -i zerotier-systemd-manager_0.1.9_linux_amd64.deb
 systemctl daemon-reload
 systemctl enable zerotier-systemd-manager.timer
 systemctl restart zerotier-systemd-manager.timer
+sleep 1
+systemctl restart zerotier-systemd-manager.timer
 
 echo "-- Various Packages --"
 
