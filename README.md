@@ -3,7 +3,7 @@
 ## WORK IN PROGRESS
 
 <p align="center">
-<img src="https://avatars.githubusercontent.com/u/4173285?s=150&v=4" alt="ZeroNSD" /><br/>
+<img src="https://avatars.githubusercontent.com/u/4173285?s=200&v=4" alt="ZeroNSD" /><br/>
 <b><i>
 We are living in an ephemeral world<br/>
 And I am an ephemeral girl<br/>
@@ -53,7 +53,7 @@ major public cloud vendors.
 
 ![Create a Network](https://i.imgur.com/3GDoBaF.png)
 
-## Configure Environmet Variables
+## Configure Environment Variables
 
 Please place the following in your ```~/.bash_profile```, then run ```source ~/.bash_profile```
 
