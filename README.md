@@ -50,7 +50,7 @@ and Microsoft Azure.
 
 We will then log into them and explore the "layer2eyness".
 
-## Clone and configure quickstart repository
+## Configure the Quickstart repository
 
 Check out the source code for the quickstart and cd into the
 directory.
@@ -58,11 +58,6 @@ directory.
 ```bash
 laptop~$ git clone git@github.com:zerotier/zerotier-terraform-quickstart.git
 laptop~$ cd zerotier-terraform-quickstart
-```
-
-## Configure the repository
-
-```bash
 laptop~$ emacs variables.tf
 ```
 
