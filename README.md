@@ -49,6 +49,59 @@ explore the "layer2eyness".
 This tutorial requires the driver to have accounts on each of the
 major public cloud vendors.
 
+## Clone and configure quickstart repository
+
+Check out the source
+
+```
+git clone git@github.com:zerotier/zerotier-terraform-quickstart.git
+cd zerotier-terraform-quickstart
+```
+
+Configure the repository
+
+```
+emacs variables.tf
+```
+
+Clouds enabled
+```
+variable "enabled" {
+  default = {
+    do  = true  #-- required (provides DNS)
+    aws = true
+    gcp = true
+    azu = true
+  }
+}
+```
+
+SSH keys
+
+```
+variable "svc" {
+  default = {
+    someara = {
+      username   = "someara"
+      ssh_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINv7jD5KZu6lEVbHvzS+w+eQeuZGfY3jBaW7y5qftF1u sean@sean.io"
+    }
+  }
+}
+```
+
+Laptop identity
+
+```
+variable "people" {
+  default = {
+    someara = {
+      member_id   = "eff05def90"
+      description = "Sean OMeara"
+    }
+  }
+}
+```
+
 ## ZeroTier token
 
 ![Create a Network](https://i.imgur.com/3GDoBaF.png)
@@ -78,59 +131,6 @@ export ARM_SUBSCRIPTION_ID="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 export ARM_TENANT_ID="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 export ARM_CLIENT_ID="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 export ARM_CLIENT_SECRET="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-```
-
-## Clone and configure quickstart repository
-
-Check out the source
-
-```
-git clone git@github.com:zerotier/zerotier-terraform-quickstart.git
-cd zerotier-terraform-quickstart
-```
-
-Configure the repository
-
-```
-emacs variables.tf
-```
-
-SSH keys
-
-```
-variable "svc" {
-  default = {
-    someara = {
-      username   = "someara"
-      ssh_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINv7jD5KZu6lEVbHvzS+w+eQeuZGfY3jBaW7y5qftF1u sean@sean.io"
-    }
-  }
-}
-```
-
-Clouds enabled
-```
-variable "enabled" {
-  default = {
-    do  = true
-    aws = true
-    gcp = true
-    azu = true
-  }
-}
-```
-
-Laptop identity
-
-```
-variable "people" {
-  default = {
-    someara = {
-      member_id   = "eff05def90"
-      description = "Sean OMeara"
-    }
-  }
-}
 ```
 
 ## Spin up the lab
