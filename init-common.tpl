@@ -18,16 +18,15 @@ curl -s https://install.zerotier.com | bash
 
 %{ for zt_net in zt_networks }
 zerotier-cli join ${zt_net.id}
+while ! zerotier-cli listnetworks | grep ${zt_net.id} | grep OK ;
+do
+  sleep 1
+done
 %{ endfor ~}
 
-echo "-- ZeroTier Systemd Manager --" # 0.1.9 # 0.2.0
-wget -q https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.1.9/zerotier-systemd-manager_0.1.9_linux_amd64.deb
-dpkg -i zerotier-systemd-manager_0.1.9_linux_amd64.deb
-
-systemctl enable zerotier-systemd-manager.timer
-systemctl daemon-reload
-systemctl restart zerotier-one
-systemctl restart zerotier-systemd-manager.timer
+echo "-- ZeroTier Systemd Manager --"
+wget -q https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.2.0/zerotier-systemd-manager_0.2.0_linux_amd64.deb
+dpkg -i zerotier-systemd-manager_0.2.0_linux_amd64.deb
 
 echo "-- Various Packages --"
 
@@ -47,6 +46,6 @@ apt-get -qq install \
         libndp-tools \
         tshark \
     &>/dev/null
- 
+
 # echo "-- Nginx Hello --"
 # docker run -d -it --rm -p 80:80  nginxdemos/hello
