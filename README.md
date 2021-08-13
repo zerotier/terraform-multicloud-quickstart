@@ -36,21 +36,18 @@ This repository yields a lab environment for exploring ZeroTier.
 No networking devices were harmed during the production of
 this document.
 
-## The plan
-
-The general plan is simple. We shall use Terraform to create a
-ZeroTier network, then spin up and bootstrap single virtiual machines
-on each of Digital Ocean, Amazon Web Services, Google Compute
-Platoform, and Microsoft Azure. We shall then log into them and
-explore the "layer2eyness".
-
 ## Technical Prerequisites
 
 This Quickstart was written on an OSX laptop from a residential ISP. 
 
 To follow along step by step, you'll need to create service accounts
 on each of the major public cloud vendors, collect authentication
-tokens, and export them as environment variables.
+tokens, then export them as environment variables.
+
+Terraform will create a ZeroTier network, then spin up virtiual
+machines on each of Digital Ocean, Amazon Web Services, Google Compute
+Platoform, and Microsoft Azure. We will then log into them and
+explore the "layer2eyness".
 
 ## Clone and configure quickstart repository
 
