@@ -93,16 +93,15 @@ variable "svc" {
 ### Laptop identity
 
 If you haven't already, install the ZeroTier client on your laptop or
-workstation. You can get it from the [ZeroTier Downloads page](https://www.zerotier.com/download/)
+workstation. You can get it from the [ZeroTier Downloads page](https://www.zerotier.com/download/).
 
 ```bash
 laptop~$ zerotier-cli info
 200 info eff05def90 1.6.5 ONLINE
 ```
 
-
 ```hcl
-variable "people" {
+variable "devices" {
   default = {
     someara = {
       member_id   = "eff05def90"
@@ -112,7 +111,7 @@ variable "people" {
 }
 ```
 
-## ZeroTier token
+## Provision a ZeroTier Central API Token
 
 ![Create a Network](https://i.imgur.com/3GDoBaF.png)
 
