@@ -49,6 +49,15 @@ explore the "layer2eyness".
 This tutorial requires the driver to have accounts on each of the
 major public cloud vendors.
 
+## Install ZeroTier on your laptop
+
+![ZeroTier Downloads](https://www.zerotier.com/download/)
+
+```bash
+zerotier-cli info
+200 info eff05def90 1.6.5 ONLINE
+```
+
 ## Clone and configure quickstart repository
 
 Check out the source
