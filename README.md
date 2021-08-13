@@ -52,17 +52,18 @@ major public cloud vendors.
 
 ## Clone and configure quickstart repository
 
-Check out the source
+Check out the source code for the quickstart and cd into the
+directory.
 
 ```bash
-git clone git@github.com:zerotier/zerotier-terraform-quickstart.git
-cd zerotier-terraform-quickstart
+laptop~$ git clone git@github.com:zerotier/zerotier-terraform-quickstart.git
+laptop~$ cd zerotier-terraform-quickstart
 ```
 
 ### Configure the repository
 
-```hcl
-emacs variables.tf
+```bash
+laptop~$ emacs variables.tf
 ```
 
 ### Enable Clouds
