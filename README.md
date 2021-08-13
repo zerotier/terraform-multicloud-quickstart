@@ -60,7 +60,7 @@ laptop~$ git clone git@github.com:zerotier/zerotier-terraform-quickstart.git
 laptop~$ cd zerotier-terraform-quickstart
 ```
 
-### Configure the repository
+## Configure the repository
 
 ```bash
 laptop~$ emacs variables.tf
