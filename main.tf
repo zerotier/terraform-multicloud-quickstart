@@ -26,8 +26,8 @@ resource "zerotier_identity" "instances" {
   ] : i => (i) }
 }
 
-resource "zerotier_member" "people" {
-  for_each    = var.people
+resource "zerotier_member" "devices" {
+  for_each    = var.devices
   name        = each.key
   member_id   = each.value.member_id
   description = each.value.description

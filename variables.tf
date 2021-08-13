@@ -17,7 +17,7 @@ variable "svc" {
   }
 }
 
-variable "people" {
+variable "devices" {
   default = {
     laptop = {
       member_id   = "eff05def90"
