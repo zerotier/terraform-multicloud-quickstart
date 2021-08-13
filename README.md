@@ -49,14 +49,6 @@ explore the "layer2eyness".
 This tutorial requires the driver to have accounts on each of the
 major public cloud vendors.
 
-## Install ZeroTier on your laptop
-
-![ZeroTier Downloads](https://www.zerotier.com/download/)
-
-```bash
-zerotier-cli info
-200 info eff05def90 1.6.5 ONLINE
-```
 
 ## Clone and configure quickstart repository
 
@@ -67,7 +59,7 @@ git clone git@github.com:zerotier/zerotier-terraform-quickstart.git
 cd zerotier-terraform-quickstart
 ```
 
-Configure the repository
+### Configure the repository
 
 ```hcl
 emacs variables.tf
@@ -85,7 +77,7 @@ variable "enabled" {
 }
 ```
 
-SSH keys
+### SSH keys
 
 ```hcl
 variable "svc" {
@@ -98,7 +90,16 @@ variable "svc" {
 }
 ```
 
-Laptop identity
+### Laptop identity
+
+If you haven't already, install the ZeroTier client on your laptop or
+workstation. You can get it from the [ZeroTier Downloads page](https://www.zerotier.com/download/)
+
+```bash
+laptop~$ zerotier-cli info
+200 info eff05def90 1.6.5 ONLINE
+```
+
 
 ```hcl
 variable "people" {
