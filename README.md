@@ -53,19 +53,19 @@ major public cloud vendors.
 
 Check out the source
 
-```
+```bash
 git clone git@github.com:zerotier/zerotier-terraform-quickstart.git
 cd zerotier-terraform-quickstart
 ```
 
 Configure the repository
 
-```
+```hcl
 emacs variables.tf
 ```
 
 Clouds enabled
-```
+```hcl
 variable "enabled" {
   default = {
     do  = true  #-- required (provides DNS)
@@ -78,7 +78,7 @@ variable "enabled" {
 
 SSH keys
 
-```
+```hcl
 variable "svc" {
   default = {
     someara = {
@@ -91,7 +91,7 @@ variable "svc" {
 
 Laptop identity
 
-```
+```hcl
 variable "people" {
   default = {
     someara = {
