@@ -117,7 +117,7 @@ variable "devices" {
 
 ![Create a Network](https://i.imgur.com/3GDoBaF.png)
 
-## Configure Environment Variables
+## Set Environment Variables
 
 Please place the following in your ```~/.bash_profile```, then run ```source ~/.bash_profile```
 
