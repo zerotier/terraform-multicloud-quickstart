@@ -65,7 +65,7 @@ cd zerotier-terraform-quickstart
 emacs variables.tf
 ```
 
-### Clouds enabled
+### Enable Clouds
 
 Next, select which clouds to enable. You'll need at least two for
 demonstration purposes, but I recommend using them all for dramatic
