@@ -56,25 +56,22 @@ echo "systemctl restart zeronsd-${zt_net.id}"
 systemctl restart zeronsd-${zt_net.id}
 %{ endfor ~}
 
-echo "-- Various Packages --"
+echo "-- Update Apt Cache --"
 
 apt-get -qq update &>/dev/null
 
+echo "-- Nginx Hello --"
+apt-get -qq install docker.io 
+docker run -d -it --rm -p 80:80 nginxdemos/hello
+
+echo "-- Various Packages --"
+
 apt-get -qq install \
-        apt-transport-https \
-        software-properties-common \
-        ca-certificates \
-        lsb-release \
         emacs-nox \
         curl \
-        gnupg \
         net-tools \
         iproute2 \
         iputils-ping \
         libndp-tools \
-        tshark \
-        docker.io \
+        tshark
     &>/dev/null
-
-echo "-- Nginx Hello --"
-docker run -d -it --rm -p 80:80 nginxdemos/hello
