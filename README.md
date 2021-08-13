@@ -147,7 +147,7 @@ export ARM_CLIENT_SECRET="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ## Spin up the lab
 
 ```
-terraform init && terraform plan && terraform apply -auto-approve
+terraform init && terraform plan && terraform apply
 ```
 
 ## Join Laptop to Lab Network
