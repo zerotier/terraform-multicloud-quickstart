@@ -69,8 +69,8 @@ emacs variables.tf
 
 Next, select which clouds to enable. You'll need at least two for
 demonstration purposes, but I recommend using them all for dramatic
-effect. Digital Ocean is required, because it will be providing
-DNS service for the lab.
+effect. Digital Ocean is required, since it will be providing DNS
+service for the lab.
 
 ```hcl
 variable "enabled" {
