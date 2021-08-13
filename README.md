@@ -46,9 +46,11 @@ explore the "layer2eyness".
 
 ## Technical Prerequisites
 
-This tutorial requires the driver to have accounts on each of the
-major public cloud vendors.
+This Quickstart was written on an OSX laptop from a residential ISP. 
 
+To follow along step by step, you'll need to create service accounts
+on each of the major public cloud vendors, collect authentication
+tokens, and export them as environment variables.
 
 ## Clone and configure quickstart repository
 
