@@ -148,4 +148,8 @@ zerotier-cli join <networkid> allowDNS=1
 ## Log into and take a look around
 
 ```
+ssh do.demo.lab
+ssh aws.demo.lab
+ssh gcp.demo.lab
+ssh azu.demo.lab
 ```
