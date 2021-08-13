@@ -40,14 +40,15 @@ this document.
 
 This Quickstart was written on an OSX laptop from a residential ISP. 
 
-To follow along step by step, you'll need to create service accounts
-on each of the major public cloud vendors, collect authentication
-tokens, then export them as environment variables.
+To follow along step by step, you'll need to create a service account
+on each cloud vendors, then export authentication tokens as
+environment variables.
 
-Terraform will create a ZeroTier network, then spin up virtiual
-machines on each of Digital Ocean, Amazon Web Services, Google Compute
-Platoform, and Microsoft Azure. We will then log into them and
-explore the "layer2eyness".
+Terraform will create a ZeroTier network, then a single instance on
+each of Digital Ocean, Amazon Web Services, Google Compute Platoform,
+and Microsoft Azure. 
+
+We will then log into them and explore the "layer2eyness".
 
 ## Clone and configure quickstart repository
 
