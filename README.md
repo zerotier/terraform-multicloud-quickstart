@@ -70,9 +70,9 @@ Check out the source code for the quickstart and cd into the
 directory.
 
 ```bash
-laptop~$ git clone git@github.com:zerotier/zerotier-terraform-quickstart.git
-laptop~$ cd zerotier-terraform-quickstart
-laptop~$ emacs variables.tf
+laptop:~$ git clone git@github.com:zerotier/zerotier-terraform-quickstart.git
+laptop:~$ cd zerotier-terraform-quickstart
+laptop:~/zerotier-terraform-quickstart$ emacs variables.tf
 ```
 
 ### Enable Clouds
@@ -123,7 +123,7 @@ the ZeroTier client on your laptop or workstation. You can get it from
 the [ZeroTier Downloads page](https://www.zerotier.com/download/).
 
 ```bash
-laptop~$ zerotier-cli info
+laptop:~$ zerotier-cli info
 200 info a11c3411ce 1.6.5 ONLINE
 ```
 
@@ -176,7 +176,7 @@ export ARM_CLIENT_SECRET="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ## Spin up the lab instances
 
 ```bash
-terraform init && terraform plan && terraform apply
+laptop:~/zerotier-terraform-quickstart$ terraform init && terraform plan && terraform apply
 ```
 
 ## Join Laptop to Lab Network
@@ -194,7 +194,7 @@ ssh alice@do.demo.lab
 ## Ping all the boxen
 
 ```bash
-ping -4 -c 1 aws.demo.lab
-ping -4 -c 1 gcp.demo.lab
-ping -4 -c 1 azu.demo.lab
+alice@do:~$ ping -4 -c 1 aws.demo.lab
+alice@do:~$ ping -4 -c 1 gcp.demo.lab
+alice@do:~$ ping -4 -c 1 azu.demo.lab
 ```
