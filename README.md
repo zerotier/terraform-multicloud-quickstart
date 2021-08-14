@@ -150,7 +150,7 @@ variable "devices" {
 
 Please place the following in your ```~/.bash_profile```, then run ```source ~/.bash_profile```
 
-```
+```bash
 # ZeroTier Central
 export ZEROTIER_CENTRAL_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 export ZEROTIER_CENTRAL_URL="https://my.zerotier.com/api"
@@ -175,13 +175,13 @@ export ARM_CLIENT_SECRET="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 ## Spin up the lab instances
 
-```
+```bash
 terraform init && terraform plan && terraform apply
 ```
 
 ## Join Laptop to Lab Network
 
-```
+```bash
 zerotier-cli join <networkid> allowDNS=1
 ```
 
