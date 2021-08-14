@@ -38,14 +38,17 @@ this document.
 
 ## Technical Prerequisites
 
-This Quickstart was written on an OSX laptop from a residential ISP. 
+This Quickstart was written on an OSX laptop from a residential
+ISP. 
 
-Terraform will create a ZeroTier network, then bootstrap instances on
-Digital Ocean, Amazon Web Services, Google Compute Platform, and
-Microsoft Azure.
+To follow along step by step, you will need to create service accounts
+on Digital Ocean, and at least one other cloud vendor. You will need
+git, a text editor, and a copy of Terraform 1.0.0 or later installed
+locally.
 
-To follow along step by step, you'll need to create a service account
-on Digital Ocean and at least one other cloud vendor.
+Terraform will create a ZeroTier network, then bootstrap a single
+instance on each of Digital Ocean, Amazon Web Services, Google Compute
+Platform, and Microsoft Azure.
 
 ## Configure the Quickstart repository
 
