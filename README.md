@@ -58,8 +58,7 @@ vendor brings their own special brand of pain. For example, on AWS,
 you will need to accept the Marketplace agreement for the Ubuntu
 AMI. On GCP, you will be prompted to enable Cloud APIs.
 
-To lower the bar of entry, you can toggle which cloud vendors are used
-in the lab.
+To lower the bar of entry, you can toggle which cloud vendors are enabled.
 
 <p align="center">
 <img src="https://i.imgur.com/5tRu35i.jpeg" alt="old man yells at cloud" /><br/>
