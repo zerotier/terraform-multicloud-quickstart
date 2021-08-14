@@ -115,7 +115,7 @@ variable "users" {
 }
 ```
 
-### Device identities
++### Device identities
 
 Next, we will add the ZeroTier identities of the non-ephemeral devices
 we plan to connect to our lab network. If you haven't already, install
@@ -173,7 +173,7 @@ export ARM_CLIENT_ID="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 export ARM_CLIENT_SECRET="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ```
 
-## Spin up the lab
+## Spin up the lab instances
 
 ```
 terraform init && terraform plan && terraform apply
