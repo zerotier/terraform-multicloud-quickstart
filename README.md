@@ -79,14 +79,22 @@ variable "enabled" {
 }
 ```
 
-### SSH keys
+### Service account SSH keys
+
+Next, add some SSH keys to the `svc` variable. These will be passed to
+cloud-init when bootstrapping the instances. You'll need at least one,
+but we recommending adding a friend.
 
 ```hcl
 variable "svc" {
   default = {
-    someara = {
-      username   = "someara"
-      ssh_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINv7jD5KZu6lEVbHvzS+w+eQeuZGfY3jBaW7y5qftF1u sean@sean.io"
+    alice = {
+      username   = "alice"
+      ssh_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGxBkqXD41K8LfyJrjf8PSrxsNqhNUlWfqIzM52iWy+B alice@computers.biz"
+    }
+    bob = {
+      username   = "bob"
+      ssh_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKPxC8oiMHeqcTH507iWJbHs/4/yx3vOOBDf/n6Eowj7 bob@computers.biz"
     }
   }
 }
