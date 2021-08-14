@@ -2,9 +2,12 @@
 variable "enabled" {
   default = {
     do  = true #-- required (provides DNS)
-    aws = true
+    aws = false
     gcp = false
     azu = false
+    ibm = false
+    oci = true
+    ali = true
   }
 }
 

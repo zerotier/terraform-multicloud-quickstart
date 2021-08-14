@@ -11,5 +11,7 @@ output "identities" {
     aws = zerotier_identity.instances["aws"].id
     gcp = zerotier_identity.instances["gcp"].id
     azu = zerotier_identity.instances["azu"].id
+    ibm = zerotier_identity.instances["ibm"].id
+    oci = zerotier_identity.instances["oci"].id
   }
 }

@@ -22,7 +22,10 @@ resource "zerotier_identity" "instances" {
     "do",
     "aws",
     "gcp",
-    "azu"
+    "azu",
+    "ibm",
+    "oci",
+    "ali"
   ] : i => (i) }
 }
 
@@ -68,6 +71,33 @@ resource "zerotier_member" "azu" {
   network_id         = zerotier_network.demolab.id
   no_auto_assign_ips = true
   ip_assignments     = ["10.4.2.4"]
+}
+
+resource "zerotier_member" "ibm" {
+  name               = "ibm"
+  description        = "IBM Cloud"
+  member_id          = zerotier_identity.instances["ibm"].id
+  network_id         = zerotier_network.demolab.id
+  no_auto_assign_ips = true
+  ip_assignments     = ["10.4.2.5"]
+}
+
+resource "zerotier_member" "oci" {
+  name               = "oci"
+  description        = "Oracle Cloud Infrastructure"
+  member_id          = zerotier_identity.instances["oci"].id
+  network_id         = zerotier_network.demolab.id
+  no_auto_assign_ips = true
+  ip_assignments     = ["10.4.2.6"]
+}
+
+resource "zerotier_member" "ali" {
+  name               = "ali"
+  description        = "Alibaba Cloud"
+  member_id          = zerotier_identity.instances["ali"].id
+  network_id         = zerotier_network.demolab.id
+  no_auto_assign_ips = true
+  ip_assignments     = ["10.4.2.7"]
 }
 
 #
@@ -153,4 +183,32 @@ module "azu" {
   svc                 = var.users
   script              = "init-common.tpl"
   depends_on          = [zerotier_member.azu]
+}
+
+#
+# IBM Cloud
+#
+
+module "ibm" {
+  source   = "./modules/ibm"
+  for_each = { for k, b in var.enabled : (k) => k if k == "ibm" && b }
+}
+
+
+#
+# Oracle Cloud Infrastructure
+#
+
+module "oci" {
+  source   = "./modules/oci"
+  for_each = { for k, b in var.enabled : (k) => k if k == "oci" && b }
+}
+
+#
+# Alibaba Cloud
+#
+
+module "ali" {
+  source   = "./modules/ali"
+  for_each = { for k, b in var.enabled : (k) => k if k == "ali" && b }
 }

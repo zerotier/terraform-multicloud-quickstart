@@ -10,3 +10,6 @@ provider "google" {
 provider "azurerm" {
   features {}
 }
+
+provider "oci" {
+}
