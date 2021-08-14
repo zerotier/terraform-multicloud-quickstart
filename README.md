@@ -83,8 +83,8 @@ variable "enabled" {
 
 Next, add some SSH keys to the `svc` variable. These will be passed to
 [cloud-init](https://cloudinit.readthedocs.io/en/latest/) when
-bootstrapping the instances. You'll need at least one, but we
-recommending adding a friend.
+bootstrapping the instances. You'll need at least one for yourself,
+but we recommending adding a friend.
 
 ```hcl
 variable "svc" {
