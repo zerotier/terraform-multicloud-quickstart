@@ -50,6 +50,9 @@ Terraform will create a ZeroTier network, then bootstrap a single
 instance on each of Digital Ocean, Amazon Web Services, Google Compute
 Platform, and Microsoft Azure.
 
+NOTE: This can actually be a bit of a hurdle. Each cloud vendor brings
+their own special brand of pain.
+
 ## Configure the Quickstart repository
 
 Check out the source code for the quickstart and cd into the
