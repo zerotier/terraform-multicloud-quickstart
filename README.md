@@ -60,7 +60,7 @@ AMI. On GCP, you will be prompted to enable Cloud APIs.
 </p>
 
 To lower the bar of entry, you can toggle which cloud vendors are
-enabled in the config section. The process for creating service
+enabled in the config section. The process for creating cloud service
 accounts is outside the scope of this document, but should be pretty
 straight forward. You can do this. We beleive in you.
 
