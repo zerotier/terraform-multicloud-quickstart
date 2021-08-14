@@ -182,13 +182,13 @@ laptop:~/zerotier-terraform-quickstart$ terraform init && terraform plan && terr
 ## Join Laptop to Lab Network
 
 ```bash
-zerotier-cli join <networkid> allowDNS=1
+laptop:~$ zerotier-cli join <networkid> allowDNS=1
 ```
 
 ## Log into and take a look around
 
 ```bash
-ssh alice@do.demo.lab
+laptop:~$ ssh alice@do.demo.lab
 ```
 
 ## Ping all the boxen
