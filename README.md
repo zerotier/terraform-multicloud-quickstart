@@ -53,6 +53,10 @@ Platform, and Microsoft Azure.
 NOTE: This can actually be a bit of a hurdle. Each cloud vendor brings
 their own special brand of pain.
 
+<p align="center">
+<img src="https://i.imgur.com/W5fw292.jpg" alt="old man yells at cloud" /><br/>
+</p>
+
 ## Configure the Quickstart repository
 
 Check out the source code for the quickstart and cd into the
