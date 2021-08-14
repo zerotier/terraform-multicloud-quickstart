@@ -50,8 +50,13 @@ Terraform will create a ZeroTier network, then bootstrap a single
 instance on each of Digital Ocean, Amazon Web Services, Google Compute
 Platform, and Microsoft Azure.
 
-NOTE: This can actually be a bit of a hurdle. Each cloud vendor brings
-their own special brand of pain.
+The process for creating service accounts is outside the scope of this
+document, but should be pretty straight forward. We beleive in you.
+
+The first time through, you will encounter a few hurdles. Each cloud
+vendor brings their own special brand of pain. For example, on AWS,
+you need to accept the Marketplace agreement for the Ubuntu AMI. On
+GCP, you will be prompted to enable Cloud APIs. 
 
 <p align="center">
 <img src="https://i.imgur.com/5tRu35i.jpeg" alt="old man yells at cloud" /><br/>
