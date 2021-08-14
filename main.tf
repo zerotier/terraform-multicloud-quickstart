@@ -194,14 +194,19 @@ module "ibm" {
   for_each = { for k, b in var.enabled : (k) => k if k == "ibm" && b }
 }
 
-
 #
 # Oracle Cloud Infrastructure
 #
 
 module "oci" {
-  source   = "./modules/oci"
-  for_each = { for k, b in var.enabled : (k) => k if k == "oci" && b }
+  source      = "./modules/oci"
+  for_each    = { for k, b in var.enabled : (k) => k if k == "oci" && b }
+  name        = "oci"
+  dnsdomain   = zerotier_network.demolab.name
+  zt_networks = { demolab = { id = zerotier_network.demolab.id } }
+  zt_identity = zerotier_identity.instances["oci"]
+  svc         = var.users
+  script      = "init-common.tpl"
 }
 
 #

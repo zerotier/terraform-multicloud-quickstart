@@ -66,7 +66,7 @@ data "template_cloudinit_config" "gcp" {
     filename     = "hostname.cfg"
     content_type = "text/cloud-config"
     content = templatefile("${path.root}/hostname.tpl", {
-      "hostname" = var.name,
+      "hostname" = var.name
       "fqdn"     = "${var.name}.${var.dnsdomain}"
     })
   }

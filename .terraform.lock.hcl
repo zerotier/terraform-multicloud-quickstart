@@ -1,6 +1,26 @@
 # This file is maintained automatically by "terraform init".
 # Manual edits may be lost in future updates.
 
+provider "registry.terraform.io/aliyun/alicloud" {
+  version = "1.130.0"
+  hashes = [
+    "h1:o6zhcW0xJ6j+vvUmZk7W2vpZTJ6mgTEw4nhozgYNm8M=",
+    "zh:2473a24cdde87dc981e5144b6c9fe3be03cb720428e418616d6b17a386d29749",
+    "zh:36f4da47ecce7d83d013b1b27919fc591a81602ea2f72a69a206387c3a59b34a",
+    "zh:4932b5634172b235f704fe381b2651205d6913cab173527f3a2e5cb001239d02",
+    "zh:8e267b186c86657c3ae9949e028800c12217d2c3f344bd49b6ebe41ed135882e",
+    "zh:96211f540998f707b0038d724f110cc4ccd5df7741ef5b20147e905cb014e2e6",
+    "zh:9c567b6d69d9714e569b48aad39ea14ec67e3409772ac4a5ec0aa69165bd545c",
+    "zh:b2c6e000afdecd877afd95599bf15fb1f6c36bdafa0b701c1ba0dac00a00d9ec",
+    "zh:b7521cff7a578a29ff00bc82791fb99aca125fe52348d19499a0e4553a0ff7cb",
+    "zh:c129b1792ac264bfaa90c9dba99dd559786e48360a7167dc48f24c8c323f2818",
+    "zh:d45c9dc7691572378b1ab8f75098c2e05a02a411e47420d6c4822e53a1e54bb4",
+    "zh:db87eb594375eb796c31fd38b46abc7a93de14af6893800e4fd9195ede1ff5f1",
+    "zh:dba3217e1fe3962cd77ef1fc8a7da07fd26d97abe72b43596180d0268ece6378",
+    "zh:fbe3a7dc8762bc25e4e9a4088a640d470342ca33820fbff3239231ad424fabff",
+  ]
+}
+
 provider "registry.terraform.io/digitalocean/digitalocean" {
   version = "2.11.0"
   hashes = [
