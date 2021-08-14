@@ -3,8 +3,8 @@ variable "enabled" {
   default = {
     do  = true #-- required (provides DNS)
     aws = true
-    gcp = true
-    azu = true
+    gcp = false
+    azu = false
   }
 }
 
