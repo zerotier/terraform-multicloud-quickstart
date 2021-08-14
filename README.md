@@ -150,7 +150,7 @@ variable "devices" {
 
 Please place the following in your ```~/.bash_profile```, then run ```source ~/.bash_profile```
 
-1```bash
+```bash
 # ZeroTier Central
 export ZEROTIER_CENTRAL_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 export ZEROTIER_CENTRAL_URL="https://my.zerotier.com/api"
