@@ -101,14 +101,16 @@ variable "svc" {
 }
 ```
 
-### Laptop identity
+### Laptop identities
 
-If you haven't already, install the ZeroTier client on your laptop or
-workstation. You can get it from the [ZeroTier Downloads page](https://www.zerotier.com/download/).
+Next, we will add the ZeroTier identities of the non-ephemeral devices
+we plan to connect to our lab network. If you haven't already, install
+the ZeroTier client on your laptop or workstation. You can get it from
+the [ZeroTier Downloads page](https://www.zerotier.com/download/).
 
 ```bash
 laptop~$ zerotier-cli info
-200 info eff05def90 1.6.5 ONLINE
+200 info a11c3411ce 1.6.5 ONLINE
 ```
 
 ```hcl
