@@ -50,6 +50,9 @@ Terraform will create a ZeroTier network, then bootstrap a single
 instance on each of Digital Ocean, Amazon Web Services, Google Compute
 Platform, and Microsoft Azure.
 
+To lower the bar of entry, we have made it easy to toggle which cloud
+vendors are used in the lab.
+
 The process for creating service accounts is outside the scope of this
 document, but should be pretty straight forward. We beleive in you.
 
@@ -61,9 +64,6 @@ AMI. On GCP, you will be prompted to enable Cloud APIs.
 <p align="center">
 <img src="https://i.imgur.com/5tRu35i.jpeg" alt="old man yells at cloud" /><br/>
 </p>
-
-To lower the bar of entry, we have made it easy to toggle which cloud
-vendors are used in the lab.
 
 ## Configure the Quickstart repository
 
