@@ -62,6 +62,9 @@ AMI. On GCP, you will be prompted to enable Cloud APIs.
 <img src="https://i.imgur.com/5tRu35i.jpeg" alt="old man yells at cloud" /><br/>
 </p>
 
+To lower the bar of entry, we have made it easy to toggle which cloud
+vendors are used in the lab.
+
 ## Configure the Quickstart repository
 
 Check out the source code for the quickstart and cd into the
