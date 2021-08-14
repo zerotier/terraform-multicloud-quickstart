@@ -82,7 +82,7 @@ variable "enabled" {
 ### Service account SSH keys
 
 Next, add some SSH keys to the `svc` variable. These will be passed to
-cloud-init when bootstrapping the instances. You'll need at least one,
+`cloud-init` when bootstrapping the instances. You'll need at least one,
 but we recommending adding a friend.
 
 ```hcl
