@@ -115,7 +115,7 @@ variable "users" {
 }
 ```
 
-### Laptop identities
+### Device identities
 
 Next, we will add the ZeroTier identities of the non-ephemeral devices
 we plan to connect to our lab network. If you haven't already, install
