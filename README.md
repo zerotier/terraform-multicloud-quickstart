@@ -48,10 +48,8 @@ locally.
 
 Terraform will create a ZeroTier network, then bootstrap a single
 instance on each of Digital Ocean, Amazon Web Services, Google Compute
-Platform, and Microsoft Azure.
-
-To lower the bar of entry, we have made it easy to toggle which cloud
-vendors are used in the lab.
+Platform, and Microsoft Azure. To lower the bar of entry, we have made
+it easy to toggle which cloud vendors are used in the lab.
 
 The process for creating service accounts is outside the scope of this
 document, but should be pretty straight forward. We beleive in you.
