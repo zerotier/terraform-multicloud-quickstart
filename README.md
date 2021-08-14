@@ -150,7 +150,7 @@ variable "devices" {
 
 Please place the following in your ```~/.bash_profile```, then run ```source ~/.bash_profile```
 
-```bash
+1```bash
 # ZeroTier Central
 export ZEROTIER_CENTRAL_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 export ZEROTIER_CENTRAL_URL="https://my.zerotier.com/api"
@@ -187,9 +187,14 @@ zerotier-cli join <networkid> allowDNS=1
 
 ## Log into and take a look around
 
+```bash
+ssh alice@do.demo.lab
 ```
-ssh do.demo.lab
-ssh aws.demo.lab
-ssh gcp.demo.lab
-ssh azu.demo.lab
+
+## Ping all the boxen
+
+```bash
+ping -4 -c 1 aws.demo.lab
+ping -4 -c 1 gcp.demo.lab
+ping -4 -c 1 azu.demo.lab
 ```
