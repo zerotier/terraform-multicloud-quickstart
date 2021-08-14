@@ -92,7 +92,7 @@ module "do" {
     }
   }
   zt_identity = zerotier_identity.instances["do"]
-  svc         = var.svc
+  svc         = var.users
   zt_token    = zerotier_token.this.token
   script      = "init-zeronsd.tpl"
   depends_on  = [zerotier_member.do]
@@ -112,7 +112,7 @@ module "aws" {
   dnsdomain         = zerotier_network.demolab.name
   zt_networks       = { demolab = { id = zerotier_network.demolab.id } }
   zt_identity       = zerotier_identity.instances["aws"]
-  svc               = var.svc
+  svc               = var.users
   script            = "init-common.tpl"
   depends_on        = [zerotier_member.aws]
 }
@@ -131,7 +131,7 @@ module "gcp" {
   dnsdomain     = zerotier_network.demolab.name
   zt_networks   = { demolab = { id = zerotier_network.demolab.id } }
   zt_identity   = zerotier_identity.instances["gcp"]
-  svc           = var.svc
+  svc           = var.users
   script        = "init-common.tpl"
   depends_on    = [zerotier_member.gcp]
 }
@@ -150,7 +150,7 @@ module "azu" {
   dnsdomain           = zerotier_network.demolab.name
   zt_networks         = { demolab = { id = zerotier_network.demolab.id } }
   zt_identity         = zerotier_identity.instances["azu"]
-  svc                 = var.svc
+  svc                 = var.users
   script              = "init-common.tpl"
   depends_on          = [zerotier_member.azu]
 }

@@ -8,7 +8,7 @@ variable "enabled" {
   }
 }
 
-variable "svc" {
+variable "users" {
   default = {
     someara = {
       username   = "someara"
