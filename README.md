@@ -114,9 +114,13 @@ laptop~$ zerotier-cli info
 ```hcl
 variable "devices" {
   default = {
-    someara = {
-      member_id   = "eff05def90"
-      description = "Sean OMeara"
+    alice = {
+      member_id   = "a11c3411ce"
+      description = "Alice's laptop"
+    }
+    bob = {
+      member_id   = "b0bd0bb0bb"
+      description = "Bob's laptop"
     }
   }
 }
