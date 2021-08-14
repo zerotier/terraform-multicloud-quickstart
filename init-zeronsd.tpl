@@ -62,7 +62,7 @@ apt-get -qq update &>/dev/null
 
 echo "-- Nginx Hello --"
 apt-get -qq install docker.io 
-docker run -d -it --rm -p 80:80 nginxdemos/hello
+docker run -d -it --rm --network host nginxdemos/hello
 
 echo "-- Various Packages --"
 
