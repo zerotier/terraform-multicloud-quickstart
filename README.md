@@ -44,8 +44,8 @@ Terraform will create a ZeroTier network, then bootstrap instances on
 Digital Ocean, Amazon Web Services, Google Compute Platform, and
 Microsoft Azure.
 
-To follow along step by step, you'll need to create service accounts
-on Digital Ocean, and at least one other cloud vendor.
+To follow along step by step, you'll need to create a service account
+on Digital Ocean and at least one other cloud vendor.
 
 ## Configure the Quickstart repository
 
