@@ -54,7 +54,7 @@ NOTE: This can actually be a bit of a hurdle. Each cloud vendor brings
 their own special brand of pain.
 
 <p align="center">
-<img src="https://i.imgur.com/W5fw292.jpg" alt="old man yells at cloud" /><br/>
+<img src="https://i.imgur.com/W5fw292.jpg?s=200&v=4" alt="old man yells at cloud" /><br/>
 </p>
 
 ## Configure the Quickstart repository
