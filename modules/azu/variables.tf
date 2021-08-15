@@ -7,7 +7,7 @@ variable "zt_networks" {
 variable "zt_identity" {}
 
 variable "location" {
-  default = "centralus"
+  default = "eastus"
 }
 
 variable "name" {

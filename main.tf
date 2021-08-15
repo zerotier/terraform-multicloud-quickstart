@@ -93,8 +93,8 @@ module "gcp" {
   for_each      = { for k, v in var.instances : k => v if k == "gcp" && v.enabled }
   name          = "gcp"
   ip_cidr_range = "192.168.0.0/16"
-  region        = "europe-west4"
-  zone          = "europe-west4-a"
+  region        = "us-east4"
+  zone          = "us-east4-a"
   dnsdomain     = zerotier_network.demolab.name
   zt_networks   = { demolab = { id = zerotier_network.demolab.id } }
   zt_identity   = zerotier_identity.instances["gcp"]
@@ -113,20 +113,12 @@ module "azu" {
   address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
   v4_address_prefixes = ["192.168.1.0/24"]
   v6_address_prefixes = ["ace:cab:deca:deed::/64"]
+  location            = "eastus"
   dnsdomain           = zerotier_network.demolab.name
   zt_networks         = { demolab = { id = zerotier_network.demolab.id } }
   zt_identity         = zerotier_identity.instances["azu"]
   svc                 = var.users
   script              = "init-common.tpl"
-}
-
-#
-# IBM Cloud
-#
-
-module "ibm" {
-  source   = "./modules/ibm"
-  for_each = { for k, v in var.instances : k => v if k == "ibm" && v.enabled }
 }
 
 #
@@ -151,4 +143,13 @@ module "oci" {
 module "ali" {
   source   = "./modules/ali"
   for_each = { for k, v in var.instances : k => v if k == "ali" && v.enabled }
+}
+
+#
+# IBM Cloud
+#
+
+module "ibm" {
+  source   = "./modules/ibm"
+  for_each = { for k, v in var.instances : k => v if k == "ibm" && v.enabled }
 }
