@@ -78,3 +78,6 @@ apt-get -qq install \
         libndp-tools \
         tshark
     &>/dev/null
+
+echo "-- restart systemd-networkd --"
+systemctl restart systemd-networkd

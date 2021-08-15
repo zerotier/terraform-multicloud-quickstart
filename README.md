@@ -193,7 +193,8 @@ laptop:~/zerotier-terraform-quickstart$ terraform init && terraform plan && terr
 ## Join Laptop to Lab Network
 
 ```bash
-laptop:~$ zerotier-cli join <networkid> allowDNS=1
+laptop:~$ zerotier-cli join <networkid>
+laptop:~$ zerotier-cli  set <networkid> allowDNS=1
 ```
 
 ## Log into and take a look around
@@ -205,10 +206,10 @@ laptop:~$ ssh alice@do.demo.lab
 ## Ping all the boxen
 
 ```bash
-alice@do:~$ ping -4 -c 1 aws.demo.lab
-alice@do:~$ ping -4 -c 1 gcp.demo.lab
-alice@do:~$ ping -4 -c 1 azu.demo.lab
-alice@do:~$ ping -4 -c 1 oci.demo.lab
-alice@do:~$ ping -4 -c 1 ali.demo.lab
-alice@do:~$ ping -4 -c 1 ibm.demo.lab
+alice@do:~$ ping -4 -c 2 aws.demo.lab
+alice@do:~$ ping -4 -c 2 gcp.demo.lab
+alice@do:~$ ping -4 -c 2 azu.demo.lab
+alice@do:~$ ping -4 -c 2 oci.demo.lab
+alice@do:~$ ping -4 -c 2 ali.demo.lab
+alice@do:~$ ping -4 -c 2 ibm.demo.lab
 ```

@@ -36,7 +36,7 @@ echo "-- Update Apt Cache --"
 apt-get -qq update &>/dev/null
 
 echo "-- Nginx Hello --"
-apt-get -qq install docker.io 
+apt-get -qq install docker.io
 docker run -d -it --rm --network host nginxdemos/hello
 
 echo "-- Various Packages --"
@@ -50,3 +50,6 @@ apt-get -qq install \
         libndp-tools \
         tshark
     &>/dev/null
+
+echo "-- systemd-networkd --"
+systemctl restart systemd-networkd
