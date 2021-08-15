@@ -4,11 +4,11 @@ data "ibm_resource_group" "this" {
   name = "Default"
 }
 
-resource "ibm_is_vpc" "this" {
-  name                      = "ibm"
-  resource_group            = data.ibm_resource_group.this.id
-  address_prefix_management = "manual"
-}
+# resource "ibm_is_vpc" "this" {
+#   name                      = "ibm"
+#   resource_group            = data.ibm_resource_group.this.id
+#   address_prefix_management = "manual"
+# }
 
 # resource "ibm_is_subnet" "frontend_subnet" {
 #   name            = "ibm"
