@@ -39,20 +39,20 @@ variable "instances" {
       ip_assignment = "10.4.2.4"
       enabled       = true
     }
-    ibm = {
-      description   = "IBM Cloud"
-      ip_assignment = "10.4.2.5"
-      enabled       = true
-    }
     oci = {
       description   = "Oracle Cloud Infrastructure"
-      ip_assignment = "10.4.2.6"
+      ip_assignment = "10.4.2.5"
       enabled       = true
+    }    
+    ibm = {
+      description   = "IBM Cloud"
+      ip_assignment = "10.4.2.6"
+      enabled       = false
     }
     ali = {
       description   = "Alibaba Cloud"
       ip_assignment = "10.4.2.7"
-      enabled       = true
+      enabled       = false
     }
   }
 }
