@@ -10,12 +10,12 @@ variable "name" {
 }
 
 variable "region" {
-  default = "fra1"
+  default = "nyc1"
   type    = string
 }
 
 variable "size" {
-  default = "s-2vcpu-4gb"
+  default = "s-1vcpu-1gb-amd"
   type    = string
 }
 

@@ -27,7 +27,7 @@ variable "instances" {
     aws = {
       description   = "Amazon Web Services"
       ip_assignment = "10.4.2.2"
-      enabled       = true
+      enabled       = false
     }
     gcp = {
       description   = "Google Compute Platform"

@@ -52,7 +52,8 @@ module "do" {
   for_each  = { for k, v in var.instances : k => v if k == "do" && v.enabled }
   name      = "do"
   image     = "ubuntu-20-04-x64"
-  region    = "fra1"
+  region    = "nyc1"
+  size      = "s-1vcpu-1gb-amd"
   dnsdomain = zerotier_network.demolab.name
   zt_networks = {
     demolab = {
@@ -75,7 +76,7 @@ module "aws" {
   for_each          = { for k, v in var.instances : k => v if k == "aws" && v.enabled }
   name              = "aws"
   cidr_block        = "192.168.0.0/16"
-  availability_zone = "us-east-2a"
+  availability_zone = "us-east-1a"
   instance_type     = "t3.micro"
   dnsdomain         = zerotier_network.demolab.name
   zt_networks       = { demolab = { id = zerotier_network.demolab.id } }
