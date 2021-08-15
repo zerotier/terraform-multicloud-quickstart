@@ -208,4 +208,7 @@ laptop:~$ ssh alice@do.demo.lab
 alice@do:~$ ping -4 -c 1 aws.demo.lab
 alice@do:~$ ping -4 -c 1 gcp.demo.lab
 alice@do:~$ ping -4 -c 1 azu.demo.lab
+alice@do:~$ ping -4 -c 1 oci.demo.lab
+alice@do:~$ ping -4 -c 1 ali.demo.lab
+alice@do:~$ ping -4 -c 1 ibm.demo.lab
 ```
