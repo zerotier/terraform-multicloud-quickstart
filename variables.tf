@@ -5,9 +5,9 @@ variable "enabled" {
     aws = false
     gcp = false
     azu = false
+    oci = false
     ibm = false
-    oci = true
-    ali = true
+    ali = false
   }
 }
 
