@@ -17,18 +17,6 @@ resource "zerotier_network" "demolab" {
   })
 }
 
-resource "zerotier_identity" "instances" {
-  for_each = { for i in [
-    "do",
-    "aws",
-    "gcp",
-    "azu",
-    "ibm",
-    "oci",
-    "ali"
-  ] : i => (i) }
-}
-
 resource "zerotier_member" "devices" {
   for_each    = var.devices
   name        = each.key
@@ -37,67 +25,18 @@ resource "zerotier_member" "devices" {
   network_id  = zerotier_network.demolab.id
 }
 
-resource "zerotier_member" "do" {
-  name               = "do"
-  description        = "Digital Ocean"
-  member_id          = zerotier_identity.instances["do"].id
-  network_id         = zerotier_network.demolab.id
-  no_auto_assign_ips = true
-  ip_assignments     = ["10.4.2.1"]
+resource "zerotier_identity" "instances" {
+  for_each = { for k, v in var.instances : k => (v) if v.enabled }
 }
 
-resource "zerotier_member" "aws" {
-  name               = "aws"
-  description        = "Amazon Web Services"
-  member_id          = zerotier_identity.instances["aws"].id
+resource "zerotier_member" "instances" {
+  for_each           = { for k, v in var.instances : k => (v) if v.enabled }
+  name               = each.key
+  member_id          = zerotier_identity.instances[each.key].id
+  description        = each.value.description
   network_id         = zerotier_network.demolab.id
   no_auto_assign_ips = true
-  ip_assignments     = ["10.4.2.2"]
-}
-
-resource "zerotier_member" "gcp" {
-  name               = "gcp"
-  description        = "Google Compute Platform"
-  member_id          = zerotier_identity.instances["gcp"].id
-  network_id         = zerotier_network.demolab.id
-  no_auto_assign_ips = true
-  ip_assignments     = ["10.4.2.3"]
-}
-
-resource "zerotier_member" "azu" {
-  name               = "azu"
-  description        = "Microsoft Azure"
-  member_id          = zerotier_identity.instances["azu"].id
-  network_id         = zerotier_network.demolab.id
-  no_auto_assign_ips = true
-  ip_assignments     = ["10.4.2.4"]
-}
-
-resource "zerotier_member" "ibm" {
-  name               = "ibm"
-  description        = "IBM Cloud"
-  member_id          = zerotier_identity.instances["ibm"].id
-  network_id         = zerotier_network.demolab.id
-  no_auto_assign_ips = true
-  ip_assignments     = ["10.4.2.5"]
-}
-
-resource "zerotier_member" "oci" {
-  name               = "oci"
-  description        = "Oracle Cloud Infrastructure"
-  member_id          = zerotier_identity.instances["oci"].id
-  network_id         = zerotier_network.demolab.id
-  no_auto_assign_ips = true
-  ip_assignments     = ["10.4.2.6"]
-}
-
-resource "zerotier_member" "ali" {
-  name               = "ali"
-  description        = "Alibaba Cloud"
-  member_id          = zerotier_identity.instances["ali"].id
-  network_id         = zerotier_network.demolab.id
-  no_auto_assign_ips = true
-  ip_assignments     = ["10.4.2.7"]
+  ip_assignments     = [each.value.ip_assignment]
 }
 
 #
@@ -110,7 +49,7 @@ resource "zerotier_token" "this" {
 
 module "do" {
   source    = "./modules/do"
-  for_each  = { for k, b in var.enabled : (k) => k if k == "do" && b }
+  for_each  = { for k, v in var.instances : k => v if k == "do" && v.enabled }
   name      = "do"
   image     = "ubuntu-20-04-x64"
   region    = "fra1"
@@ -125,7 +64,6 @@ module "do" {
   svc         = var.users
   zt_token    = zerotier_token.this.token
   script      = "init-zeronsd.tpl"
-  depends_on  = [zerotier_member.do]
 }
 
 #
@@ -134,7 +72,7 @@ module "do" {
 
 module "aws" {
   source            = "./modules/aws"
-  for_each          = { for k, b in var.enabled : (k) => k if k == "aws" && b }
+  for_each          = { for k, v in var.instances : k => v if k == "aws" && v.enabled }
   name              = "aws"
   cidr_block        = "192.168.0.0/16"
   availability_zone = "us-east-2a"
@@ -144,7 +82,6 @@ module "aws" {
   zt_identity       = zerotier_identity.instances["aws"]
   svc               = var.users
   script            = "init-common.tpl"
-  depends_on        = [zerotier_member.aws]
 }
 
 #
@@ -153,7 +90,7 @@ module "aws" {
 
 module "gcp" {
   source        = "./modules/gcp"
-  for_each      = { for k, b in var.enabled : (k) => k if k == "gcp" && b }
+  for_each      = { for k, v in var.instances : k => v if k == "gcp" && v.enabled }
   name          = "gcp"
   ip_cidr_range = "192.168.0.0/16"
   region        = "europe-west4"
@@ -163,7 +100,6 @@ module "gcp" {
   zt_identity   = zerotier_identity.instances["gcp"]
   svc           = var.users
   script        = "init-common.tpl"
-  depends_on    = [zerotier_member.gcp]
 }
 
 #
@@ -172,7 +108,7 @@ module "gcp" {
 
 module "azu" {
   source              = "./modules/azu"
-  for_each            = { for k, b in var.enabled : (k) => k if k == "azu" && b }
+  for_each            = { for k, v in var.instances : k => v if k == "azu" && v.enabled }
   name                = "azu"
   address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
   v4_address_prefixes = ["192.168.1.0/24"]
@@ -182,7 +118,6 @@ module "azu" {
   zt_identity         = zerotier_identity.instances["azu"]
   svc                 = var.users
   script              = "init-common.tpl"
-  depends_on          = [zerotier_member.azu]
 }
 
 #
@@ -191,7 +126,7 @@ module "azu" {
 
 module "ibm" {
   source   = "./modules/ibm"
-  for_each = { for k, b in var.enabled : (k) => k if k == "ibm" && b }
+  for_each = { for k, v in var.instances : k => v if k == "ibm" && v.enabled }
 }
 
 #
@@ -200,7 +135,7 @@ module "ibm" {
 
 module "oci" {
   source      = "./modules/oci"
-  for_each    = { for k, b in var.enabled : (k) => k if k == "oci" && b }
+  for_each    = { for k, v in var.instances : k => v if k == "oci" && v.enabled }
   name        = "oci"
   dnsdomain   = zerotier_network.demolab.name
   zt_networks = { demolab = { id = zerotier_network.demolab.id } }
@@ -215,5 +150,5 @@ module "oci" {
 
 module "ali" {
   source   = "./modules/ali"
-  for_each = { for k, b in var.enabled : (k) => k if k == "ali" && b }
+  for_each = { for k, v in var.instances : k => v if k == "ali" && v.enabled }
 }

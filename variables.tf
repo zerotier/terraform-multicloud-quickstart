@@ -1,16 +1,4 @@
 
-variable "enabled" {
-  default = {
-    do  = true #-- required (provides DNS)
-    aws = false
-    gcp = false
-    azu = false
-    oci = false
-    ibm = false
-    ali = false
-  }
-}
-
 variable "users" {
   default = {
     someara = {
@@ -25,6 +13,46 @@ variable "devices" {
     laptop = {
       member_id   = "eff05def90"
       description = "laptop"
+    }
+  }
+}
+
+variable "instances" {
+  default = {
+    do = {
+      description   = "Digital Ocean"
+      ip_assignment = "10.4.2.1"
+      enabled       = true
+    }
+    aws = {
+      description   = "Amazon Web Services"
+      ip_assignment = "10.4.2.2"
+      enabled       = true
+    }
+    gcp = {
+      description   = "Google Compute Platform"
+      ip_assignment = "10.4.2.3"
+      enabled       = true
+    }
+    azu = {
+      description   = "Microsoft Azure"
+      ip_assignment = "10.4.2.4"
+      enabled       = true
+    }
+    ibm = {
+      description   = "IBM Cloud"
+      ip_assignment = "10.4.2.5"
+      enabled       = true
+    }
+    oci = {
+      description   = "Oracle Cloud Infrastructure"
+      ip_assignment = "10.4.2.6"
+      enabled       = true
+    }
+    ali = {
+      description   = "Alibaba Cloud"
+      ip_assignment = "10.4.2.7"
+      enabled       = true
     }
   }
 }

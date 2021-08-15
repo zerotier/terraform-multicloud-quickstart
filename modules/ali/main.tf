@@ -32,7 +32,7 @@ resource "alicloud_security_group" "this" {
 resource "alicloud_security_group_rule" "allow_all" {
   type              = "ingress"
   ip_protocol       = "all"
-  nic_type          = "internet"
+  nic_type          = "intranet"
   policy            = "accept"
   port_range        = "1/65535"
   priority          = 1
@@ -40,15 +40,15 @@ resource "alicloud_security_group_rule" "allow_all" {
   cidr_ip           = "0.0.0.0/0"
 }
 
-resource "alicloud_instance" "this" {
-  instance_name        = "ali"
-  host_name            = "ali.demo.lab"
-  image_id             = "ubuntu_20_04_x64_20G_alibase_20210623.vhd"
-  instance_type        = data.alicloud_instance_types.this.instance_types[0].id
-  security_groups      = [alicloud_security_group.this.id]
-  vswitch_id           = alicloud_vswitch.this.id
-  internet_charge_type = "PayByTraffic"
-  # password             = "N3wZ3r0T13r!"
-  instance_charge_type = "PostPaid"
-  tags                 = { "Name" : "ali" }
-}
+# resource "alicloud_instance" "this" {
+#   instance_name        = "ali"
+#   host_name            = "ali.demo.lab"
+#   image_id             = "ubuntu_20_04_x64_20G_alibase_20210623.vhd"
+#   instance_type        = data.alicloud_instance_types.this.instance_types[0].id
+#   security_groups      = [alicloud_security_group.this.id]
+#   vswitch_id           = alicloud_vswitch.this.id
+#   internet_charge_type = "PayByTraffic"
+#   # password             = "N3wZ3r0T13r!"
+#   instance_charge_type = "PostPaid"
+#   tags                 = { "Name" : "ali" }
+# }
