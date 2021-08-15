@@ -12,6 +12,9 @@ function apt-get() {
 }
 export DEBIAN_FRONTEND=noninteractive
 
+echo "-- iptables --"
+iptables -F
+
 echo "-- ZeroTier --"
 
 curl -s https://install.zerotier.com | bash

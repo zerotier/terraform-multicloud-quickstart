@@ -78,14 +78,14 @@ resource "oci_core_instance" "this" {
     source_id   = "ocid1.image.oc1.iad.aaaaaaaayfc7vgsvgtmrlka74mdhyawbjmpcllntrowcuimb6nfxyqur734q"
   }
 
-  metadata {
+  metadata = {
     user_data = data.template_cloudinit_config.oci.rendered
   }
 }
 
 data "template_cloudinit_config" "oci" {
   gzip          = false
-  base64_encode = false
+  base64_encode = true
 
   part {
     filename     = "hostname.cfg"
