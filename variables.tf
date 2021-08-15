@@ -43,7 +43,7 @@ variable "instances" {
       description   = "Oracle Cloud Infrastructure"
       ip_assignment = "10.4.2.5"
       enabled       = true
-    }    
+    }
     ibm = {
       description   = "IBM Cloud"
       ip_assignment = "10.4.2.6"
