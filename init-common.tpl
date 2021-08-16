@@ -31,6 +31,9 @@ echo "-- ZeroTier Systemd Manager --"
 wget -q https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.2.0/zerotier-systemd-manager_0.2.0_linux_amd64.deb
 dpkg -i zerotier-systemd-manager_0.2.0_linux_amd64.deb
 
+echo "-- networkctl reload --"
+networkctl reload
+
 echo "-- Update Apt Cache --"
 
 apt-get -qq update &>/dev/null
@@ -50,6 +53,3 @@ apt-get -qq install \
         libndp-tools \
         tshark
     &>/dev/null
-
-echo "-- systemd-networkd --"
-systemctl restart systemd-networkd

@@ -31,6 +31,9 @@ echo "-- ZeroTier Systemd Manager --"
 wget -q https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.2.0/zerotier-systemd-manager_0.2.0_linux_amd64.deb
 dpkg -i zerotier-systemd-manager_0.2.0_linux_amd64.deb
 
+echo "-- networkctl reload --"
+networkctl reload
+
 echo "-- ZeroTier Central Token --"
 
 bash -c "echo ${zt_token} > /var/lib/zerotier-one/token"
@@ -78,6 +81,3 @@ apt-get -qq install \
         libndp-tools \
         tshark
     &>/dev/null
-
-echo "-- restart systemd-networkd --"
-systemctl restart systemd-networkd
