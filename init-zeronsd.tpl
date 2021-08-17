@@ -28,11 +28,8 @@ done
 %{ endfor ~}
 
 echo "-- ZeroTier Systemd Manager --"
-wget -q https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.2.0/zerotier-systemd-manager_0.2.0_linux_amd64.deb
-dpkg -i zerotier-systemd-manager_0.2.0_linux_amd64.deb
-
-echo "-- networkctl reload --"
-networkctl reload
+wget -q https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.2.1/zerotier-systemd-manager_0.2.1_linux_amd64.deb
+dpkg -i zerotier-systemd-manager_0.2.1_linux_amd64.deb
 
 echo "-- ZeroTier Central Token --"
 

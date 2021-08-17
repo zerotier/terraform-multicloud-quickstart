@@ -138,19 +138,31 @@ module "oci" {
 }
 
 #
-# Alibaba Cloud
-#
-
-module "ali" {
-  source   = "./modules/ali"
-  for_each = { for k, v in var.instances : k => v if k == "ali" && v.enabled }
-}
-
-#
 # IBM Cloud
 #
 
 module "ibm" {
-  source   = "./modules/ibm"
-  for_each = { for k, v in var.instances : k => v if k == "ibm" && v.enabled }
+  source      = "./modules/ibm"
+  for_each    = { for k, v in var.instances : k => v if k == "ibm" && v.enabled }
+  name        = "ibm"
+  dnsdomain   = zerotier_network.demolab.name
+  zt_networks = { demolab = { id = zerotier_network.demolab.id } }
+  zt_identity = zerotier_identity.instances["ibm"]
+  svc         = var.users
+  script      = "init-common.tpl"
+}
+
+#
+# Alibaba Cloud
+#
+
+module "ali" {
+  source      = "./modules/ali"
+  for_each    = { for k, v in var.instances : k => v if k == "ali" && v.enabled }
+  name        = "ali"
+  dnsdomain   = zerotier_network.demolab.name
+  zt_networks = { demolab = { id = zerotier_network.demolab.id } }
+  zt_identity = zerotier_identity.instances["ali"]
+  svc         = var.users
+  script      = "init-common.tpl"
 }
