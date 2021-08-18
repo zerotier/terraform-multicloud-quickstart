@@ -71,10 +71,11 @@ echo "-- Various Packages --"
 
 apt-get -qq install \
         emacs-nox \
-        curl \
         net-tools \
         iproute2 \
         iputils-ping \
         libndp-tools \
         tshark
     &>/dev/null
+
+echo "-- Script Finished! --"

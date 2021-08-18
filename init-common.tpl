@@ -14,7 +14,7 @@ function apt-get() {
 export DEBIAN_FRONTEND=noninteractive
 
 echo "-- iptables --"
-iptables -L
+iptables -F
 
 echo "-- ZeroTier --"
 
@@ -32,9 +32,6 @@ echo "-- ZeroTier Systemd Manager --"
 wget -q https://github.com/zerotier/zerotier-systemd-manager/releases/download/v0.2.1/zerotier-systemd-manager_0.2.1_linux_amd64.deb
 dpkg -i zerotier-systemd-manager_0.2.1_linux_amd64.deb
 
-echo "-- networkctl reload --"
-networkctl reload
-
 echo "-- Update Apt Cache --"
 
 apt-get -qq update &>/dev/null
@@ -46,8 +43,6 @@ docker run -d -it --rm --network host nginxdemos/hello
 echo "-- Various Packages --"
 
 apt-get -qq install \
-        curl \
-        wget \
         emacs-nox \
         curl \
         net-tools \
@@ -56,3 +51,5 @@ apt-get -qq install \
         libndp-tools \
         tshark \
     &>/dev/null
+
+echo "-- Script Finished! --"

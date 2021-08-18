@@ -145,24 +145,11 @@ module "ibm" {
   source      = "./modules/ibm"
   for_each    = { for k, v in var.instances : k => v if k == "ibm" && v.enabled }
   name        = "ibm"
+  vpc_cidr    = "192.168.0.0/16"
+  subnet_cidr = "192.168.1.0/24"
   dnsdomain   = zerotier_network.demolab.name
   zt_networks = { demolab = { id = zerotier_network.demolab.id } }
   zt_identity = zerotier_identity.instances["ibm"]
-  svc         = var.users
-  script      = "init-common.tpl"
-}
-
-#
-# Alibaba Cloud
-#
-
-module "ali" {
-  source      = "./modules/ali"
-  for_each    = { for k, v in var.instances : k => v if k == "ali" && v.enabled }
-  name        = "ali"
-  dnsdomain   = zerotier_network.demolab.name
-  zt_networks = { demolab = { id = zerotier_network.demolab.id } }
-  zt_identity = zerotier_identity.instances["ali"]
   svc         = var.users
   script      = "init-common.tpl"
 }

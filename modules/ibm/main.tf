@@ -4,45 +4,41 @@ data "ibm_resource_group" "this" {
 }
 
 data "ibm_is_image" "this" {
-  name = "ibm-ubuntu-20-04-2-minimal-amd64-1"
+  name = var.image
 }
 
 data "ibm_is_instance_profiles" "this" {}
 
 resource "ibm_is_vpc" "this" {
-  name                      = "ibm"
+  name                      = var.name
   resource_group            = data.ibm_resource_group.this.id
   address_prefix_management = "manual"
 }
 
 resource "ibm_is_vpc_address_prefix" "this" {
-  name = "ibm"
-  zone = "us-east-1"
+  name = var.name
+  zone = var.zone
   vpc  = ibm_is_vpc.this.id
-  cidr = "192.168.0.0/16"
+  cidr = var.vpc_cidr
 }
 
 resource "ibm_is_public_gateway" "this" {
-  name = "ibm"
+  name = var.name
   vpc  = ibm_is_vpc.this.id
-  zone = "us-east-1"
-
-  timeouts {
-    create = "90m"
-  }
+  zone = var.zone
 }
 
 resource "ibm_is_subnet" "this" {
-  name            = "ibm"
+  name            = var.name
   vpc             = ibm_is_vpc.this.id
-  zone            = "us-east-1"
-  ipv4_cidr_block = "192.168.1.0/24"
+  zone            = var.zone
+  ipv4_cidr_block = var.subnet_cidr
   public_gateway  = ibm_is_public_gateway.this.id
   depends_on      = [ibm_is_vpc_address_prefix.this]
 }
 
 resource "ibm_is_security_group" "this" {
-  name           = "ibm"
+  name           = var.name
   vpc            = ibm_is_vpc.this.id
   resource_group = data.ibm_resource_group.this.id
 }
@@ -52,20 +48,20 @@ resource "ibm_is_security_group_rule" "inbound_udp" {
   remote    = "0.0.0.0/0"
   direction = "inbound"
   udp {
-    port_min = 1
-    port_max = 65535
+    port_min = 9993
+    port_max = 9993
   }
 }
 
-resource "ibm_is_security_group_rule" "inbound_tcp" {
-  group     = ibm_is_security_group.this.id
-  remote    = "0.0.0.0/0"
-  direction = "inbound"
-  tcp {
-    port_min = 1
-    port_max = 65535
-  }
-}
+# resource "ibm_is_security_group_rule" "inbound_tcp" {
+#   group     = ibm_is_security_group.this.id
+#   remote    = "0.0.0.0/0"
+#   direction = "inbound"
+#   tcp {
+#     port_min = 1
+#     port_max = 65535
+#   }
+# }
 
 resource "ibm_is_security_group_rule" "outbound_udp" {
   group     = ibm_is_security_group.this.id
@@ -87,18 +83,10 @@ resource "ibm_is_security_group_rule" "outbound_tcp" {
   }
 }
 
-resource "ibm_is_ssh_key" "this" {
-  # for_each   = var.svc
-  # name       = each.key
-  # public_key = each.value.ssh_pubkey
-  name       = "someara"
-  public_key = var.svc.someara.ssh_pubkey
-}
-
 resource "ibm_is_instance" "this" {
-  name    = "ibm"
+  name    = var.name
   image   = data.ibm_is_image.this.id
-  profile = "cx2-2x4"
+  profile = var.instance_profile
 
   primary_network_interface {
     subnet            = ibm_is_subnet.this.id
@@ -106,17 +94,11 @@ resource "ibm_is_instance" "this" {
     allow_ip_spoofing = false
   }
 
-  vpc  = ibm_is_vpc.this.id
-  zone = "us-east-1"
-  # keys = []
-  keys           = [ibm_is_ssh_key.this.id]
+  vpc            = ibm_is_vpc.this.id
+  zone           = var.zone
+  keys           = []
   resource_group = data.ibm_resource_group.this.id
   user_data      = data.template_cloudinit_config.ibm.rendered
-}
-
-resource "ibm_is_floating_ip" "this" {
-  name   = "ibm-fip"
-  target = ibm_is_instance.this.primary_network_interface[0].id
 }
 
 data "template_cloudinit_config" "ibm" {
