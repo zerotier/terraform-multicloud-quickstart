@@ -9,6 +9,33 @@ resource "digitalocean_droplet" "this" {
   user_data = data.template_cloudinit_config.do.rendered
 }
 
+resource "digitalocean_firewall" "this" {
+  name        = var.name
+  droplet_ids = [digitalocean_droplet.this.id]
+  inbound_rule {
+    protocol         = "udp"
+    port_range       = "9993"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+    protocol              = "tcp"
+    port_range            = "1-65535"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+    protocol              = "udp"
+    port_range            = "1-65535"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+    protocol              = "icmp"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+}
+
 data "template_cloudinit_config" "do" {
   gzip          = false
   base64_encode = false

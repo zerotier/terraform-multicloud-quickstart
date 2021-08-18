@@ -13,7 +13,7 @@ resource "aws_subnet" "this" {
   ipv6_cidr_block                 = cidrsubnet(aws_vpc.this.ipv6_cidr_block, 8, 0)
   assign_ipv6_address_on_creation = true
   vpc_id                          = aws_vpc.this.id
-  tags                            = { "Name" = "${var.name}-zone-00" }
+  tags                            = { "Name" = var.name }
 }
 
 resource "aws_internet_gateway" "this" {
@@ -70,13 +70,13 @@ resource "aws_network_acl_rule" "allow_all_v6" {
 
 resource "aws_security_group" "this" {
   vpc_id      = aws_vpc.this.id
-  name        = "allow_all"
-  description = "allow_all"
+  name        = var.name
+  description = var.name
 
   ingress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
+    from_port        = 9993
+    to_port          = 9993
+    protocol         = "udp"
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
@@ -89,7 +89,7 @@ resource "aws_security_group" "this" {
     ipv6_cidr_blocks = ["::/0"]
   }
 
-  tags = { "Name" = "allow_all" }
+  tags = { "Name" = var.name }
 }
 
 
@@ -99,7 +99,7 @@ data "aws_ami" "this" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = [var.aws_ami]
   }
 
   filter {
@@ -123,8 +123,8 @@ resource "aws_eip" "this" {
 }
 
 resource "aws_eip_association" "eip_assoc" {
-  instance_id   = aws_instance.this.id
-  allocation_id = aws_eip.this.id
+  network_interface_id = aws_instance.this.primary_network_interface_id
+  allocation_id        = aws_eip.this.id
 }
 
 data "template_cloudinit_config" "aws" {

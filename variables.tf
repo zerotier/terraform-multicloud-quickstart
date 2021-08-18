@@ -47,7 +47,7 @@ variable "instances" {
     ibm = {
       description   = "IBM Cloud"
       ip_assignment = "10.4.2.6"
-      enabled       = true
+      enabled       = false
     }
     ali = {
       description   = "Alibaba Cloud"
