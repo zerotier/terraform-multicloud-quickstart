@@ -4,6 +4,13 @@ resource "azurerm_resource_group" "this" {
   name     = var.name
 }
 
+resource "azurerm_virtual_network" "this" {
+  name                = var.name
+  resource_group_name = azurerm_resource_group.this.name
+  location            = azurerm_resource_group.this.location
+  address_space       = var.address_space
+}
+
 resource "azurerm_public_ip" "this_v4" {
   name                = "${var.name}-v4"
   resource_group_name = azurerm_resource_group.this.name
@@ -11,6 +18,13 @@ resource "azurerm_public_ip" "this_v4" {
   sku                 = "Standard"
   allocation_method   = "Static"
   ip_version          = "IPv4"
+}
+
+resource "azurerm_subnet" "this_v4" {
+  name                 = "${var.name}-v4"
+  resource_group_name  = azurerm_resource_group.this.name
+  virtual_network_name = azurerm_virtual_network.this.name
+  address_prefixes     = var.v4_address_prefixes
 }
 
 resource "azurerm_public_ip" "this_v6" {
@@ -22,22 +36,8 @@ resource "azurerm_public_ip" "this_v6" {
   ip_version          = "IPv6"
 }
 
-resource "azurerm_virtual_network" "this" {
-  name                = var.name
-  resource_group_name = azurerm_resource_group.this.name
-  location            = azurerm_resource_group.this.location
-  address_space       = var.address_space
-}
-
-resource "azurerm_subnet" "this_v4" {
-  name                 = "${var.name}-zone-00-v4"
-  resource_group_name  = azurerm_resource_group.this.name
-  virtual_network_name = azurerm_virtual_network.this.name
-  address_prefixes     = var.v4_address_prefixes
-}
-
 resource "azurerm_subnet" "this_v6" {
-  name                 = "${var.name}-zone-00-v6"
+  name                 = "${var.name}-v6"
   resource_group_name  = azurerm_resource_group.this.name
   virtual_network_name = azurerm_virtual_network.this.name
   address_prefixes     = var.v6_address_prefixes
@@ -65,6 +65,45 @@ resource "azurerm_network_interface" "this" {
     private_ip_address_version    = "IPv6"
     private_ip_address_allocation = "Dynamic"
   }
+}
+
+resource "azurerm_network_security_group" "this" {
+  name                = var.name
+  resource_group_name = azurerm_resource_group.this.name
+  location            = azurerm_resource_group.this.location
+}
+
+resource "azurerm_network_security_rule" "zerotier" {
+  name                        = "${var.name}-zerotier"
+  resource_group_name         = azurerm_resource_group.this.name
+  network_security_group_name = azurerm_network_security_group.this.name
+  priority                    = 100
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Udp"
+  source_port_range           = "*"
+  destination_port_range      = "9993"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+}
+
+resource "azurerm_network_security_rule" "egress" {
+  name                        = "${var.name}-egress"
+  resource_group_name         = azurerm_resource_group.this.name
+  network_security_group_name = azurerm_network_security_group.this.name
+  priority                    = 100
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "*"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+}
+
+resource "azurerm_network_interface_security_group_association" "ubuntu" {
+  network_interface_id      = azurerm_network_interface.this.id
+  network_security_group_id = azurerm_network_security_group.this.id
 }
 
 resource "tls_private_key" "azu-rsa" {

@@ -8,7 +8,7 @@ resource "google_compute_network" "this" {
 }
 
 resource "google_compute_subnetwork" "this" {
-  name          = "${var.name}-zone-00"
+  name          = var.name
   network       = google_compute_network.this.self_link
   region        = var.region
   ip_cidr_range = var.ip_cidr_range
@@ -22,10 +22,22 @@ resource "google_compute_address" "this" {
   address_type = "EXTERNAL"
 }
 
-resource "google_compute_firewall" "this" {
-  name    = "allow-all"
+resource "google_compute_firewall" "ingress" {
+  name    = "${var.name}-ingress"
   network = google_compute_network.this.self_link
 
+  direction = "INGRESS"
+  allow {
+    protocol = "udp"
+    ports    = ["9993"]
+  }
+}
+
+resource "google_compute_firewall" "egress" {
+  name    = "${var.name}-egress"
+  network = google_compute_network.this.self_link
+
+  direction = "EGRESS"
   allow { protocol = "tcp" }
   allow { protocol = "udp" }
   allow { protocol = "icmp" }

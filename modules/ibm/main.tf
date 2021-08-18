@@ -53,16 +53,6 @@ resource "ibm_is_security_group_rule" "inbound_udp" {
   }
 }
 
-# resource "ibm_is_security_group_rule" "inbound_tcp" {
-#   group     = ibm_is_security_group.this.id
-#   remote    = "0.0.0.0/0"
-#   direction = "inbound"
-#   tcp {
-#     port_min = 1
-#     port_max = 65535
-#   }
-# }
-
 resource "ibm_is_security_group_rule" "outbound_udp" {
   group     = ibm_is_security_group.this.id
   remote    = "0.0.0.0/0"
