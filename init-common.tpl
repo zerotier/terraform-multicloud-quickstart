@@ -34,7 +34,7 @@ chmod 440 /etc/sudoers.d/${user.username}
 %{ endfor ~}
 
 echo "-- iptables --"
-iptables -F
+# iptables -F
 
 echo "-- ZeroTier identity --"
 mkdir -p /var/lib/zerotier-one/

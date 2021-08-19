@@ -124,7 +124,7 @@ variable "devices" {
 }
 ```
 
-### Enable Clouds
+### Enable or Disable Clouds
 
 Next, select which clouds to enable. You'll need at least two for
 demonstration purposes, but I recommend using them all for dramatic
