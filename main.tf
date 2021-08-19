@@ -126,15 +126,18 @@ module "azu" {
 # Oracle Cloud Infrastructure
 #
 
+variable "compartment_id" { default = "fixme" }
+
 module "oci" {
-  source      = "./modules/oci"
-  for_each    = { for k, v in var.instances : k => v if k == "oci" && v.enabled }
-  name        = "oci"
-  dnsdomain   = zerotier_network.demolab.name
-  zt_networks = { demolab = { id = zerotier_network.demolab.id } }
-  zt_identity = zerotier_identity.instances["oci"]
-  svc         = var.users
-  script      = "init-common.tpl"
+  source         = "./modules/oci"
+  for_each       = { for k, v in var.instances : k => v if k == "oci" && v.enabled }
+  name           = "oci"
+  compartment_id = var.compartment_id
+  dnsdomain      = zerotier_network.demolab.name
+  zt_networks    = { demolab = { id = zerotier_network.demolab.id } }
+  zt_identity    = zerotier_identity.instances["oci"]
+  svc            = var.users
+  script         = "init-common.tpl"
 }
 
 #

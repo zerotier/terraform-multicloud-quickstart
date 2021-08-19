@@ -1,25 +1,21 @@
 
-variable "compartment_id" {
-  default = "ocid1.tenancy.oc1..aaaaaaaaug2bz37uinrpcxwp7gzkaxeuejppf5obbiak7j5h34u5joig4m5q"
-}
-
 resource "oci_core_vcn" "this" {
   cidr_block     = "192.168.0.0/16"
   compartment_id = var.compartment_id
-  display_name   = "oci"
-  dns_label      = "oci"
+  display_name   = var.name
+  dns_label      = var.name
 }
 
 resource "oci_core_internet_gateway" "this" {
   compartment_id = var.compartment_id
-  display_name   = "oci"
+  display_name   = var.name
   vcn_id         = oci_core_vcn.this.id
 }
 
 resource "oci_core_route_table" "this" {
   compartment_id = var.compartment_id
   vcn_id         = oci_core_vcn.this.id
-  display_name   = "oci"
+  display_name   = var.name
 
   route_rules {
     destination       = "0.0.0.0/0"
@@ -31,7 +27,7 @@ resource "oci_core_route_table" "this" {
 resource "oci_core_security_list" "this" {
   compartment_id = var.compartment_id
   vcn_id         = oci_core_vcn.this.id
-  display_name   = "oci"
+  display_name   = var.name
 
   egress_security_rules {
     protocol    = "all"
@@ -39,15 +35,19 @@ resource "oci_core_security_list" "this" {
   }
 
   ingress_security_rules {
-    protocol = "all"
+    protocol = "17"
     source   = "0.0.0.0/0"
+    udp_options {
+      min = "9993"
+      max = "9993"
+    }
   }
 }
 
 resource "oci_core_subnet" "test_subnet" {
   cidr_block        = "192.168.1.0/24"
-  display_name      = "oci"
-  dns_label         = "oci"
+  display_name      = var.name
+  dns_label         = var.name
   security_list_ids = [oci_core_security_list.this.id]
   compartment_id    = var.compartment_id
   vcn_id            = oci_core_vcn.this.id
@@ -63,14 +63,14 @@ data "oci_identity_availability_domain" "this" {
 resource "oci_core_instance" "this" {
   availability_domain = data.oci_identity_availability_domain.this.name
   compartment_id      = var.compartment_id
-  display_name        = "oci"
+  display_name        = var.name
   shape               = "VM.Standard.E2.1.Micro"
 
   create_vnic_details {
     subnet_id        = oci_core_subnet.test_subnet.id
     display_name     = "primaryvnic"
     assign_public_ip = true
-    hostname_label   = "oci"
+    hostname_label   = var.name
   }
 
   source_details {
@@ -79,11 +79,11 @@ resource "oci_core_instance" "this" {
   }
 
   metadata = {
-    user_data = data.template_cloudinit_config.oci.rendered
+    user_data = data.template_cloudinit_config.this.rendered
   }
 }
 
-data "template_cloudinit_config" "oci" {
+data "template_cloudinit_config" "this" {
   gzip          = false
   base64_encode = true
 

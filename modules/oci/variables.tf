@@ -4,3 +4,4 @@ variable "zt_networks" {}
 variable "zt_identity" {}
 variable "svc" {}
 variable "script" {}
+variable "compartment_id" {}
