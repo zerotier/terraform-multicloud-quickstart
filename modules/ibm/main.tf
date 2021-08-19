@@ -96,35 +96,14 @@ data "template_cloudinit_config" "ibm" {
   base64_encode = false
 
   part {
-    filename     = "hostname.cfg"
-    content_type = "text/cloud-config"
-    content = templatefile("${path.root}/hostname.tpl", {
-      "hostname" = var.name
-      "fqdn"     = "${var.name}.${var.dnsdomain}"
-    })
-  }
-
-  part {
-    filename     = "service_account.cfg"
-    content_type = "text/cloud-config"
-    content      = templatefile("${path.root}/users.tpl", { "svc" = var.svc })
-  }
-
-  part {
-    filename     = "zerotier.cfg"
-    content_type = "text/cloud-config"
-    content = templatefile("${path.root}/zt_identity.tpl", {
-      "public_key"  = var.zt_identity.public_key
-      "private_key" = var.zt_identity.private_key
-    })
-  }
-
-  part {
     filename     = "init.sh"
     content_type = "text/x-shellscript"
     content = templatefile("${path.root}/${var.script}", {
+      "hostname"    = var.name
       "dnsdomain"   = var.dnsdomain
+      "zt_identity" = var.zt_identity
       "zt_networks" = var.zt_networks
+      "svc"         = var.svc
     })
   }
 }

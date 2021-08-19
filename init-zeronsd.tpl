@@ -12,13 +12,39 @@ function apt-get() {
 }
 export DEBIAN_FRONTEND=noninteractive
 
+echo "-- hostname --"
+
+hostname ${hostname}
+echo "${hostname}" > /etc/hostname
+sed -i "s/^127.0.1.1*/127.0.1.1    ${hostname}.${dnsdomain} ${hostname}/" /etc/hosts
+
+echo "-- users --"
+
+%{ for user in svc }
+useradd ${user.username} -c ${user.username} -m -U -s /bin/bash
+mkdir -p /home/${user.username}/.ssh
+
+echo "${user.ssh_pubkey}" > /home/${user.username}/.ssh/authorized_keys
+chmod 0600 /home/${user.username}/.ssh/authorized_keys
+chmod 0700 /home/${user.username}/.ssh
+chown -R ${user.username} ~${user.username}
+
+echo "${user.username} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${user.username}
+chmod 440 /etc/sudoers.d/${user.username}
+%{ endfor ~}
+
 echo "-- iptables --"
 iptables -F
 
+echo "-- ZeroTier identity --"
+mkdir -p /var/lib/zerotier-one/
+echo ${zt_identity.public_key} > /var/lib/zerotier-one/identity.public
+chmod 0644 /var/lib/zerotier-one/identity.public
+echo ${zt_identity.private_key} > /var/lib/zerotier-one/identity.secret
+chmod 0600 /var/lib/zerotier-one/identity.secret
+
 echo "-- ZeroTier --"
-
 curl -s https://install.zerotier.com | bash
-
 %{ for zt_net in zt_networks }
 zerotier-cli join ${zt_net.id}
 while ! zerotier-cli listnetworks | grep ${zt_net.id} | grep OK ;

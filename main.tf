@@ -166,5 +166,5 @@ module "vul" {
   zt_networks = { demolab = { id = zerotier_network.demolab.id } }
   zt_identity = zerotier_identity.instances["vul"]
   svc         = var.users
-  script      = "init-vultr.tpl"
+  script      = "init-common.tpl"
 }
