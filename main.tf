@@ -175,6 +175,21 @@ module "vul" {
 }
 
 #
+# Equinix Metal
+#
+
+module "eqx" {
+  source      = "./modules/eqx"
+  for_each    = { for k, v in var.instances : k => v if k == "eqx" && v.enabled }
+  name        = "eqx"
+  dnsdomain   = zerotier_network.demolab.name
+  zt_networks = { demolab = { id = zerotier_network.demolab.id } }
+  zt_identity = zerotier_identity.instances["eqx"]
+  svc         = var.users
+  script      = "init-common.tpl"
+}
+
+#
 # Alibaba cloud
 #
 

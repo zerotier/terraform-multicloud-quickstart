@@ -178,7 +178,6 @@ variable "instances" {
 }
 ```
 
-
 ## Provision a ZeroTier Central API Token
 
 ![Create a Network](https://i.imgur.com/3GDoBaF.png)
@@ -229,7 +228,7 @@ export ALICLOUD_REGION="us-east-1"
 export VULTR_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 # Equinix Metal
-
+export METAL_AUTH_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ```
 
 ## Spin up the lab instances
