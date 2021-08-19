@@ -30,16 +30,42 @@ resource "vultr_startup_script" "this" {
   }))
 }
 
+
+resource "vultr_firewall_group" "this" {
+  description = var.name
+}
+
+resource "vultr_firewall_rule" "zt_v4" {
+  firewall_group_id = vultr_firewall_group.this.id
+  protocol          = "udp"
+  ip_type           = "v4"
+  subnet            = "0.0.0.0"
+  subnet_size       = 0
+  port              = "9993"
+  notes             = "zerotier"
+}
+
+resource "vultr_firewall_rule" "zt_v6" {
+  firewall_group_id = vultr_firewall_group.this.id
+  protocol          = "udp"
+  ip_type           = "v6"
+  subnet            = "::"
+  subnet_size       = 0
+  port              = "9993"
+  notes             = "zerotier"
+}
+
 resource "vultr_instance" "this" {
-  plan             = data.vultr_plan.this.id
-  region           = data.vultr_region.this.id
-  os_id            = data.vultr_os.this.id
-  label            = var.name
-  tag              = var.name
-  hostname         = var.name
-  enable_ipv6      = true
-  backups          = "disabled"
-  ddos_protection  = false
-  activation_email = false
-  script_id        = vultr_startup_script.this.id
+  plan              = data.vultr_plan.this.id
+  region            = data.vultr_region.this.id
+  os_id             = data.vultr_os.this.id
+  label             = var.name
+  tag               = var.name
+  hostname          = var.name
+  enable_ipv6       = true
+  backups           = "disabled"
+  ddos_protection   = false
+  activation_email  = false
+  firewall_group_id = vultr_firewall_group.this.id
+  script_id         = vultr_startup_script.this.id
 }
