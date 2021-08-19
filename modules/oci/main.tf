@@ -60,10 +60,22 @@ data "oci_identity_availability_domain" "this" {
   ad_number      = 2
 }
 
-# resource "oci_core_ipv6" "this" {
-#   vnic_id      = oci_core_vnic_attachment.this.id
-#   display_name = var.name
-# }
+data "template_cloudinit_config" "this" {
+  gzip          = false
+  base64_encode = true
+
+  part {
+    filename     = "init.sh"
+    content_type = "text/x-shellscript"
+    content = templatefile("${path.root}/${var.script}", {
+      "hostname"    = var.name
+      "dnsdomain"   = var.dnsdomain
+      "zt_identity" = var.zt_identity
+      "zt_networks" = var.zt_networks
+      "svc"         = var.svc
+    })
+  }
+}
 
 resource "oci_core_instance" "this" {
   availability_domain = data.oci_identity_availability_domain.this.name
@@ -85,22 +97,5 @@ resource "oci_core_instance" "this" {
 
   metadata = {
     user_data = data.template_cloudinit_config.this.rendered
-  }
-}
-
-data "template_cloudinit_config" "this" {
-  gzip          = false
-  base64_encode = true
-
-  part {
-    filename     = "init.sh"
-    content_type = "text/x-shellscript"
-    content = templatefile("${path.root}/${var.script}", {
-      "hostname"    = var.name
-      "dnsdomain"   = var.dnsdomain
-      "zt_identity" = var.zt_identity
-      "zt_networks" = var.zt_networks
-      "svc"         = var.svc
-    })
   }
 }
