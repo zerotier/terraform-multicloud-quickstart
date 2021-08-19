@@ -1,6 +1,6 @@
 
 resource "oci_core_vcn" "this" {
-  cidr_block     = "192.168.0.0/16"
+  cidr_block     = var.vpc_cidr
   compartment_id = var.compartment_id
   display_name   = var.name
   dns_label      = var.name
@@ -44,8 +44,8 @@ resource "oci_core_security_list" "this" {
   }
 }
 
-resource "oci_core_subnet" "test_subnet" {
-  cidr_block        = "192.168.1.0/24"
+resource "oci_core_subnet" "this" {
+  cidr_block        = var.subnet_cidr
   display_name      = var.name
   dns_label         = var.name
   security_list_ids = [oci_core_security_list.this.id]
@@ -60,14 +60,19 @@ data "oci_identity_availability_domain" "this" {
   ad_number      = 2
 }
 
+# resource "oci_core_ipv6" "this" {
+#   vnic_id      = oci_core_vnic_attachment.this.id
+#   display_name = var.name
+# }
+
 resource "oci_core_instance" "this" {
   availability_domain = data.oci_identity_availability_domain.this.name
   compartment_id      = var.compartment_id
   display_name        = var.name
-  shape               = "VM.Standard.E2.1.Micro"
+  shape               = var.shape
 
   create_vnic_details {
-    subnet_id        = oci_core_subnet.test_subnet.id
+    subnet_id        = oci_core_subnet.this.id
     display_name     = "primaryvnic"
     assign_public_ip = true
     hostname_label   = var.name
