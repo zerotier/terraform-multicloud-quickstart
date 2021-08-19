@@ -74,6 +74,8 @@ apt-get -qq install \
         iputils-ping \
         libndp-tools \
         tshark \
+        nmap \
+        avahi-utils \
     &>/dev/null
 
 echo "-- script finished! --"

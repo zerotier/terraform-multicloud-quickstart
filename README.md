@@ -75,24 +75,6 @@ laptop:~$ cd zerotier-terraform-quickstart
 laptop:~/zerotier-terraform-quickstart$ emacs variables.tf
 ```
 
-### Enable Clouds
-
-Next, select which clouds to enable. You'll need at least two for
-demonstration purposes, but I recommend using them all for dramatic
-effect. Digital Ocean is required, since it will be providing DNS
-service for the lab.
-
-```hcl
-variable "enabled" {
-  default = {
-    do  = true  #-- required (provides DNS)
-    aws = true
-    gcp = true
-    azu = true
-  }
-}
-```
-
 ### User account SSH keys
 
 Next, add some SSH keys to the `users` variable. These will be passed to
@@ -142,6 +124,61 @@ variable "devices" {
 }
 ```
 
+### Enable Clouds
+
+Next, select which clouds to enable. You'll need at least two for
+demonstration purposes, but I recommend using them all for dramatic
+effect. Digital Ocean is required, since it will be providing DNS
+service for the lab.
+
+```hcl
+variable "instances" {
+  default = {
+    do = {
+      description   = "Digital Ocean"
+      ip_assignment = "10.4.2.1"
+      enabled       = true
+    }
+    aws = {
+      description   = "Amazon Web Services"
+      ip_assignment = "10.4.2.2"
+      enabled       = true
+    }
+    gcp = {
+      description   = "Google Compute Platform"
+      ip_assignment = "10.4.2.3"
+      enabled       = true
+    }
+    azu = {
+      description   = "Microsoft Azure"
+      ip_assignment = "10.4.2.4"
+      enabled       = true
+    }
+    oci = {
+      description   = "Oracle Cloud Infrastructure"
+      ip_assignment = "10.4.2.5"
+      enabled       = true
+    }
+    ibm = {
+      description   = "IBM Cloud"
+      ip_assignment = "10.4.2.6"
+      enabled       = true
+    }
+    vul = {
+      description   = "Vultr"
+      ip_assignment = "10.4.2.8"
+      enabled       = true
+    }
+    ali = {
+      description   = "Alibaba Cloud"
+      ip_assignment = "10.4.2.7"
+      enabled       = false
+    }
+  }
+}
+```
+
+
 ## Provision a ZeroTier Central API Token
 
 ![Create a Network](https://i.imgur.com/3GDoBaF.png)
@@ -151,6 +188,7 @@ variable "devices" {
 Please place the following in your ```~/.bash_profile```, then run ```source ~/.bash_profile```
 
 ```bash
+
 # ZeroTier Central
 export ZEROTIER_CENTRAL_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 export ZEROTIER_CENTRAL_URL="https://my.zerotier.com/api"
@@ -165,6 +203,8 @@ export AWS_SECRET_ACCESS_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 # Google Compute Platform
 export GOOGLE_CREDENTIALS="$(cat key-downloaded-from-gcp-console.json)"
 export GOOGLE_CLOUD_PROJECT="XXX-XXXXXX"
+export GOOGLE_REGION="us-east4"
+export GOOGLE_ZONE="us-east4-a"
 
 # Microsoft Azure
 export ARM_SUBSCRIPTION_ID="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
@@ -174,14 +214,22 @@ export ARM_CLIENT_SECRET="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 # IBM Cloud
 export IBMCLOUD_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+export IBMCLOUD_REGION="us-east"
+
+# Oracle Cloud Infrastructure
+export TF_VAR_compartment_id="ocid1.tenancy.oc1..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+# please configure ~/.oci/config
 
 # Alibaba Cloud
 export ALICLOUD_ACCESS_KEY="XXXXXXXXXXXXXXXXXXXXXXXX"
 export ALICLOUD_SECRET_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 export ALICLOUD_REGION="us-east-1"
 
-# Oracle Cloud Infrastructure
-# please configure ~/.oci/config
+# Vultr
+export VULTR_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+# Equinix Metal
+
 ```
 
 ## Spin up the lab instances
@@ -206,10 +254,12 @@ laptop:~$ ssh alice@do.demo.lab
 ## Ping all the boxen
 
 ```bash
-alice@do:~$ ping -4 -c 2 aws.demo.lab
-alice@do:~$ ping -4 -c 2 gcp.demo.lab
-alice@do:~$ ping -4 -c 2 azu.demo.lab
-alice@do:~$ ping -4 -c 2 oci.demo.lab
-alice@do:~$ ping -4 -c 2 ali.demo.lab
-alice@do:~$ ping -4 -c 2 ibm.demo.lab
+laptop:~$ ping -4 -c 2 do.demo.lab
+laptop:~$ ping -4 -c 2 aws.demo.lab
+laptop:~$ ping -4 -c 2 gcp.demo.lab
+laptop:~$ ping -4 -c 2 azu.demo.lab
+laptop:~$ ping -4 -c 2 oci.demo.lab
+laptop:~$ ping -4 -c 2 ibm.demo.lab
+laptop:~$ ping -4 -c 2 vul.demo.lab
+laptop:~$ ping -4 -c 2 ali.demo.lab
 ```

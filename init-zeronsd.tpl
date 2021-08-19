@@ -101,7 +101,9 @@ apt-get -qq install \
         iproute2 \
         iputils-ping \
         libndp-tools \
-        tshark
+        tshark \
+        nmap \
+        avahi-utils \
     &>/dev/null
 
 echo "-- Script Finished! --"
