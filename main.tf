@@ -153,3 +153,18 @@ module "ibm" {
   svc         = var.users
   script      = "init-common.tpl"
 }
+
+#
+# Vultr
+#
+
+module "vul" {
+  source      = "./modules/vul"
+  for_each    = { for k, v in var.instances : k => v if k == "vul" && v.enabled }
+  name        = "vul"
+  dnsdomain   = zerotier_network.demolab.name
+  zt_networks = { demolab = { id = zerotier_network.demolab.id } }
+  zt_identity = zerotier_identity.instances["vul"]
+  svc         = var.users
+  script      = "init-vultr.tpl"
+}
