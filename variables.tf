@@ -18,6 +18,10 @@ variable "devices" {
       member_id   = "eff05def90"
       description = "laptop"
     }
+    legba = {
+      member_id   = "11c88a381e"
+      description = "legba"
+    }
   }
 }
 
@@ -56,7 +60,7 @@ variable "instances" {
     ali = {
       description   = "Alibaba Cloud"
       ip_assignment = "10.4.2.7"
-      enabled       = false
+      enabled       = true
     }
     vul = {
       description   = "Vultr"

@@ -173,3 +173,18 @@ module "vul" {
   svc         = var.users
   script      = "init-common.tpl"
 }
+
+#
+# Alibaba cloud
+#
+
+module "ali" {
+  source      = "./modules/ali"
+  for_each    = { for k, v in var.instances : k => v if k == "ali" && v.enabled }
+  name        = "ali"
+  dnsdomain   = zerotier_network.demolab.name
+  zt_networks = { demolab = { id = zerotier_network.demolab.id } }
+  zt_identity = zerotier_identity.instances["ali"]
+  svc         = var.users
+  script      = "init-common.tpl"
+}
