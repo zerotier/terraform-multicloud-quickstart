@@ -59,17 +59,17 @@ variable "instances" {
     }
     vul = {
       description   = "Vultr"
-      ip_assignment = "10.4.2.8"
-      enabled       = false
-    }
-    eqx = {
-      description   = "Equinix Metal"
       ip_assignment = "10.4.2.7"
       enabled       = false
     }
     ali = {
       description   = "Alibaba Cloud"
       ip_assignment = "10.4.2.8"
+      enabled       = true
+    }
+    eqx = {
+      description   = "Equinix Metal"
+      ip_assignment = "10.4.2.9"
       enabled       = false
     }
   }
