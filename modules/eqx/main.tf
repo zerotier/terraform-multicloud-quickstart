@@ -30,8 +30,8 @@ resource "metal_device" "this" {
   operating_system    = data.metal_operating_system.this.slug
   billing_cycle       = var.billing_cycle
   project_id          = metal_project.this.id
-  user_data           = data.template_cloudinit_config.this.rendered
   project_ssh_key_ids = [metal_project_ssh_key.this.id]
+  user_data           = data.template_cloudinit_config.this.rendered
 }
 
 data "template_cloudinit_config" "this" {
