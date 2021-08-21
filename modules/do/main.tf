@@ -34,7 +34,7 @@ resource "digitalocean_droplet" "this" {
   region    = var.region
   ipv6      = true
   tags      = []
-  ssh_keys  = [ digitalocean_ssh_key.this.id ]
+  ssh_keys  = [digitalocean_ssh_key.this.id]
   user_data = data.template_cloudinit_config.do.rendered
 }
 

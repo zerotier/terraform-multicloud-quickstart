@@ -9,7 +9,7 @@ resource "zerotier_network" "demolab" {
     zerotier = true
     sixplane = true
     rfc4193  = true
-  }  
+  }
   assignment_pool {
     start = "10.4.2.1"
     end   = "10.4.2.254"
@@ -40,7 +40,7 @@ resource "zerotier_member" "instances" {
   member_id          = zerotier_identity.instances[each.key].id
   description        = each.value.description
   network_id         = zerotier_network.demolab.id
-  no_auto_assign_ips = true
+  no_auto_assign_ips = false
   ip_assignments     = [each.value.ip_assignment]
 }
 

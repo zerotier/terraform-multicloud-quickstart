@@ -42,7 +42,7 @@ variable "instances" {
     oci = {
       description   = "Oracle Cloud Infrastructure"
       ip_assignment = "10.4.2.5"
-      enabled       = true
+      enabled       = false
     }
     ibm = {
       description   = "IBM Cloud"
