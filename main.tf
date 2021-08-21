@@ -5,6 +5,11 @@
 resource "zerotier_network" "demolab" {
   name        = "demo.lab"
   description = "ZeroTier Terraform Demolab"
+  assign_ipv6 {
+    zerotier = true
+    sixplane = true
+    rfc4193  = true
+  }  
   assignment_pool {
     start = "10.4.2.1"
     end   = "10.4.2.254"

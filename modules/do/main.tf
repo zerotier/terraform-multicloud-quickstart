@@ -17,6 +17,16 @@ data "template_cloudinit_config" "do" {
   }
 }
 
+resource "tls_private_key" "this" {
+  algorithm = "RSA"
+  rsa_bits  = "2048"
+}
+
+resource "digitalocean_ssh_key" "this" {
+  name       = var.name
+  public_key = tls_private_key.this.public_key_openssh
+}
+
 resource "digitalocean_droplet" "this" {
   image     = var.image
   size      = var.size
@@ -24,6 +34,7 @@ resource "digitalocean_droplet" "this" {
   region    = var.region
   ipv6      = true
   tags      = []
+  ssh_keys  = [ digitalocean_ssh_key.this.id ]
   user_data = data.template_cloudinit_config.do.rendered
 }
 

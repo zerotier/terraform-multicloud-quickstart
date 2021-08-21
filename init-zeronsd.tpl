@@ -34,7 +34,12 @@ chmod 440 /etc/sudoers.d/${user.username}
 %{ endfor ~}
 
 echo "-- iptables --"
-iptables -F
+iptables -I INPUT -p udp --dport 9993 -j ACCEPT
+iptables -I INPUT -p udp --dport 53 -j ACCEPT
+iptables -I INPUT -p tcp --dport 53 -j ACCEPT
+iptables -I INPUT -p tcp --dport 22 -j ACCEPT
+iptables -I INPUT -p tcp --dport 80 -j ACCEPT
+iptables -I INPUT -p tcp --dport 443 -j ACCEPT
 
 echo "-- ZeroTier identity --"
 mkdir -p /var/lib/zerotier-one/
@@ -90,7 +95,7 @@ echo "-- Update Apt Cache --"
 apt-get -qq update &>/dev/null
 
 echo "-- Nginx Hello --"
-apt-get -qq install docker.io 
+apt-get -qq install docker.io
 docker run -d -it --rm --network host nginxdemos/hello
 
 echo "-- Various Packages --"
@@ -104,6 +109,7 @@ apt-get -qq install \
         tshark \
         nmap \
         avahi-utils \
+        speedtest-cli \
     &>/dev/null
 
 echo "-- Script Finished! --"

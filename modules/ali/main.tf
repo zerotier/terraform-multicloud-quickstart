@@ -13,8 +13,8 @@ data "alicloud_zones" "this" {
 }
 
 resource "alicloud_vpc" "this" {
-  vpc_name    = var.name
-  cidr_block  = "192.168.0.0/16"
+  vpc_name   = var.name
+  cidr_block = "192.168.0.0/16"
 }
 
 resource "alicloud_vswitch" "this" {
@@ -72,7 +72,7 @@ resource "alicloud_instance" "this" {
 }
 
 resource "alicloud_eip" "this" {
-  bandwidth            = "10"
+  bandwidth            = "200"
   internet_charge_type = "PayByTraffic"
 }
 
