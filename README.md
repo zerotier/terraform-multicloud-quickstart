@@ -95,6 +95,11 @@ At the top, you'll see Terraform resources for creating
 [Networks](https://github.com/zerotier/terraform-provider-zerotier#networks),
 and [Members](https://github.com/zerotier/terraform-provider-zerotier#members).
 
+Below that, you'll see a module for each cloud. You'll notice
+overlapping `192.168` CIDRs everywhere. This was chosen on purpose to
+simulate the unpredictable local environments of residential ISPs, and
+other networks outside our administrative control.
+
 The
 [modules](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
 directory shows the bare minimum resources to spin up an instance on
