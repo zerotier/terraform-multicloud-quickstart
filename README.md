@@ -81,6 +81,10 @@ enabled in the config section. The process for creating service
 accounts is outside the scope of this document, but should be pretty
 straight forward. You can do this. We believe in you.
 
+## A Quick Tour of the Terraform code
+
+
+
 ## Configure the Quickstart repository
 
 Check out the source code for the quickstart and cd into the
