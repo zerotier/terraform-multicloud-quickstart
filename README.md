@@ -100,7 +100,9 @@ directory contains Just Enough Terraform to spin up an instance on
 each cloud, and [inject](https://github.com/zerotier/zerotier-terraform-quickstart/blob/d04d0bd9ee69461e59666efccda9978a1767e076/modules/aws/main.tf#L140)
 an identity into a boot script through `cloud-init`.
 
-
+The [init-common.tpl](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/init-common.tpl)
+and [init-zeronsd.tpl](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/init-zeronsd.tpl)
+files are mostly identical, except the latter also installs [ZeroNSD](https://github.com//zerotier/zeronsd).
 
 ## Configure the Quickstart repository
 
