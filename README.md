@@ -88,7 +88,7 @@ This repository is meant to teach you three things.
 - How to bootstrap ZeroTier on your favorite cloud provider.
 - How to use some of ZeroTier's more advanced capabilities.
 
-Open [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
+Open [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)`
 
 At the top, you'll see Terraform resourcesfor creating
 [Identities](https://github.com/zerotier/terraform-provider-zerotier#identities),
@@ -280,7 +280,7 @@ export METAL_AUTH_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ## Comment unused clouds in main.tf
 
 Due to the way Terraform's provider system works, you'll end up having
-to comment out any unused clouds in main.tf.
+to comment out any unused clouds in [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)`
 
 Sorry.
 
