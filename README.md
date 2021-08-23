@@ -62,9 +62,10 @@ The full blown multicloud demo uses
 - Alibaba Cloud
 - Equinix Metal
 
-That's a lot of services providers, but I recommend using them all for
-dramatic effect. Digital Ocean was chosen at random to provide DNS
-service for the lab.
+That's a lot of services providers. You'll need at least two for
+demonstration purposes, but I recommend using them all for dramatic
+effect. Digital Ocean was chosen at random to provide DNS service for
+the lab.
 
 The first time through, you will encounter a few hurdles. Each cloud
 vendor brings their own special brand of pain. For example, on AWS,
