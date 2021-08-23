@@ -87,10 +87,8 @@ This repository is meant to accomplish three things.
 
 - First, how to programatically manipulate networks and members
 in the ZeroTier API with Terraform.
-
 - Second, how to inject a ZeroTier identity into your favorite cloud
 provider.
-
 - Third, to show off ZerTier's capabilities in an easy to follow, step
 by step fashion.
 
