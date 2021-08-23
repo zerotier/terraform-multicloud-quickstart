@@ -85,8 +85,8 @@ straight forward. You can do this. We believe in you.
 
 This repository is meant to teach you three things.
 
-- How to programatically manipulate networks and members in the ZeroTier API with Terraform.
-- How to bootstrap ZeroTier on your favorite cloud provider
+- How to manipulate ZeroTier Networks and Members with Terraform.
+- How to bootstrap ZeroTier on your favorite cloud provider.
 - How to use some of ZeroTier's more advanced capabilities.
 
 ## Configure the Quickstart repository
