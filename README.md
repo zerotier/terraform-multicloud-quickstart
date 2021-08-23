@@ -46,9 +46,24 @@ on Digital Ocean, and at least one other cloud vendor. You will need
 git, a text editor, and a copy of Terraform 1.0.0 or later installed
 locally.
 
-Terraform will create a ZeroTier network, then bootstrap a single
-instance on each of Digital Ocean, Amazon Web Services, Google Compute
-Platform, and Microsoft Azure. 
+Terraform will create a ZeroTier network, then bootstrap instances on
+various clouds. To follow along, you'll need service accounts on
+Digical Ocean, and at least two other clouds.
+
+The "full blown" multicloud demo includes
+
+- Digital Ocean
+- Amazon Web Services
+- Google Compute Engine
+- Microsoft Azure
+- Oracle Cloud Infrastructure
+- IBM Cloud
+- Vultr
+- Alibaba Cloud
+- Equinix Metal
+
+I recommend using them all for dramatic effect. Digital Ocean is required, since it will
+be providing DNS service for the lab.
 
 The first time through, you will encounter a few hurdles. Each cloud
 vendor brings their own special brand of pain. For example, on AWS,
@@ -172,6 +187,11 @@ variable "instances" {
     ali = {
       description   = "Alibaba Cloud"
       ip_assignment = "10.4.2.7"
+      enabled       = false
+    }
+    eqx = {
+      description   = "Equinix Metal"
+      ip_assignment = "10.4.2.9"
       enabled       = false
     }
   }
