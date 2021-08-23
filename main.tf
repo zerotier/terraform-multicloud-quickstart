@@ -2,6 +2,10 @@
 # ZeroTier Central
 #
 
+resource "zerotier_identity" "instances" {
+  for_each = { for k, v in var.instances : k => (v) if v.enabled }
+}
+
 resource "zerotier_network" "demolab" {
   name        = "demo.lab"
   description = "ZeroTier Terraform Demolab"
@@ -28,10 +32,6 @@ resource "zerotier_member" "devices" {
   member_id   = each.value.member_id
   description = each.value.description
   network_id  = zerotier_network.demolab.id
-}
-
-resource "zerotier_identity" "instances" {
-  for_each = { for k, v in var.instances : k => (v) if v.enabled }
 }
 
 resource "zerotier_member" "instances" {
