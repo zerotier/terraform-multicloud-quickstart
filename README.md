@@ -1,4 +1,4 @@
- # ZeroTier Terraform Quickstart
+# ZeroTier Terraform Quickstart
 
 ## WORK IN PROGRESS
 
@@ -88,7 +88,7 @@ This repository is meant to teach you three things.
 - How to bootstrap ZeroTier on your favorite cloud provider.
 - How to use some of ZeroTier's more advanced capabilities.
 
-Open [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)`
+Open [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
 
 At the top, you'll see Terraform resourcesfor creating
 [Identities](https://github.com/zerotier/terraform-provider-zerotier#identities),
@@ -101,9 +101,9 @@ each cloud, and
 [inject](https://github.com/zerotier/zerotier-terraform-quickstart/blob/d04d0bd9ee69461e59666efccda9978a1767e076/modules/aws/main.tf#L140)
 an identity into a boot script through cloud-init.
 
-The [init-common.tpl](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/init-common.tpl)
-and [init-zeronsd.tpl](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/init-zeronsd.tpl)
-files are mostly identical, except the latter also installs [ZeroNSD](https://github.com//zerotier/zeronsd).
+The two template files, [init-common.tpl](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/init-common.tpl)
+and [init-zeronsd.tpl](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/init-zeronsd.tpl),
+are mostly identical, except that the latter also installs [ZeroNSD](https://github.com//zerotier/zeronsd).
 
 ## Configure the Quickstart repository
 
