@@ -1,4 +1,4 @@
-# ZeroTier Terraform Quickstart
+ # ZeroTier Terraform Quickstart
 
 ## WORK IN PROGRESS
 
@@ -41,10 +41,9 @@ this document.
 This Quickstart was written on an OSX laptop from a residential
 ISP. 
 
-To follow along step by step, you will need to create service accounts
-on Digital Ocean, and at least one other cloud vendor. You will need
-git, a text editor, and a copy of Terraform 1.0.0 or later installed
-locally.
+To follow along step by step, you will need accounts on public cloud
+vendors. You will need git, a text editor, and a copy of Terraform
+1.0.0 or later installed locally.
 
 Terraform will create a ZeroTier network, then bootstrap instances on
 various clouds. To follow along, you'll need service accounts on
@@ -88,6 +87,18 @@ This repository is meant to teach you three things.
 - How to manipulate ZeroTier Networks and Members with Terraform.
 - How to bootstrap ZeroTier on your favorite cloud provider.
 - How to use some of ZeroTier's more advanced capabilities.
+
+Open [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
+
+At the top, you'll see Terraform resources from the [Terraform ZeroTier Provider](https://github.com/zerotier/terraform-provider-zerotier).
+These create
+[ZeroTier Identities](https://github.com/zerotier/terraform-provider-zerotier#identities),
+a [ZeroTier Network](https://github.com/zerotier/terraform-provider-zerotier#networks),
+and
+[ZeroTier Members](https://github.com/zerotier/terraform-provider-zerotier#members)
+for use by the instances created in the rest of the file.
+
+Open the [modules](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
 
 ## Configure the Quickstart repository
 
