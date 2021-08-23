@@ -103,7 +103,8 @@ an identity into a boot script through cloud-init.
 
 The [boot script](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/init-common.tpl)
 writes the ZeroTier identity to disk and installs ZeroTier. It also
-installs some SSH users and various utilities such as ping and tshark.
+installs SSH users and various utilities for our lab, such as ping and
+tshark.
 
 ## Configure the Quickstart repository
 
