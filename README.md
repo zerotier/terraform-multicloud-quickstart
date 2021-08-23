@@ -101,7 +101,7 @@ simulate the unpredictable local environments of residential ISPs, and
 other networks outside our administrative control.
 
 The directories under [modules](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
-use the bare minimum resources to spin up an instance on each cloud,
+use the bare minimum number of resources to spin up an instance on each cloud,
 and [inject](https://github.com/zerotier/zerotier-terraform-quickstart/blob/d04d0bd9ee69461e59666efccda9978a1767e076/modules/aws/main.tf#L140)
 an identity into a boot script through cloud-init.
 
