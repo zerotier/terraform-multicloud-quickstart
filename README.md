@@ -255,8 +255,8 @@ export METAL_AUTH_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 ## Comment unused clouds in main.tf
 
-Due to the way Terraform's provider system works, you'll likely end up
-having to comment out any unused clouds in main.tf.
+Due to the way Terraform's provider system works, you'll end up having
+to comment out any unused clouds in main.tf.
 
 Sorry.
 
