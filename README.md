@@ -50,7 +50,7 @@ Terraform will create a ZeroTier network, then bootstrap instances on
 various clouds. To follow along, you'll need service accounts on
 Digical Ocean, and at least two other clouds.
 
-The "full blown" multicloud demo includes
+The full blown multicloud demo uses
 
 - Digital Ocean
 - Amazon Web Services
@@ -62,8 +62,9 @@ The "full blown" multicloud demo includes
 - Alibaba Cloud
 - Equinix Metal
 
-I recommend using them all for dramatic effect. Digital Ocean is required, since it will
-be providing DNS service for the lab.
+That's a lot of services providers, but I recommend using them all for
+dramatic effect. Digital Ocean was chosen at random to provide DNS
+service for the lab.
 
 The first time through, you will encounter a few hurdles. Each cloud
 vendor brings their own special brand of pain. For example, on AWS,
