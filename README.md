@@ -90,12 +90,10 @@ This repository is meant to teach you three things.
 
 Open [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
 
-At the top, you'll see Terraform resources from the [Terraform ZeroTier Provider](https://github.com/zerotier/terraform-provider-zerotier).
-These create
+At the top, you'll see Terraform resourcesfor creating
 [Identities](https://github.com/zerotier/terraform-provider-zerotier#identities),
-a [Networks](https://github.com/zerotier/terraform-provider-zerotier#networks),
-and [Members](https://github.com/zerotier/terraform-provider-zerotier#members)
-for use by the instances created in the rest of the file.
+[Networks](https://github.com/zerotier/terraform-provider-zerotier#networks),
+and [Members](https://github.com/zerotier/terraform-provider-zerotier#members).
 
 Open the [modules](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
 
