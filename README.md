@@ -260,7 +260,7 @@ having to comment out any unused clouds in main.tf.
 
 Sorry.
 
-```
+``` hcl
 # #
 # # Oracle Cloud Infrastructure
 # #
