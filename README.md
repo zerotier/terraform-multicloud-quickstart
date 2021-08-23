@@ -95,7 +95,8 @@ At the top, you'll see Terraform resources for creating
 [Networks](https://github.com/zerotier/terraform-provider-zerotier#networks),
 and [Members](https://github.com/zerotier/terraform-provider-zerotier#members).
 
-The [modules](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
+The
+[modules](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
 directory shows the bare minimum resources to spin up an instance on
 each cloud, and
 [inject](https://github.com/zerotier/zerotier-terraform-quickstart/blob/d04d0bd9ee69461e59666efccda9978a1767e076/modules/aws/main.tf#L140)
