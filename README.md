@@ -253,6 +253,35 @@ export VULTR_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 export METAL_AUTH_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ```
 
+## Comment unused clouds in main.tf
+
+Due to the way Terraform's provider system works, you'll likely end up
+having to comment out any unused clouds in main.tf.
+
+Sorry.
+
+```
+# #
+# # Oracle Cloud Infrastructure
+# #
+
+# variable "compartment_id" { default = "set_me_as_a_TF_VAR_" }
+
+# module "oci" {
+#   source         = "./modules/oci"
+#   for_each       = { for k, v in var.instances : k => v if k == "oci" && v.enabled }
+#   name           = "oci"
+#   vpc_cidr       = "192.168.0.0/16"
+#   subnet_cidr    = "192.168.1.0/24"
+#   compartment_id = var.compartment_id
+#   dnsdomain      = zerotier_network.demolab.name
+#   zt_networks    = { demolab = { id = zerotier_network.demolab.id } }
+#   zt_identity    = zerotier_identity.instances["oci"]
+#   svc            = var.users
+#   script         = "init-common.tpl"
+# }
+```
+
 ## Spin up the lab instances
 
 ```bash
