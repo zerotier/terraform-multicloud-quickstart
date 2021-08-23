@@ -101,8 +101,8 @@ each cloud, and
 [inject](https://github.com/zerotier/zerotier-terraform-quickstart/blob/d04d0bd9ee69461e59666efccda9978a1767e076/modules/aws/main.tf#L140)
 an identity into a boot script through cloud-init.
 
-The [boot scripts](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/init-common.tpl)
-write the identity and install ZeroTier.
+The [boot script](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/init-common.tpl)
+writes the ZeroTier identity to disk and installs ZeroTier.
 
 ## Configure the Quickstart repository
 
