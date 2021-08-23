@@ -57,9 +57,9 @@ The full blown multicloud demo uses
 - Google Compute Engine
 - Microsoft Azure
 - Oracle Cloud Infrastructure
+- Alibaba Cloud
 - IBM Cloud
 - Vultr
-- Alibaba Cloud
 - Equinix Metal
 
 That's a lot of services providers. You'll need at least two for
