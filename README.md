@@ -189,12 +189,12 @@ variable "instances" {
     ali = {
       description   = "Alibaba Cloud"
       ip_assignment = "10.4.2.7"
-      enabled       = false
+      enabled       = true
     }
     eqx = {
       description   = "Equinix Metal"
       ip_assignment = "10.4.2.9"
-      enabled       = false
+      enabled       = true
     }
   }
 }
