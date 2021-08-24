@@ -103,22 +103,26 @@ resource "zerotier_network" "hello" {
   # settings ...
 }
 
-resource "zerotier_member" "laptop" {
-  network_id  = zerotier_network.hello.id
-  member_id   = "laptop_id"
-}
-
 resource "zerotier_identity" "instance" {}
+
+resource "somecloud_instance" "instance" {
+  # settings
+  # user_data = <render instance identity here>
+}
 
 resource "zerotier_member" "instance" {
   network_id  = zerotier_network.hello.id
   member_id   = zerotier_identity.instance.id
 }
 
-resource "somecloud_instance" "instance" {
-  # settings
-  # user_data = <render instance identity here>
+```
+
+```
+resource "zerotier_member" "laptop" {
+  network_id  = zerotier_network.hello.id
+  member_id   = "laptop_id"
 }
+
 ```
 
 
