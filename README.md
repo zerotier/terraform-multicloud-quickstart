@@ -122,6 +122,8 @@ resource "zerotier_member" "instance" {
 
 ```
 
+And for physical devices such as phones, laptop, and workstations
+
 ```hcl
 # non-ephemeral devices
 
