@@ -90,6 +90,14 @@ The Terraform in this repository is meant to teach you three things.
 
 Open [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
 
+The synopsis is
+
+```hcl
+resource "zerotier_network" "hello" {
+  ... settings
+}
+```
+
 At the top, you'll see Terraform resources for creating
 [Identities](https://github.com/zerotier/terraform-provider-zerotier#identities),
 [Networks](https://github.com/zerotier/terraform-provider-zerotier#networks),
