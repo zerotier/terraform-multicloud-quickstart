@@ -122,7 +122,7 @@ resource "zerotier_member" "instance" {
 
 ```
 
-And for physical devices such as phones, laptop, and workstations
+And for physical devices such as phones, laptops, workstations, etc
 
 ```hcl
 # non-ephemeral devices
