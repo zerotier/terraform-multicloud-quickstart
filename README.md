@@ -107,11 +107,10 @@ resource "zerotier_identity" "instance" {}
 
 resource "somecloud_instance" "instance" {
   # settings ...
-  user_data = <<EOF
-write zerotier_identity.instance.public_key to disk
-write zerotier_identity.instance.private_key to disk
-install zerotier
-EOF
+  #
+  # write zerotier_identity.instance.public_key to disk
+  # write zerotier_identity.instance.private_key to disk
+  # install zerotier
 }
 
 resource "zerotier_member" "instance" {
