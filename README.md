@@ -94,7 +94,7 @@ The synopsis is
 
 ```hcl
 resource "zerotier_network" "hello" {
-  # ... settings
+  # settings ...
 }
 ```
 
