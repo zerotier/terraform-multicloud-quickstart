@@ -199,11 +199,11 @@ laptop:~$ zerotier-cli info
 ```hcl
 variable "devices" {
   default = {
-    alice = {
+    laptop = {
       member_id   = "a11c3411ce"
       description = "Alice's laptop"
     }
-    bob = {
+    desktop = {
       member_id   = "b0bd0bb0bb"
       description = "Bob's laptop"
     }
@@ -481,13 +481,13 @@ networks = {
 laptop:~$ ssh do.demo.lab
 ```
 
-## Ping all the boxen
+## Ping (v4) all the boxen
 
 ```bash
-someara@do:~$ for i in laptop aws gcp azu oci ali ibm vul eqx ; do ping -4 -c 1 $i.demo.lab ; done &>/dev/null
+alice@do:~$ for i in laptop aws gcp azu oci ali ibm vul eqx ; do ping -4 -c 1 $i.demo.lab ; done &>/dev/null
 ```
 
-## Ping all the boxen
+## Examine the ARP cache
 
 ```bash
 someara@do:~$ arp -a | grep demo
