@@ -81,7 +81,7 @@ You can do this. We believe in you.
 
 ## A Quick Tour of the Terraform code
 
-The Terraform in this repository is meant to teach you three things.
+This repository is meant to teach you three things.
 
 - How to manipulate ZeroTier Networks and Members with Terraform.
 - How to bootstrap ZeroTier on your favorite cloud provider.
