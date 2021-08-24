@@ -99,6 +99,7 @@ and [Members](https://github.com/zerotier/terraform-provider-zerotier#members).
 The synopsis is as follows:
 
 ```hcl
+# zerotier
 
 resource "zerotier_network" "hello" {
   # settings ...
