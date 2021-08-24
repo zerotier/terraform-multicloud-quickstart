@@ -475,7 +475,7 @@ networks = {
 <img src="https://i.imgur.com/i3OpSpF.png" alt="join network" /><br/>
 </p>
 
-## Log into and take a look around
+# Log into and take a look around
 
 ```bash
 laptop:~$ ssh do.demo.lab
