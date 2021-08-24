@@ -355,7 +355,7 @@ Sorry.
 ## Spin up the lab instances
 
 <p align="center">
-<img src="https://i.imgur.com/xDZvtwG.jpg" alt="Baton Bunny, Copyright 1959  Warner Bros." /><br/>
+<img src="https://i.imgur.com/xDZvtwG.jpg&h=200" alt="Baton Bunny, Copyright 1959  Warner Bros." /><br/>
 </p>
 
 ```bash
