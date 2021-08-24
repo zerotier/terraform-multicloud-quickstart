@@ -96,7 +96,7 @@ At the top, you'll see Terraform resources for creating
 [Networks](https://github.com/zerotier/terraform-provider-zerotier#networks),
 and [Members](https://github.com/zerotier/terraform-provider-zerotier#members).
 
-The synopsis is
+The synopsis is as follows:
 
 ```hcl
 # ephemeral devices
