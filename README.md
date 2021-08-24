@@ -482,12 +482,12 @@ laptop:~$ ssh do.demo.lab
 ```
 
 ## Ping all the boxen
-```
+```bash
 someara@do:~$ for i in laptop aws gcp azu oci ali ibm vul eqx ; do ping -4 -c 1 $i.demo.lab ; done &>/dev/null
 ```
 
 ## Ping all the boxen
-```
+```bash
 someara@do:~$ arp -a | grep demo
 azu.demo.lab (10.4.2.4) at 5e:8a:89:82:20:d3 [ether] on zt2lr3wbun
 ali.demo.lab (10.4.2.8) at 5e:d5:83:78:15:8d [ether] on zt2lr3wbun
