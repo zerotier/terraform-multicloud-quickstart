@@ -99,19 +99,19 @@ and [Members](https://github.com/zerotier/terraform-provider-zerotier#members).
 The synopsis is
 
 ```hcl
-resource "zerotier_network" "mynet" {
+resource "zerotier_network" "hello" {
   # settings ...
 }
 
 resource "zerotier_member" "laptop" {
-  network_id  = zerotier_network.mynet.id
+  network_id  = zerotier_network.hello.id
   member_id   = "laptop_id"
 }
 
 resource "zerotier_identity" "instance" {}
 
 resource "zerotier_member" "instance" {
-  network_id  = zerotier_network.mynet.id
+  network_id  = zerotier_network.hello.id
   member_id   = zerotier_identity.instance.id
 }
 
