@@ -136,9 +136,9 @@ resource "zerotier_member" "laptop" {
 
 
 Below that, you'll see a module for each cloud. You'll notice
-overlapping `192.168` CIDRs everywhere. This was chosen on purpose to
-simulate the unpredictable local environments of residential ISPs, and
-other networks outside our administrative control.
+overlapping `192.168` CIDRs everywhere. This is purpose, to simulate
+residential ISPs and other networks outside our administrative
+control.
 
 The directories under [modules](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
 use the bare minimum number of resources to spin up an instance on each cloud,
