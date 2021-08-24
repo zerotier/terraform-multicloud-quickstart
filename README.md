@@ -146,7 +146,7 @@ do the bare required to spin up an instance and
 [inject](https://github.com/zerotier/zerotier-terraform-quickstart/blob/d04d0bd9ee69461e59666efccda9978a1767e076/modules/aws/main.tf#L140)
 an identity into a boot script.
 
-The [boot script](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/init-common.tpl)
+The [boot scripts](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/init-common.tpl)
 writes the ZeroTier identity to disk and installs ZeroTier. It also
 installs SSH users and various utilities for our lab, such as ping and
 tshark.
