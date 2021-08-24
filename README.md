@@ -469,15 +469,16 @@ networks = {
 <img src="https://i.imgur.com/iyC4zUT.png" alt="join network" /><br/>
 </p>
 
-```bash
-laptop:~$ zerotier-cli join <networkid>
-laptop:~$ zerotier-cli  set <networkid> allowDNS=1
-```
+## Behold the network in the Central UI
+
+<p align="center">
+<img src="https://i.imgur.com/i3OpSpF.png" alt="join network" /><br/>
+</p>
 
 ## Log into and take a look around
 
 ```bash
-laptop:~$ ssh alice@do.demo.lab
+laptop:~$ ssh do.demo.lab
 ```
 
 ## Ping all the boxen
