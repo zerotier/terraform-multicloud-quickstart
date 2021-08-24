@@ -326,7 +326,7 @@ export METAL_AUTH_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ## Comment out unused clouds in `main.tf`
 
 Due to the way Terraform's provider system works, you'll end up having
-to comment out any unused clouds in [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)`
+to comment out any unused clouds in [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
 
 Sorry.
 
