@@ -359,7 +359,7 @@ Sorry.
 </p>
 
 ```bash
-laptop:~/zerotier-terraform-quickstart$ terraform init && terraform plan && terraform apply
+terraform init && terraform plan && terraform apply
 ```
 
 You will see a whole lot of text scoll by, ending with something that
