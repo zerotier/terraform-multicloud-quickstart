@@ -39,7 +39,7 @@ this document.
 ## Technical Prerequisites
 
 This Quickstart was written on an OSX laptop from a residential
-ISP. 
+ISP.
 
 To follow along step by step, you will need accounts on public cloud
 vendors. You will need git, a text editor, and a copy of Terraform
