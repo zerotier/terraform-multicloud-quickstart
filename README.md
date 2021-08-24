@@ -22,7 +22,7 @@ This means:
 * We can do a lot of cool stuff.
 * Pinging IPv4 yields ARP table entries.
 * Pinging IPv6 yields ICMPv6 Neighbor Solicitation.
-* Multicast applications work.
+* Multicast works out of the box.
 * Across clouds, and through NAT devices.
 
 ## What lies ahead
@@ -73,10 +73,10 @@ stringent account verification procedures.
 <img src="https://i.imgur.com/5tRu35i.jpeg" alt="old man yells at cloud" /><br/>
 </p>
 
-To lower the bar of entry, you can toggle which cloud vendors are
-enabled in the config section. The process for creating service
-accounts is outside the scope of this document, but should be pretty
-straight forward.
+To lower the bar of entry, you can toggle which clouds are
+enabled `variables.tf`. The process for creating service accounts and
+gathering credentials is outside the scope of this document, but
+should be pretty straight forward.
 
 You can do this. We believe in you.
 
