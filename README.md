@@ -57,7 +57,7 @@ The full-blown multicloud demo uses:
 - Vultr
 - Equinix Metal
 
-That's a lot of services providers. You'll need at least two for
+That's a lot of service providers. You'll need at least two for
 demonstration purposes, but I recommend using them all for dramatic
 effect. Digital Ocean was chosen at random to provide DNS service for
 the lab.
