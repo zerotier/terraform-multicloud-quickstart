@@ -355,8 +355,7 @@ Sorry.
 ## Spin up the lab instances
 
 <p align="center">
-<img src="https://animationreview.files.wordpress.com/2020/01/baton-bunny-c2a9-warner-bros..jpg?s=200&v=4" alt="Baton
-Bunny, Copyright 1959  Warner Bros." /><br/>
+<img src="https://animationreview.files.wordpress.com/2020/01/baton-bunny-c2a9-warner-bros..jpg?h=200" alt="Baton Bunny, Copyright 1959  Warner Bros." /><br/>
 </p>
 
 ```bash
