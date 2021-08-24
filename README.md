@@ -139,10 +139,11 @@ overlapping `192.168` CIDRs everywhere. This is on purpose, to simulate
 residential ISPs and other networks outside our administrative
 control.
 
-The directories under [modules](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
-use the bare minimum number of resources to spin up an instance on each cloud,
-and [inject](https://github.com/zerotier/zerotier-terraform-quickstart/blob/d04d0bd9ee69461e59666efccda9978a1767e076/modules/aws/main.tf#L140)
-an identity into a boot script through cloud-init.
+The
+[modules](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
+do the bare required to spin up an instance and
+[inject](https://github.com/zerotier/zerotier-terraform-quickstart/blob/d04d0bd9ee69461e59666efccda9978a1767e076/modules/aws/main.tf#L140)
+an identity into a boot script.
 
 The [boot script](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/init-common.tpl)
 writes the ZeroTier identity to disk and installs ZeroTier. It also
