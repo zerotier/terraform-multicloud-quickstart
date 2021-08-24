@@ -410,20 +410,7 @@ Initializing provider plugins...
 - Installed hashicorp/oci v4.40.0 (signed by HashiCorp)
 - Installing vultr/vultr v2.4.1...
 - Installed vultr/vultr v2.4.1 (signed by a HashiCorp partner, key ID 853B1ED644084048)
-
-Partner and community providers are signed by their developers.
-If you'd like to know more about provider signing, you can read about it here:
-https://www.terraform.io/docs/cli/plugins/signing.html
-
-Terraform has been successfully initialized!
-
-You may now begin working with Terraform. Try running "terraform plan" to see
-any changes that are required for your infrastructure. All Terraform commands
-should now work.
-
-If you ever set or change modules or backend configuration for Terraform,
-rerun this command to reinitialize your working directory. If you forget, other
-commands will detect it and remind you to do so if necessary.
+<snip>
 ```
 
 You will see a whole lot of text scoll by, ending with something that
