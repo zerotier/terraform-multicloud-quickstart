@@ -141,7 +141,7 @@ residential ISPs and other networks outside our administrative
 control.
 
 The
-[modules](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
+[modules](https://github.com/zerotier/zerotier-terraform-quickstart/tree/main/modules)
 do the bare required to spin up an instance and
 [inject](https://github.com/zerotier/zerotier-terraform-quickstart/blob/d04d0bd9ee69461e59666efccda9978a1767e076/modules/aws/main.tf#L140)
 an identity into a boot script.
