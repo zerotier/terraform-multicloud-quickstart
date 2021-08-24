@@ -106,11 +106,11 @@ resource "zerotier_network" "hello" {
 resource "zerotier_identity" "instance" {}
 
 resource "somecloud_instance" "instance" {
-  # settings
-  # user_data = EOF
-  echo ${zerotier_identity.instance.public_key} > /var/lib/zerotier-one/identity.public
-  echo ${zerotier_identity.instance.private_key} > /var/lib/zerotier-one/identity.public
-  curl -s https://install.zerotier.com | bash
+  # settings ...
+  user_data = <<EOF
+echo ${zerotier_identity.instance.public_key} > /var/lib/zerotier-one/identity.public
+echo ${zerotier_identity.instance.private_key} > /var/lib/zerotier-one/identity.public
+curl -s https://install.zerotier.com | bash
 EOF
 }
 
