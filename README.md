@@ -108,8 +108,8 @@ resource "zerotier_identity" "instance" {}
 resource "somecloud_instance" "instance" {
   # settings ...
   #
-  # write zerotier_identity.instance.public_key to disk
-  # write zerotier_identity.instance.private_key to disk
+  # zerotier_identity.instance.public_key to disk
+  # zerotier_identity.instance.private_key to disk
   # install zerotier
 }
 
