@@ -482,14 +482,20 @@ laptop:~$ ssh do.demo.lab
 ```
 
 ## Ping all the boxen
+```
+someara@do:~$ for i in laptop aws gcp azu oci ali ibm vul eqx ; do ping -4 -c 1 $i.demo.lab ; done &>/dev/null
+```
 
-```bash
-laptop:~$ ping -4 -c 2 do.demo.lab
-laptop:~$ ping -4 -c 2 aws.demo.lab
-laptop:~$ ping -4 -c 2 gcp.demo.lab
-laptop:~$ ping -4 -c 2 azu.demo.lab
-laptop:~$ ping -4 -c 2 oci.demo.lab
-laptop:~$ ping -4 -c 2 ibm.demo.lab
-laptop:~$ ping -4 -c 2 vul.demo.lab
-laptop:~$ ping -4 -c 2 ali.demo.lab
+## Ping all the boxen
+```
+someara@do:~$ arp -a | grep demo
+azu.demo.lab (10.4.2.4) at 5e:8a:89:82:20:d3 [ether] on zt2lr3wbun
+ali.demo.lab (10.4.2.8) at 5e:d5:83:78:15:8d [ether] on zt2lr3wbun
+oci.demo.lab (10.4.2.5) at 5e:62:25:0f:14:e5 [ether] on zt2lr3wbun
+eqx.demo.lab (10.4.2.9) at 5e:95:dd:c1:16:a0 [ether] on zt2lr3wbun
+aws.demo.lab (10.4.2.2) at 5e:10:27:5e:12:6b [ether] on zt2lr3wbun
+gcp.demo.lab (10.4.2.3) at 5e:1f:34:46:c8:ee [ether] on zt2lr3wbun
+laptop.demo.lab (10.4.2.83) at 5e:27:8a:8d:21:51 [ether] on zt2lr3wbun
+ibm.demo.lab (10.4.2.6) at 5e:71:18:e3:92:82 [ether] on zt2lr3wbun
+vul.demo.lab (10.4.2.7) at 5e:72:45:fa:bb:54 [ether] on zt2lr3wbun
 ```
