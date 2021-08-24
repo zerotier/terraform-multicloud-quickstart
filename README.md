@@ -276,7 +276,7 @@ variable "instances" {
 
 ## Set Environment Variables
 
-Please place the following in your ```~/.bash_profile```, then run ```source ~/.bash_profile```
+Please place the following in your ```~/.bash_profile```, then ```source ~/.bash_profile```
 
 ```bash
 
