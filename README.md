@@ -115,7 +115,7 @@ resource "zerotier_member" "instance" {
   member_id   = zerotier_identity.instance.id
 }
 
-resource "cloud_instance" "instance" {
+resource "somecloud_instance" "instance" {
   # settings
   # user_data = <render instance identity here>
 }
