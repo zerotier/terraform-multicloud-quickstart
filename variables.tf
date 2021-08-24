@@ -32,22 +32,22 @@ variable "instances" {
     gcp = {
       description   = "Google Compute Platform"
       ip_assignment = "10.4.2.3"
-      enabled       = true
+      enabled       = false
     }
     azu = {
       description   = "Microsoft Azure"
       ip_assignment = "10.4.2.4"
-      enabled       = true
+      enabled       = false
     }
     oci = {
       description   = "Oracle Cloud Infrastructure"
       ip_assignment = "10.4.2.5"
-      enabled       = true
+      enabled       = false
     }
     ibm = {
       description   = "IBM Cloud"
       ip_assignment = "10.4.2.6"
-      enabled       = true
+      enabled       = false
     }
     vul = {
       description   = "Vultr"
@@ -57,12 +57,12 @@ variable "instances" {
     ali = {
       description   = "Alibaba Cloud"
       ip_assignment = "10.4.2.8"
-      enabled       = true
+      enabled       = false
     }
     eqx = {
       description   = "Equinix Metal"
       ip_assignment = "10.4.2.9"
-      enabled       = true
+      enabled       = false
     }
   }
 }
