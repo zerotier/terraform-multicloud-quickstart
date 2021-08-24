@@ -75,7 +75,9 @@ stringent account verification procedures.
 To lower the bar of entry, you can toggle which cloud vendors are
 enabled in the config section. The process for creating service
 accounts is outside the scope of this document, but should be pretty
-straight forward. You can do this. We believe in you.
+straight forward.
+
+You can do this. We believe in you.
 
 ## A Quick Tour of the Terraform code
 
