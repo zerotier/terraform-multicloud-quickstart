@@ -34,35 +34,35 @@ variable "instances" {
       ip_assignment = "10.4.2.3"
       enabled       = true
     }
-    azu = {
-      description   = "Microsoft Azure"
-      ip_assignment = "10.4.2.4"
-      enabled       = true
-    }
-    oci = {
-      description   = "Oracle Cloud Infrastructure"
-      ip_assignment = "10.4.2.5"
-      enabled       = true
-    }
-    ibm = {
-      description   = "IBM Cloud"
-      ip_assignment = "10.4.2.6"
-      enabled       = true
-    }
-    vul = {
-      description   = "Vultr"
-      ip_assignment = "10.4.2.7"
-      enabled       = true
-    }
-    ali = {
-      description   = "Alibaba Cloud"
-      ip_assignment = "10.4.2.8"
-      enabled       = true
-    }
-    eqx = {
-      description   = "Equinix Metal"
-      ip_assignment = "10.4.2.9"
-      enabled       = true
-    }
+#     azu = {
+#       description   = "Microsoft Azure"
+#       ip_assignment = "10.4.2.4"
+#       enabled       = true
+#     }
+#     oci = {
+#       description   = "Oracle Cloud Infrastructure"
+#       ip_assignment = "10.4.2.5"
+#       enabled       = true
+#     }
+#     ibm = {
+#       description   = "IBM Cloud"
+#       ip_assignment = "10.4.2.6"
+#       enabled       = true
+#     }
+#     vul = {
+#       description   = "Vultr"
+#       ip_assignment = "10.4.2.7"
+#       enabled       = true
+#     }
+#     ali = {
+#       description   = "Alibaba Cloud"
+#       ip_assignment = "10.4.2.8"
+#       enabled       = true
+#     }
+#     eqx = {
+#       description   = "Equinix Metal"
+#       ip_assignment = "10.4.2.9"
+#       enabled       = true
+#     }
   }
 }

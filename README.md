@@ -13,7 +13,7 @@ And I am an ephemeral girl<br/>
 ## Conceptual Prerequisites
 
 * ZeroTier Networks are objects in the Central API.
-* ZeroTier Identities are the public keys of nodes; machines, containers, or binaries.
+* ZeroTier Identities are cryptographic identities of nodes; machines, containers, or binaries.
 * ZeroTier Members are associations between Networks and Identities.
 * ZeroTier virtualizes at L1 and L2 (ethernet).
 
@@ -22,6 +22,7 @@ This means:
 * We can do a lot of cool stuff.
 * Pinging IPv4 yields ARP table entries.
 * Pinging IPv6 yields ICMPv6 Neighbor Solicitation.
+* Multicast applications work.
 * Across clouds, and through NAT devices.
 
 ## What lies ahead
