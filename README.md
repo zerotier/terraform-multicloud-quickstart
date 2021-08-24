@@ -448,22 +448,24 @@ Apply complete! Resources: 89 added, 0 changed, 0 destroyed.
 Outputs:
 
 identities = {
-  "ali" = "4a1eb0ab38"
-  "aws" = "3d53f4fca4"
-  "azu" = "ab209b77f6"
-  "do" = "c15c9c3bcb"
-  "eqx" = "1db2600c70"
-  "gcp" = "7701c7718e"
-  "ibm" = "c093a8bfec"
-  "oci" = "157ea56cec"
-  "vul" = "697b5ed34b"
+  "ali" = "b0ae957168"
+  "aws" = "6695d1fce6"
+  "azu" = "b7ab6594a9"
+  "do" = "37f2b7c94f"
+  "eqx" = "cc5c1f20d1"
+  "gcp" = "01d835fcf2"
+  "ibm" = "ad6cb853aa"
+  "oci" = "d5b230e028"
+  "vul" = "1dcc6338ff"
 }
 networks = {
-  "demolab" = "6ab565387aa5001d"
+  "demolab" = "1c33c1ced07ac85d"
 }
 ```
 
 ## Join Laptop to Lab Network
+
+![https://i.imgur.com/iyC4zUT.png](join network)
 
 ```bash
 laptop:~$ zerotier-cli join <networkid>
