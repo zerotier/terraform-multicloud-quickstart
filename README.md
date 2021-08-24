@@ -186,10 +186,10 @@ variable "users" {
 
 ### Device identities
 
-Next, we will add the ZeroTier identities of the non-ephemeral devices
-we plan to connect to our lab network. If you haven't already, install
-the ZeroTier client on your laptop or workstation. You can get it from
-the [ZeroTier Downloads page](https://www.zerotier.com/download/).
+Next, add the ZeroTier identities of any non-ephemeral devices we plan
+to connect to our lab network. If you haven't already, install the
+ZeroTier client on your laptop or workstation. You can get it from the
+[ZeroTier Downloads page](https://www.zerotier.com/download/).
 
 ```bash
 laptop:~$ zerotier-cli info
