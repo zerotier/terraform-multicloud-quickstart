@@ -359,7 +359,7 @@ Sorry.
 </p>
 
 ```bash
-laptop:~/zerotier-terraform-quickstart$ terraform init -upgrade
+laptop:~/zerotier-terraform-quickstart$ terraform init -upgrade && terraform plan && terraform apply -auto-approve
 Upgrading modules...
 - ali in modules/ali
 - aws in modules/aws
