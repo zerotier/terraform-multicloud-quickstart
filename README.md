@@ -153,7 +153,7 @@ tshark.
 
 ## Configure the Quickstart repository
 
-Check out the source code for the quickstart and cd into the
+Check out the source code for the quickstart and change into the
 directory.
 
 ```bash
