@@ -354,8 +354,10 @@ Sorry.
 
 ## Spin up the lab instances
 
-![https://animationreview.files.wordpress.com/2020/01/baton-bunny-c2a9-warner-bros..jpg?w=2000&h=](Baton
-Bunny, Copyright 1959  Warner Bros.)
+<p align="center">
+<img src="https://animationreview.files.wordpress.com/2020/01/baton-bunny-c2a9-warner-bros..jpg" alt="Baton
+Bunny, Copyright 1959  Warner Bros." /><br/>
+</p>
 
 ```bash
 laptop:~/zerotier-terraform-quickstart$ terraform init && terraform plan && terraform apply
