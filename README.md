@@ -136,7 +136,7 @@ resource "zerotier_member" "laptop" {
 
 
 Below that, you'll see a module for each cloud. You'll notice
-overlapping `192.168` CIDRs everywhere. This is purpose, to simulate
+overlapping `192.168` CIDRs everywhere. This is on purpose, to simulate
 residential ISPs and other networks outside our administrative
 control.
 
