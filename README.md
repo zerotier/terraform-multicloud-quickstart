@@ -98,14 +98,14 @@ and [Members](https://github.com/zerotier/terraform-provider-zerotier#members).
 
 The synopsis is as follows:
 
+-  ephemeral devices
+
 ```hcl
 # zerotier networks
 
 resource "zerotier_network" "hello" {
   # settings ...
 }
-
-# ephemeral devices
 
 resource "zerotier_identity" "instance" {}
 
@@ -124,8 +124,9 @@ resource "zerotier_member" "instance" {
 
 ```
 
+- non-ephemeral devices
+
 ```hcl
-# non-ephemeral devices
 
 resource "zerotier_member" "laptop" {
   network_id  = zerotier_network.hello.id
