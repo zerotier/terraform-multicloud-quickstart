@@ -107,7 +107,7 @@ resource "zerotier_identity" "instance" {}
 
 resource "somecloud_instance" "instance" {
   # settings
-  # user_data = <render instance identity here>
+  # user_data = <instance secret here>
 }
 
 resource "zerotier_member" "instance" {
