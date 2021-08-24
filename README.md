@@ -465,7 +465,9 @@ networks = {
 
 ## Join Laptop to Lab Network
 
-![https://i.imgur.com/iyC4zUT.png](join network)
+<p align="center">
+<img src="https://i.imgur.com/iyC4zUT.png" alt="join network" /><br/>
+</p>
 
 ```bash
 laptop:~$ zerotier-cli join <networkid>
