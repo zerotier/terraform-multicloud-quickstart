@@ -355,11 +355,58 @@ Sorry.
 ## Spin up the lab instances
 
 <p align="center">
-<img src="https://i.imgur.com/xDZvtwG.jpeg" alt="Baton Bunny, Copyright 1959  Warner Bros." /><br/>
+<img src="https://i.imgur.com/qglRkyw.jpeg?s=300" alt="Baton Bunny, Copyright 1959  Warner Bros." /><br/>
 </p>
 
 ```bash
 laptop:~/zerotier-terraform-quickstart$ terraform init && terraform plan && terraform apply
+```
+
+You will see a whole lot of text scoll by, ending with something that
+looks like this.
+
+```bash
+<snip>
+module.ali["ali"].alicloud_eip_association.this: Still creating... [30s elapsed]
+module.azu["azu"].azurerm_linux_virtual_machine.this: Still creating... [20s elapsed]
+module.ibm["ibm"].ibm_is_instance.this: Still creating... [30s elapsed]
+module.eqx["eqx"].metal_device.this: Still creating... [1m20s elapsed]
+module.ali["ali"].alicloud_eip_association.this: Creation complete after 39s [id=eip-0xid1dwiqzt7rjrzzmg8p:i-0xige8omj8sojsvhyqfc]
+module.azu["azu"].azurerm_linux_virtual_machine.this: Still creating... [30s elapsed]
+module.ibm["ibm"].ibm_is_instance.this: Still creating... [40s elapsed]
+module.eqx["eqx"].metal_device.this: Still creating... [1m30s elapsed]
+module.azu["azu"].azurerm_linux_virtual_machine.this: Still creating... [40s elapsed]
+module.ibm["ibm"].ibm_is_instance.this: Still creating... [50s elapsed]
+module.eqx["eqx"].metal_device.this: Still creating... [1m40s elapsed]
+module.azu["azu"].azurerm_linux_virtual_machine.this: Still creating... [50s elapsed]
+module.ibm["ibm"].ibm_is_instance.this: Still creating... [1m0s elapsed]
+module.eqx["eqx"].metal_device.this: Still creating... [1m50s elapsed]
+module.ibm["ibm"].ibm_is_instance.this: Creation complete after 1m1s [id=0757_e76365c7-217e-4ca5-a8ad-3dd7ec80af45]
+module.azu["azu"].azurerm_linux_virtual_machine.this: Creation complete after 55s [id=/subscriptions/4d967f78-4005-4c96-9c28-c8965b2c6dfe/resourceGroups/azu/providers/Microsoft.Compute/virtualMachines/azu]
+module.eqx["eqx"].metal_device.this: Still creating... [2m0s elapsed]
+module.eqx["eqx"].metal_device.this: Still creating... [2m10s elapsed]
+module.eqx["eqx"].metal_device.this: Still creating... [2m20s elapsed]
+module.eqx["eqx"].metal_device.this: Still creating... [2m30s elapsed]
+module.eqx["eqx"].metal_device.this: Creation complete after 2m40s [id=9eac4e4d-4a13-4d0a-b54f-268ce3bc9beb]
+
+Apply complete! Resources: 89 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+identities = {
+  "ali" = "4a1eb0ab38"
+  "aws" = "3d53f4fca4"
+  "azu" = "ab209b77f6"
+  "do" = "c15c9c3bcb"
+  "eqx" = "1db2600c70"
+  "gcp" = "7701c7718e"
+  "ibm" = "c093a8bfec"
+  "oci" = "157ea56cec"
+  "vul" = "697b5ed34b"
+}
+networks = {
+  "demolab" = "6ab565387aa5001d"
+}
 ```
 
 ## Join Laptop to Lab Network
