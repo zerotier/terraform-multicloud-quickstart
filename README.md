@@ -99,11 +99,12 @@ and [Members](https://github.com/zerotier/terraform-provider-zerotier#members).
 The synopsis is as follows:
 
 ```hcl
-# ephemeral devices
 
 resource "zerotier_network" "hello" {
   # settings ...
 }
+
+# ephemeral devices
 
 resource "zerotier_identity" "instance" {}
 
