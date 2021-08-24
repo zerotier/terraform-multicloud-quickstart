@@ -45,8 +45,8 @@ To follow along step by step, you will need accounts on public cloud
 vendors. You will need git, a text editor, and a copy of Terraform
 1.0.0 or later installed locally.
 
-Terraform will create a ZeroTier network, then bootstrap instances on
-various clouds. The full blown multicloud demo uses:
+Terraform will create a ZeroTier network, then bootstrap instances on various clouds.  
+The full blown multicloud demo uses:
 
 - Digital Ocean
 - Amazon Web Services
