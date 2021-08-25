@@ -480,7 +480,7 @@ networks = {
 Each node is running a web server with an example nginx page,
 accessible with an internal DNS address.
 
-For example,  [http://aws.demo.lab](http://aws.demo.lab/).  
+For example,  [http://aws.demo.lab](http://aws.demo.lab/).
 
 <p align="center">
 <img src="https://i.imgur.com/UHe6UXq.png" alt="join network" /><br/>
@@ -488,12 +488,12 @@ For example,  [http://aws.demo.lab](http://aws.demo.lab/).
 
 # Understanding ZeroTier VL2
 
+Now that we've got our lab up, the real fun can begin.
+
 <p align="center">
 <img src="https://live.staticflickr.com/106/311526846_24b03feedf_w_d.jpg" alt="https://www.flickr.com/photos/valkyrieh116/311526846" /><br/>
 Down the Rabbit Hole - Valerie Hinojosa 2006
 </p>
-
-Now that we've got our lab up, the real fun begins.
 
 ```bash
 laptop:~$ ssh do.demo.lab
