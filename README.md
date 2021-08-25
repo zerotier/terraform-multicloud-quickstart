@@ -490,7 +490,7 @@ For example,  [http://aws.demo.lab](http://aws.demo.lab/).
 
 ZeroTier networks are virtual Ethernet switches. This means that
 anything you can do on a LAN segment, ZeroTier can over the Internet,
-Securely, across clouds, through NAT devices.
+securely, across clouds, and through NAT devices.
 
 <p align="center">
 <img src="https://live.staticflickr.com/106/311526846_24b03feedf_w_d.jpg" alt="https://www.flickr.com/photos/valkyrieh116/311526846" /><br/>
