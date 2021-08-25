@@ -12,7 +12,7 @@ And I am an ephemeral girl<br/>
 
 ## Conceptual Prerequisites
 
-* ZeroTier Networks are objects in the Central API.
+* ZeroTier Networks are objects in the [Central](https://my.zerotier.com/) [API](https://docs.zerotier.com/central/v1).
 * ZeroTier Identities are cryptographic identities of nodes; machines, containers, or binaries.
 * ZeroTier Members are associations between Networks and Identities.
 * ZeroTier virtualizes at L1 and L2 (ethernet).
