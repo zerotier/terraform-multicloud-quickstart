@@ -646,7 +646,7 @@ watch -1 ${ethertap} chr inbound;
 accept;
 ```
 
-Apply the rule set with Terraform
+Apply the rule set again with Terraform.
 
 ```bash
 terraform apply -target 'zerotier_network.demolab' -auto-approve
