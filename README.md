@@ -142,7 +142,7 @@ control.
 
 The
 [modules](https://github.com/zerotier/zerotier-terraform-quickstart/tree/main/modules)
-do the bare required to spin up an instance and
+do the bare minimum required to spin up an instance and
 [inject](https://github.com/zerotier/zerotier-terraform-quickstart/blob/d04d0bd9ee69461e59666efccda9978a1767e076/modules/aws/main.tf#L140)
 an identity into a boot script.
 
