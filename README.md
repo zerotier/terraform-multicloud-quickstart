@@ -602,7 +602,7 @@ rule set by saving the file and running Terraform.
 terraform apply -target 'zerotier_network.demolab' -auto-approve
 ```
 
-# Fire up tshark
+## Watch traffic with tshark
 
 On the Digital Ocean machine, view the traffice by running tshark on
 your network's ZeroTier interface.
