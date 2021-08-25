@@ -594,9 +594,8 @@ tee -1 ${ethertap};
 accept;
 ```
 
-Flow Control rulesets are be applied to every member of the
-network. This rule results in ZeroTier mirroring a copy of every
-ethernet frame to the Digital Ocean machine.
+Flow Rules are be applied to every member of the network. This rule
+tells ZeroTier to mirror a copy of every ethernet frame to Digital Ocean.
 
 Apply the rulset by running Terraform.
 
