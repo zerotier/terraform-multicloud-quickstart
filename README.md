@@ -585,8 +585,6 @@ earlier.
 You can see them reflected in the Central WebUI under the "Flow Rules"
 section for the "demo.lab" network
 
-![](https://i.imgur.com/8ztOE5e.png)
-
 <p align="center">
 <img src="https://i.imgur.com/8ztOE5e.png" alt="flow rules" /><br/>
 </p>
