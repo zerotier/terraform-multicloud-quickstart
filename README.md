@@ -475,6 +475,13 @@ networks = {
 <img src="https://i.imgur.com/i3OpSpF.png" alt="join network" /><br/>
 </p>
 
+## View the web page running on the nodes
+
+<p align="center">
+<img src="https://i.imgur.com/fAmr6yV.png" alt="join network" /><br/>
+</p>
+
+
 # Log into and take a look around
 
 ```bash
@@ -502,3 +509,4 @@ ibm.demo.lab (10.4.2.6) at 5e:71:18:e3:92:82 [ether] on zt2lr3wbun
 vul.demo.lab (10.4.2.7) at 5e:72:45:fa:bb:54 [ether] on zt2lr3wbun
 ```
 
+ZeroTier networks
