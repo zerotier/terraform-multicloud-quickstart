@@ -679,7 +679,7 @@ Because ZeroTier behaves like a flat ethernet segment, we can assign
 multiple IP addresses to an interfaces, just like on a physical
 ethernet network.
 
-```
+```bash
 alice@aws:~$ ip -4 addr
 <snip>
 3: zt2lr3wbun: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 2800 qdisc fq_codel state UNKNOWN group default qlen 1000
