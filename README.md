@@ -719,3 +719,4 @@ alice@gcp:$ sudo ip addr del 10.0.3.2/24 dev zt2lr3wbun
 alice@gcp:$ sudo ip addr del 10.0.3.3/24 dev zt2lr3wbun
 alice@gcp:$ sudo ip addr del 10.0.3.4/24 dev zt2lr3wbun
 ```
+
