@@ -626,10 +626,12 @@ rtt min/avg/max/mdev = 2.016/2.016/2.016/0.000 ms
 You will be able to observe the traffic from Digital Ocean.
 
 ```
+<snip>
 37 67.550026693     10.0.2.1 → 10.0.3.1     ICMP 98 Echo (ping) request  id=0x0005, seq=1/256, ttl=64
 38 67.551676229     10.0.2.1 → 10.0.3.1     ICMP 98 Echo (ping) request  id=0x0005, seq=1/256, ttl=64
 39 67.551728848     10.0.3.1 → 10.0.2.1     ICMP 98 Echo (ping) reply    id=0x0005, seq=1/256, ttl=64 (request in 38)
 40 67.551933296     10.0.3.1 → 10.0.2.1     ICMP 98 Echo (ping) reply    id=0x0005, seq=1/256, ttl=64
+<snip>
 ```
 
 You'll notice duplicates, as the `tee` is picking up both the incoming
@@ -643,8 +645,32 @@ Edit `flow_rules.tpl` again, this time using the `watch` rule.
 watch -1 ${ethertap} chr inbound;
 accept;
 ```
-Then apply
+Then apply.
 
 ```bash
 terraform apply -target 'zerotier_network.demolab' -auto-approve
 ```
+
+You can also see the the traffic from your laptop when hitting the web
+servers. Load the page on Equinix by visiting http://eqx.demo.lab, and
+observe the traffic in your Digital Ocean terminal.
+
+```
+<snip>
+327 199.676637284    10.0.0.83 → 10.0.9.1     TCP 78 51690 → 80 [SYN, ECN, CWR] Seq=0 Win=65535 Len=0 MSS=1460 WS=64 TSval=1436274934 TSecr=0 SACK_PERM=1
+328 199.676674544    10.0.0.83 → 10.0.9.1     TCP 78 51691 → 80 [SYN, ECN, CWR] Seq=0 Win=65535 Len=0 MSS=1460 WS=64 TSval=3175387241 TSecr=0 SACK_PERM=1
+329 199.794743954     10.0.9.1 → 10.0.0.83    TCP 74 80 → 51690 [SYN, ACK, ECN] Seq=0 Ack=1 Win=41220 Len=0 MSS=2760 SACK_PERM=1 TSval=2662049172 TSecr=1436274934 WS=256
+330 199.794958371     10.0.9.1 → 10.0.0.83    TCP 74 80 → 51691 [SYN, ACK, ECN] Seq=0 Ack=1 Win=41220 Len=0 MSS=2760 SACK_PERM=1 TSval=2662049172 TSecr=3175387241 WS=256
+331 199.803150936    10.0.0.83 → 10.0.9.1     TCP 66 51690 → 80 [ACK] Seq=1 Ack=1 Win=131712 Len=0 TSval=1436275068 TSecr=2662049172
+332 199.803187906    10.0.0.83 → 10.0.9.1     TCP 66 51691 → 80 [ACK] Seq=1 Ack=1 Win=131712 Len=0 TSval=3175387373 TSecr=2662049172
+333 199.803196207    10.0.0.83 → 10.0.9.1     HTTP 542 GET / HTTP/1.1
+334 199.922328374     10.0.9.1 → 10.0.0.83    TCP 66 80 → 51690 [ACK] Seq=1 Ack=477 Win=40960 Len=0 TSval=2662049299 TSecr=1436275068
+335 199.923128703     10.0.9.1 → 10.0.0.83    TCP 292 HTTP/1.1 200 OK  [TCP segment of a reassembled PDU]
+336 199.924188988     10.0.9.1 → 10.0.0.83    TCP 1514 HTTP/1.1 200 OK  [TCP segment of a reassembled PDU]
+337 199.927168487     10.0.9.1 → 10.0.0.83    HTTP 1514 [TCP Previous segment not captured] Continuation
+338 199.928171943     10.0.9.1 → 10.0.0.83    TCP 1514 80 → 51690 [PSH, ACK] Seq=4571 Ack=477 Win=40960 Len=1448 TSval=2662049300 TSecr=1436275068 [TCP segment of a reassembled PDU]
+339 199.928634956    10.0.0.83 → 10.0.9.1     TCP 66 51690 → 80 [ACK] Seq=477 Ack=227 Win=131520 Len=0 TSval=1436275194 TSecr=2662049300
+340 199.928824523    10.0.0.83 → 10.0.9.1     TCP 66 51690 → 80 [ACK] Seq=477 Ack=1675 Win=130048 Len=0 TSval=1436275194 TSecr=2662049300
+<snip>
+```
+
