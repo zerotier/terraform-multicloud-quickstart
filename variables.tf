@@ -27,7 +27,7 @@ variable "instances" {
     aws = {
       description   = "Amazon Web Services"
       ip_assignment = "10.4.2.2"
-      enabled       = false
+      enabled       = true
     }
     gcp = {
       description   = "Google Compute Platform"
@@ -42,7 +42,7 @@ variable "instances" {
     oci = {
       description   = "Oracle Cloud Infrastructure"
       ip_assignment = "10.4.2.5"
-      enabled       = false
+      enabled       = true
     }
     ibm = {
       description   = "IBM Cloud"
@@ -52,7 +52,7 @@ variable "instances" {
     vul = {
       description   = "Vultr"
       ip_assignment = "10.4.2.7"
-      enabled       = false
+      enabled       = true
     }
     ali = {
       description   = "Alibaba Cloud"
