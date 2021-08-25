@@ -487,7 +487,7 @@ For example,  [http://aws.demo.lab](http://aws.demo.lab/).
 <img src="https://i.imgur.com/UHe6UXq.png" alt="join network" /><br/>
 </p>
 
-# Log into and take a look around
+# Understanding VL2
 
 <p align="center">
 <img src="https://live.staticflickr.com/106/311526846_24b03feedf_w_d.jpg" alt="https://www.flickr.com/photos/valkyrieh116/311526846" /><br/>
