@@ -21,47 +21,47 @@ variable "instances" {
   default = {
     do = {
       description   = "Digital Ocean"
-      ip_assignment = "10.4.2.1"
+      ip_assignment = "10.0.1.1"
       enabled       = true
     }
     aws = {
       description   = "Amazon Web Services"
-      ip_assignment = "10.4.2.2"
+      ip_assignment = "10.0.2.1"
       enabled       = true
     }
     gcp = {
       description   = "Google Compute Platform"
-      ip_assignment = "10.4.2.3"
+      ip_assignment = "10.0.3.1"
       enabled       = false
     }
     azu = {
       description   = "Microsoft Azure"
-      ip_assignment = "10.4.2.4"
+      ip_assignment = "10.0.4.1"
       enabled       = false
     }
     oci = {
       description   = "Oracle Cloud Infrastructure"
-      ip_assignment = "10.4.2.5"
+      ip_assignment = "10.0.5.1"
       enabled       = true
     }
     ibm = {
       description   = "IBM Cloud"
-      ip_assignment = "10.4.2.6"
+      ip_assignment = "10.0.6.1"
       enabled       = false
     }
     vul = {
       description   = "Vultr"
-      ip_assignment = "10.4.2.7"
-      enabled       = true
+      ip_assignment = "10.0.7.1"
+      enabled       = false
     }
     ali = {
       description   = "Alibaba Cloud"
-      ip_assignment = "10.4.2.8"
+      ip_assignment = "10.0.8.1"
       enabled       = false
     }
     eqx = {
       description   = "Equinix Metal"
-      ip_assignment = "10.4.2.9"
+      ip_assignment = "10.0.9.1"
       enabled       = false
     }
   }

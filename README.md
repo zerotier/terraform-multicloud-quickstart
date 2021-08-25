@@ -481,7 +481,7 @@ networks = {
 laptop:~$ ssh do.demo.lab
 ```
 
-## Ping (v4) all the boxen
+## Ping all the boxen (v4)
 
 ```bash
 alice@do:~$ for i in laptop aws gcp azu oci ali ibm vul eqx ; do ping -4 -c 1 $i.demo.lab ; done &>/dev/null
@@ -501,3 +501,4 @@ laptop.demo.lab (10.4.2.83) at 5e:27:8a:8d:21:51 [ether] on zt2lr3wbun
 ibm.demo.lab (10.4.2.6) at 5e:71:18:e3:92:82 [ether] on zt2lr3wbun
 vul.demo.lab (10.4.2.7) at 5e:72:45:fa:bb:54 [ether] on zt2lr3wbun
 ```
+

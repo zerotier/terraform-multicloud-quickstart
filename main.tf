@@ -12,15 +12,15 @@ resource "zerotier_network" "demolab" {
   description = "ZeroTier Terraform Demolab"
   assign_ipv6 {
     zerotier = true
-    sixplane = true
+    sixplane = false
     rfc4193  = true
   }
   assignment_pool {
-    start = "10.4.2.1"
-    end   = "10.4.2.254"
+    start = "10.0.0.1"
+    end   = "10.0.0.254"
   }
   route {
-    target = "10.4.2.0/24"
+    target = "10.0.0.0/16"
   }
   flow_rules = templatefile("${path.module}/flow_rules.tpl", {
     ethertap = zerotier_identity.instances["do"].id

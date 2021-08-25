@@ -170,12 +170,12 @@ provider "registry.terraform.io/hashicorp/tls" {
 }
 
 provider "registry.terraform.io/ibm-cloud/ibm" {
-  version = "1.30.0"
+  version = "1.30.1"
   hashes = [
-    "h1:psBbcHwol54rKNfGqNUjjejfZsyRN6E3bU7YhQ689ak=",
-    "zh:85554c61d14f3032ded2c4cc47da273fba474e675cbc36899eac0d491d37c9d7",
-    "zh:a811c49d147a180b5e99e98d7a08879561e19f40bb89e63736ae7692834ff450",
-    "zh:de200b172777ba2b02155f7b4721dc86966f1b39bf3efb74d5a9da3142d9165e",
+    "h1:7n0oM83OHoHVS/hFOZ8qUmz54GgN++4TGLISkf00TTs=",
+    "zh:3b66cc88d4314b2bbbdd80b08f09fd70289d58f58bd397a07e8694d00bb7ee13",
+    "zh:9f94128c3655f12929666c3962500d16c2ccb0f5253de81e1f6257918e15e5f3",
+    "zh:b864fc89d256d85f2ffeca1035233229be85ae916b38119a2079ce78a1fa0984",
   ]
 }
 
