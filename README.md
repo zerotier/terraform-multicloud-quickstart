@@ -477,6 +477,13 @@ networks = {
 
 ## View the web page running on the nodes
 
+Each node is running a web server with an example nginx page,
+accessible with an internal DNS address.
+
+[http://do.demo.lab](http://do.demo.lab/)
+[http://aws.demo.lab](http://aws.demo.lab/)
+[http://oci.demo.lab](http://oci.demo.lab/)
+
 <p align="center">
 <img src="https://i.imgur.com/tALURIZ.png" alt="join network" /><br/>
 </p>
