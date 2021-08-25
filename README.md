@@ -554,5 +554,27 @@ alice@oci:~$ ip link | grep -A1 zt
 
 ## Ethernet Tapping and Tshark
 
+You may have noticed the "flow_rules" section in the `zerotier_network` while examining [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf) earlier.
 
+```hcl
+resource "zerotier_network" "demolab" {
+  name        = "demo.lab"
+  description = "ZeroTier Terraform Demolab"
+  assign_ipv6 {
+    zerotier = true
+    sixplane = false
+    rfc4193  = true
+  }
+  assignment_pool {
+    start = "10.0.0.1"
+    end   = "10.0.0.254"
+  }
+  route {
+    target = "10.0.0.0/16"
+  }
+  flow_rules = templatefile("${path.module}/flow_rules.tpl", {
+    ethertap = zerotier_identity.instances["do"].id
+  })
+}
+```
 
