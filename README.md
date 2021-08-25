@@ -478,7 +478,7 @@ networks = {
 ## View the web page running on the nodes
 
 <p align="center">
-<img src="https://i.imgur.com/fAmr6yV.png" alt="join network" /><br/>
+<img src="https://i.imgur.com/tALURIZ.png" alt="join network" /><br/>
 </p>
 
 
