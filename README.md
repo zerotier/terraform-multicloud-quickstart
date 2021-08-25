@@ -218,51 +218,51 @@ effect. Digital Ocean is required, since it will be providing DNS
 service for the lab.
 
 ```hcl
-variable "instances" {
+
   default = {
     do = {
       description   = "Digital Ocean"
-      ip_assignment = "10.4.2.1"
+      ip_assignment = "10.0.1.1"
       enabled       = true
     }
     aws = {
       description   = "Amazon Web Services"
-      ip_assignment = "10.4.2.2"
+      ip_assignment = "10.0.2.1"
       enabled       = true
     }
     gcp = {
       description   = "Google Compute Platform"
-      ip_assignment = "10.4.2.3"
+      ip_assignment = "10.0.3.1"
       enabled       = true
     }
     azu = {
       description   = "Microsoft Azure"
-      ip_assignment = "10.4.2.4"
+      ip_assignment = "10.0.4.1"
       enabled       = true
     }
     oci = {
       description   = "Oracle Cloud Infrastructure"
-      ip_assignment = "10.4.2.5"
+      ip_assignment = "10.0.5.1"
       enabled       = true
     }
     ibm = {
       description   = "IBM Cloud"
-      ip_assignment = "10.4.2.6"
+      ip_assignment = "10.0.6.1"
       enabled       = true
     }
     vul = {
       description   = "Vultr"
-      ip_assignment = "10.4.2.8"
+      ip_assignment = "10.0.7.1"
       enabled       = true
     }
     ali = {
       description   = "Alibaba Cloud"
-      ip_assignment = "10.4.2.7"
+      ip_assignment = "10.0.8.1"
       enabled       = true
     }
     eqx = {
       description   = "Equinix Metal"
-      ip_assignment = "10.4.2.9"
+      ip_assignment = "10.0.9.1"
       enabled       = true
     }
   }
@@ -489,8 +489,8 @@ For example,  [http://aws.demo.lab](http://aws.demo.lab/).
 # Understanding ZeroTier VL2
 
 ZeroTier networks are virtual Ethernet switches. This means that
-anything you can do on a LAN segment, ZeroTier can over the Internet,
-securely, across clouds, and through NAT devices.
+anything you can do on a physical LAN segment, ZeroTier can over the
+Internet, securely, across clouds, and through NAT devices.
 
 <p align="center">
 <img src="https://live.staticflickr.com/106/311526846_24b03feedf_w_d.jpg" alt="https://www.flickr.com/photos/valkyrieh116/311526846" /><br/>
@@ -510,7 +510,7 @@ alice@do:~$ for i in laptop aws gcp azu oci ali ibm vul eqx ; do ping -4 -c 1 $i
 ## Examine the ARP cache
 
 ```bash
-someara@do:~$ arp -a | grep demo
+alice@do:~$ arp -a | grep demo
 azu.demo.lab (10.4.2.4) at 5e:8a:89:82:20:d3 [ether] on zt2lr3wbun
 ali.demo.lab (10.4.2.8) at 5e:d5:83:78:15:8d [ether] on zt2lr3wbun
 oci.demo.lab (10.4.2.5) at 5e:62:25:0f:14:e5 [ether] on zt2lr3wbun
@@ -522,4 +522,3 @@ ibm.demo.lab (10.4.2.6) at 5e:71:18:e3:92:82 [ether] on zt2lr3wbun
 vul.demo.lab (10.4.2.7) at 5e:72:45:fa:bb:54 [ether] on zt2lr3wbun
 ```
 
-ZeroTier networks
