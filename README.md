@@ -580,10 +580,27 @@ resource "zerotier_network" "demolab" {
 }
 ```
 
-Terraform rendered a commented out set that we will use to
-gain visibility into our network. You can see them reflected in the
-Central WebUI under the "Flow Rules" section for the "demo.lab"
-network. They are documented in in-depth in chapter 3 of the
-[ZeroTier Manual](https://www.zerotier.com/manual/#3).
+We will use these to gain visibility into our network with tshark. You
+can see them reflected in the Central WebUI under the "Flow Rules"
+section for the "demo.lab" network. A full They are documented in
+in-depth in chapter 3 of the [ZeroTier Manual](https://www.zerotier.com/manual/#3).
 
-Edit `flow_rules.tpl`, uncomment 
+Edit `flow_rules.tpl`, uncommenting the "tee" rule.
+
+```
+# drop not ethertype ipv4 and not ethertype arp and not ethertype ipv6;
+tee -1 ${ethertap};
+# watch -1 ${ethertap} chr inbound;
+accept;
+```
+
+This rule will be applied to every member of the network, instructing
+the ZeroTier agents to send a copy of every ethernet frame to the
+Digital Ocean machine.
+
+Apply the rulset by running Terraform.
+
+```bash
+terraform apply -target 'zerotier_network.demolab' -auto-approve
+```
+
