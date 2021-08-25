@@ -594,11 +594,16 @@ tee -1 ${ethertap};
 accept;
 ```
 
-Flow Rules areapplied to every member of the network. `tee` tells
+Flow Rules are applied to every member of the network. `tee` tells
 ZeroTier to mirror a copy of every packet to Digital Ocean. Apply the
-rulset by running Terraform.
+rule set by saving the file and running Terraform.
 
 ```bash
 terraform apply -target 'zerotier_network.demolab' -auto-approve
 ```
 
+# Fire up tshark
+
+```
+sudo tshark -i zt2lr3wbun not port ssh
+```
