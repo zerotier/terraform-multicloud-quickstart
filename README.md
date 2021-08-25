@@ -554,7 +554,9 @@ alice@oci:~$ ip link | grep -A1 zt
 
 ## Ethernet Tapping
 
-You may have noticed the "flow_rules" section in the `zerotier_network` while examining [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf) earlier.
+You may have noticed the [flow_rules](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/flow_rules.tpl)
+section in the `zerotier_network` while examining [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
+earlier.
 
 ```hcl
 resource "zerotier_network" "demolab" {
@@ -578,9 +580,7 @@ resource "zerotier_network" "demolab" {
 }
 ```
 
-You may have noticed the [flow_rules](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/flow_rules.tpl)
-section in the `zerotier_network` while examining [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
-earlier. Terraform rendered a commented out set that we will use to
+Terraform rendered a commented out set that we will use to
 gain visibility into our network. You can see them reflected in the
 Central WebUI under the "Flow Rules" section for the "demo.lab"
 network. They are documented in in-depth in chapter 3 of the
