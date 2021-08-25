@@ -356,6 +356,7 @@ Sorry.
 
 <p align="center">
 <img src="https://i.imgur.com/qglRkyw.jpeg" height="300" alt="Baton Bunny, Copyright 1959  Warner Bros." /><br/>
+Baton Bunny, Copyright 1959  Warner Bros.
 </p>
 
 ```bash
