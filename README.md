@@ -489,7 +489,8 @@ For example,  [http://aws.demo.lab](http://aws.demo.lab/).
 # Log into and take a look around
 
 <p align="center">
-<img src="https://live.staticflickr.com/106/311526846_24b03feedf_w_d.jpg" alt="Down the Rabbit Hole - Valerie Hinojosa 2006" /><br/>
+<img src="https://live.staticflickr.com/106/311526846_24b03feedf_w_d.jpg" alt="https://www.flickr.com/photos/valkyrieh116/311526846" /><br/>
+Down the Rabbit Hole - Valerie Hinojosa 2006
 </p>
 
 Now that we've got our lab up, the real fun begins.
