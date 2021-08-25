@@ -673,7 +673,7 @@ observe the traffic in your Digital Ocean terminal.
 <snip>
 ```
 
-## More IP addresses!
+## Manually manipulate IP addresses
 
 Because ZeroTier behaves like a flat ethernet segment, we can assign
 multiple IP addresses to an interfaces, just like on a physical
