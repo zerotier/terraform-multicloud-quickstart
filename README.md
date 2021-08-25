@@ -695,23 +695,14 @@ will work as expected via to ARP resolution.
 Experiment with this by adding ip addresses from the command line.
 
 ```bash
-# Digital Ocean
-alice@do:$ sudo ip addr add 10.0.1.2/24 dev zt2lr3wbun
-alice@do:$ sudo ip addr add 10.0.1.3/24 dev zt2lr3wbun
-alice@do:$ sudo ip addr add 10.0.1.4/24 dev zt2lr3wbun
-
 # Amazon Web Services
 alice@aws:$ sudo ip addr add 10.0.2.2/24 dev zt2lr3wbun
 alice@aws:$ sudo ip addr add 10.0.2.3/24 dev zt2lr3wbun
 alice@aws:$ sudo ip addr add 10.0.2.4/24 dev zt2lr3wbun
 
-# Oracle Compute Infrastructure
-alice@oci:$ sudo ip addr add 10.0.5.2/24 dev zt2lr3wbun
-alice@oci:$ sudo ip addr add 10.0.5.3/24 dev zt2lr3wbun
-alice@oci:$ sudo ip addr add 10.0.5.4/24 dev zt2lr3wbun
-
-# IBM Cloud
-alice@ibm:$ sudo ip addr add 10.0.6.2/24 dev zt2lr3wbun
-alice@ibm:$ sudo ip addr add 10.0.6.3/24 dev zt2lr3wbun
-alice@ibm:$ sudo ip addr add 10.0.6.4/24 dev zt2lr3wbun
+# Google Compute Engine
+alice@aws:$ sudo ip addr add 10.0.3.2/24 dev zt2lr3wbun
+alice@aws:$ sudo ip addr add 10.0.3.3/24 dev zt2lr3wbun
+alice@aws:$ sudo ip addr add 10.0.3.4/24 dev zt2lr3wbun
 ```
+

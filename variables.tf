@@ -52,7 +52,7 @@ variable "instances" {
     vul = {
       description   = "Vultr"
       ip_assignment = "10.0.7.1"
-      enabled       = false
+      enabled       = true
     }
     ali = {
       description   = "Alibaba Cloud"
