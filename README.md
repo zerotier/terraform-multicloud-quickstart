@@ -680,10 +680,12 @@ multiple IP addresses to an interfaces, just like on a physical
 ethernet network.
 
 ```
-someara@aws:~$ ip -4 addr
+alice@aws:~$ ip -4 addr
+<snip>
 3: zt2lr3wbun: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 2800 qdisc fq_codel state UNKNOWN group default qlen 1000
     inet 10.0.2.1/16 brd 10.0.255.255 scope global zt2lr3wbun
        valid_lft forever preferred_lft forever
+<snip>
 ```
 
 Our network is configured as a `/16`, which means we can add any of
