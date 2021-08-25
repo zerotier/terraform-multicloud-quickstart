@@ -582,10 +582,10 @@ resource "zerotier_network" "demolab" {
 
 We will use these to gain visibility into our network with tshark. You
 can see them reflected in the Central WebUI under the "Flow Rules"
-section for the "demo.lab" network. A full They are documented in
-in-depth in chapter 3 of the [ZeroTier Manual](https://www.zerotier.com/manual/#3).
+section for the `demo.lab` network. They are documented in in-depth in
+chapter 3 of the [ZeroTier Manual](https://www.zerotier.com/manual/#3).
 
-Edit `flow_rules.tpl`, uncommenting the "tee" rule.
+Edit `flow_rules.tpl`, uncommenting the `tee` rule.
 
 ```
 # drop not ethertype ipv4 and not ethertype arp and not ethertype ipv6;
@@ -594,10 +594,9 @@ tee -1 ${ethertap};
 accept;
 ```
 
-Flow Rules are be applied to every member of the network. This rule
-tells ZeroTier to mirror a copy of every ethernet frame to Digital Ocean.
-
-Apply the rulset by running Terraform.
+Flow Rules areapplied to every member of the network. `tee` tells
+ZeroTier to mirror a copy of every packet to Digital Ocean. Apply the
+rulset by running Terraform.
 
 ```bash
 terraform apply -target 'zerotier_network.demolab' -auto-approve
