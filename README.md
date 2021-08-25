@@ -633,8 +633,7 @@ You will be able to observe the traffic from Digital Ocean.
 <snip>
 ```
 
-You'll notice duplicates, as the `tee` is picking up both the incoming
-and outgoing packets from both nodes.
+You'll see duplicates, as the `tee` is picking up both the incoming and outgoing packets from both nodes.
 
 Edit `flow_rules.tpl`, this time using the `watch` rule.
 
