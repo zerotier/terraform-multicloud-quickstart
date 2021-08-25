@@ -645,7 +645,8 @@ Edit `flow_rules.tpl`, this time using the `watch` rule.
 watch -1 ${ethertap} chr inbound;
 accept;
 ```
-Then apply.
+
+Apply the rule set with Terraform
 
 ```bash
 terraform apply -target 'zerotier_network.demolab' -auto-approve
