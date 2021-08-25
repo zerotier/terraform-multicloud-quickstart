@@ -701,21 +701,21 @@ alice@aws:$ sudo ip addr add 10.0.2.3/24 dev zt2lr3wbun
 alice@aws:$ sudo ip addr add 10.0.2.4/24 dev zt2lr3wbun
 
 # Google Compute Engine
-alice@aws:$ sudo ip addr add 10.0.3.2/24 dev zt2lr3wbun
-alice@aws:$ sudo ip addr add 10.0.3.3/24 dev zt2lr3wbun
-alice@aws:$ sudo ip addr add 10.0.3.4/24 dev zt2lr3wbun
+alice@gcp:$ sudo ip addr add 10.0.3.2/24 dev zt2lr3wbun
+alice@gcp:$ sudo ip addr add 10.0.3.3/24 dev zt2lr3wbun
+alice@gcp:$ sudo ip addr add 10.0.3.4/24 dev zt2lr3wbun
 ```
 
 Clean up after yourself by deleting them.
 
 ```bash
 # Amazon Web Services
-alice@aws:$ sudo ip addr del 10.0.2.2/24 dev zt2lr3wbun
-alice@aws:$ sudo ip addr del 10.0.2.3/24 dev zt2lr3wbun
-alice@aws:$ sudo ip addr del 10.0.2.4/24 dev zt2lr3wbun
+alice@gcp:$ sudo ip addr del 10.0.2.2/24 dev zt2lr3wbun
+alice@gcp:$ sudo ip addr del 10.0.2.3/24 dev zt2lr3wbun
+alice@gcp:$ sudo ip addr del 10.0.2.4/24 dev zt2lr3wbun
 
 # Google Compute Engine
-alice@aws:$ sudo ip addr del 10.0.3.2/24 dev zt2lr3wbun
-alice@aws:$ sudo ip addr del 10.0.3.3/24 dev zt2lr3wbun
-alice@aws:$ sudo ip addr del 10.0.3.4/24 dev zt2lr3wbun
+alice@gcp:$ sudo ip addr del 10.0.3.2/24 dev zt2lr3wbun
+alice@gcp:$ sudo ip addr del 10.0.3.3/24 dev zt2lr3wbun
+alice@gcp:$ sudo ip addr del 10.0.3.4/24 dev zt2lr3wbun
 ```
