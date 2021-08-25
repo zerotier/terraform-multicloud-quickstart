@@ -459,7 +459,7 @@ identities = {
   "vul" = "1dcc6338ff"
 }
 networks = {
-  "demolab" = "1c33c1ced07ac85d"
+  "demolab" = "8bd5124fd6f45ffe"
 }
 ```
 
@@ -511,15 +511,15 @@ alice@do:~$ for i in laptop aws gcp azu oci ali ibm vul eqx ; do ping -4 -c 1 $i
 
 ```bash
 alice@do:~$ arp -a | grep demo | sort
-ali.demo.lab (10.0.8.1) at 5e:1e:72:fb:14:e4 [ether] on zt2lr3wbun
-aws.demo.lab (10.0.2.1) at 5e:6c:4b:3a:05:4f [ether] on zt2lr3wbun
-azu.demo.lab (10.0.4.1) at 5e:d5:43:77:15:62 [ether] on zt2lr3wbun
-eqx.demo.lab (10.0.9.1) at 5e:11:0c:5d:cd:44 [ether] on zt2lr3wbun
-gcp.demo.lab (10.0.3.1) at 5e:5f:43:6c:9a:58 [ether] on zt2lr3wbun
-ibm.demo.lab (10.0.6.1) at 5e:38:83:97:55:1a [ether] on zt2lr3wbun
-laptop.demo.lab (10.0.0.83) at 5e:27:8a:8d:21:51 [ether] on zt2lr3wbun
-oci.demo.lab (10.0.5.1) at 5e:19:d5:76:be:24 [ether] on zt2lr3wbun
-vul.demo.lab (10.0.7.1) at 5e:3c:36:a8:9f:9d [ether] on zt2lr3wbun
+ali.demo.lab (10.0.8.1) at 5e:1e:72:fb:14:e4 [ether] on ztyqb6mebi
+aws.demo.lab (10.0.2.1) at 5e:6c:4b:3a:05:4f [ether] on ztyqb6mebi
+azu.demo.lab (10.0.4.1) at 5e:d5:43:77:15:62 [ether] on ztyqb6mebi
+eqx.demo.lab (10.0.9.1) at 5e:11:0c:5d:cd:44 [ether] on ztyqb6mebi
+gcp.demo.lab (10.0.3.1) at 5e:5f:43:6c:9a:58 [ether] on ztyqb6mebi
+ibm.demo.lab (10.0.6.1) at 5e:38:83:97:55:1a [ether] on ztyqb6mebi
+laptop.demo.lab (10.0.0.83) at 5e:27:8a:8d:21:51 [ether] on ztyqb6mebi
+oci.demo.lab (10.0.5.1) at 5e:19:d5:76:be:24 [ether] on ztyqb6mebi
+vul.demo.lab (10.0.7.1) at 5e:3c:36:a8:9f:9d [ether] on ztyqb6mebi
 ```
 
 As you can see, the ARP table now contains an entry for each node on
@@ -531,7 +531,7 @@ Run the `ip link` command to examine the interfaces on each box.
 
 ```bash
 alice@do:~$ ip link | grep -A1 zt
-4: zt2lr3wbun: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 2800 qdisc fq_codel state UNKNOWN mode DEFAULT group default qlen 1000
+4: ztyqb6mebi: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 2800 qdisc fq_codel state UNKNOWN mode DEFAULT group default qlen 1000
     link/ether 5e:56:14:d3:25:ed brd ff:ff:ff:ff:ff:ff
 ```
 
@@ -539,7 +539,7 @@ You'll see a virtual ethernet interface for each ZeroTier network the node is jo
 
 ```bash
 alice@aws:~$ ip link | grep  -A1 zt
-3: zt2lr3wbun: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 2800 qdisc fq_codel state UNKNOWN mode DEFAULT group default qlen 1000
+3: ztyqb6mebi: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 2800 qdisc fq_codel state UNKNOWN mode DEFAULT group default qlen 1000
     link/ether 5e:6c:4b:3a:05:4f brd ff:ff:ff:ff:ff:ff
 ```
 
@@ -548,7 +548,7 @@ to. Note that the name of the interface is the same on each machine.
 
 ```bash
 alice@oci:~$ ip link | grep -A1 zt
-3: zt2lr3wbun: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 2800 qdisc fq_codel state UNKNOWN mode DEFAULT group default qlen 1000
+3: ztyqb6mebi: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 2800 qdisc fq_codel state UNKNOWN mode DEFAULT group default qlen 1000
     link/ether 5e:19:d5:76:be:24 brd ff:ff:ff:ff:ff:ff
 ```
 
@@ -607,7 +607,7 @@ terraform apply -target 'zerotier_network.demolab' -auto-approve
 On the Digital Ocean machine, view traffic by running tshark on your network's ZeroTier interface.
 
 ```
-sudo tshark -i zt2lr3wbun not port ssh
+sudo tshark -i ztyqb6mebi not port ssh
 ```
 
 Open another terminal window, log into AWS, and ping GCP.
@@ -678,9 +678,9 @@ observe the traffic in your Digital Ocean terminal.
 Because ZeroTier behaves like ethernet, we can assign multiple IP addresses to an interface, just like on a physical network.
 
 ```bash
-alice@aws:~$ ip -4 addr show zt2lr3wbun
-3: zt2lr3wbun: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 2800 qdisc fq_codel state UNKNOWN group default qlen 1000
-    inet 10.0.2.1/16 brd 10.0.255.255 scope global zt2lr3wbun
+alice@aws:~$ ip -4 addr show ztyqb6mebi
+3: ztyqb6mebi: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 2800 qdisc fq_codel state UNKNOWN group default qlen 1000
+    inet 10.0.2.1/16 brd 10.0.255.255 scope global ztyqb6mebi
        valid_lft forever preferred_lft forever
 ```
 
@@ -692,28 +692,28 @@ Experiment with this by adding ip addresses from the command line.
 
 ```bash
 # Amazon Web Services
-alice@aws:$ sudo ip addr add 10.0.2.2/24 dev zt2lr3wbun
-alice@aws:$ sudo ip addr add 10.0.2.3/24 dev zt2lr3wbun
-alice@aws:$ sudo ip addr add 10.0.2.4/24 dev zt2lr3wbun
+alice@aws:$ sudo ip addr add 10.0.2.2/24 dev ztyqb6mebi
+alice@aws:$ sudo ip addr add 10.0.2.3/24 dev ztyqb6mebi
+alice@aws:$ sudo ip addr add 10.0.2.4/24 dev ztyqb6mebi
 
 # Google Compute Engine
-alice@gcp:$ sudo ip addr add 10.0.3.2/24 dev zt2lr3wbun
-alice@gcp:$ sudo ip addr add 10.0.3.3/24 dev zt2lr3wbun
-alice@gcp:$ sudo ip addr add 10.0.3.4/24 dev zt2lr3wbun
+alice@gcp:$ sudo ip addr add 10.0.3.2/24 dev ztyqb6mebi
+alice@gcp:$ sudo ip addr add 10.0.3.3/24 dev ztyqb6mebi
+alice@gcp:$ sudo ip addr add 10.0.3.4/24 dev ztyqb6mebi
 ```
 
 Clean up after yourself by deleting them.
 
 ```bash
 # Amazon Web Services
-alice@gcp:$ sudo ip addr del 10.0.2.2/24 dev zt2lr3wbun
-alice@gcp:$ sudo ip addr del 10.0.2.3/24 dev zt2lr3wbun
-alice@gcp:$ sudo ip addr del 10.0.2.4/24 dev zt2lr3wbun
+alice@gcp:$ sudo ip addr del 10.0.2.2/24 dev ztyqb6mebi
+alice@gcp:$ sudo ip addr del 10.0.2.3/24 dev ztyqb6mebi
+alice@gcp:$ sudo ip addr del 10.0.2.4/24 dev ztyqb6mebi
 
 # Google Compute Engine
-alice@gcp:$ sudo ip addr del 10.0.3.2/24 dev zt2lr3wbun
-alice@gcp:$ sudo ip addr del 10.0.3.3/24 dev zt2lr3wbun
-alice@gcp:$ sudo ip addr del 10.0.3.4/24 dev zt2lr3wbun
+alice@gcp:$ sudo ip addr del 10.0.3.2/24 dev ztyqb6mebi
+alice@gcp:$ sudo ip addr del 10.0.3.3/24 dev ztyqb6mebi
+alice@gcp:$ sudo ip addr del 10.0.3.4/24 dev ztyqb6mebi
 ```
 
 ## WORK IN PROGRESSING
