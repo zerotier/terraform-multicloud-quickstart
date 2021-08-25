@@ -706,9 +706,9 @@ Clean up after yourself by deleting them.
 
 ```bash
 # Amazon Web Services
-alice@gcp:$ sudo ip addr del 10.0.2.2/24 dev ztyqb6mebi
-alice@gcp:$ sudo ip addr del 10.0.2.3/24 dev ztyqb6mebi
-alice@gcp:$ sudo ip addr del 10.0.2.4/24 dev ztyqb6mebi
+alice@aws:$ sudo ip addr del 10.0.2.2/24 dev ztyqb6mebi
+alice@aws:$ sudo ip addr del 10.0.2.3/24 dev ztyqb6mebi
+alice@aws:$ sudo ip addr del 10.0.2.4/24 dev ztyqb6mebi
 
 # Google Compute Engine
 alice@gcp:$ sudo ip addr del 10.0.3.2/24 dev ztyqb6mebi
