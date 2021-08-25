@@ -722,5 +722,5 @@ alice@gcp:$ sudo ip addr del 10.0.3.4/24 dev zt2lr3wbun
 
 ## WORK IN PROGRESSING
 
-blah blah blah docker
-blah blah blah ipv6
+blah blah blah docker  
+blah blah blah ipv6  
