@@ -675,6 +675,41 @@ observe the traffic in your Digital Ocean terminal.
 
 ## More IP addresses!
 
+Because ZeroTier behaves like a flat ethernet segment, we can assign
+multiple IP addresses to the interfaces, just like we would on a
+regular network.
 
+```
+someara@aws:~$ ip -4 addr
+3: zt2lr3wbun: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 2800 qdisc fq_codel state UNKNOWN group default qlen 1000
+    inet 10.0.2.1/16 brd 10.0.255.255 scope global zt2lr3wbun
+       valid_lft forever preferred_lft forever
+```
 
+Our network is configured as a `/16`, which means we can add any of
+the 65,536 available IPv4 addresses to any zerotier network, and it
+will work, due to ARP resolution.
 
+Experiment with this by adding ip addresses from the command line.
+
+```bash
+# Digital Ocean
+alice@do:$ sudo ip addr add 10.0.1.2/24 dev zt2lr3wbun
+alice@do:$ sudo ip addr add 10.0.1.3/24 dev zt2lr3wbun
+alice@do:$ sudo ip addr add 10.0.1.4/24 dev zt2lr3wbun
+
+# Amazon Web Services
+alice@aws:$ sudo ip addr add 10.0.2.2/24 dev zt2lr3wbun
+alice@aws:$ sudo ip addr add 10.0.2.3/24 dev zt2lr3wbun
+alice@aws:$ sudo ip addr add 10.0.2.4/24 dev zt2lr3wbun
+
+# Oracle Compute Infrastructure
+alice@oci:$ sudo ip addr add 10.0.5.2/24 dev zt2lr3wbun
+alice@oci:$ sudo ip addr add 10.0.5.3/24 dev zt2lr3wbun
+alice@oci:$ sudo ip addr add 10.0.5.4/24 dev zt2lr3wbun
+
+# IBM Cloud
+alice@ibm:$ sudo ip addr add 10.0.6.2/24 dev zt2lr3wbun
+alice@ibm:$ sudo ip addr add 10.0.6.3/24 dev zt2lr3wbun
+alice@ibm:$ sudo ip addr add 10.0.6.4/24 dev zt2lr3wbun
+```
