@@ -529,7 +529,7 @@ our network, just as it would on a local ethernet network.
 
 Run the `ip link` command to examine the interfaces on each box.
 
-```
+```bash
 alice@do:~$ ip link | grep -A1 zt
 4: zt2lr3wbun: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 2800 qdisc fq_codel state UNKNOWN mode DEFAULT group default qlen 1000
     link/ether 5e:56:14:d3:25:ed brd ff:ff:ff:ff:ff:ff
@@ -537,7 +537,7 @@ alice@do:~$ ip link | grep -A1 zt
 
 You'll see a virtual ethernet interface for each ZeroTier network the node is joined to. (in this case, one)
 
-```
+```bash
 alice@aws:~$ ip link | grep  -A1 zt
 3: zt2lr3wbun: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 2800 qdisc fq_codel state UNKNOWN mode DEFAULT group default qlen 1000
     link/ether 5e:6c:4b:3a:05:4f brd ff:ff:ff:ff:ff:ff
@@ -546,7 +546,7 @@ alice@aws:~$ ip link | grep  -A1 zt
 The name of the interface is derived from the network ID it is joined
 to. Notice that the name of the interface is the same on each machine.
 
-```
+```bash
 alice@oci:~$ ip link | grep -A1 zt
 3: zt2lr3wbun: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 2800 qdisc fq_codel state UNKNOWN mode DEFAULT group default qlen 1000
     link/ether 5e:19:d5:76:be:24 brd ff:ff:ff:ff:ff:ff
