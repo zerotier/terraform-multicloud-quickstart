@@ -552,7 +552,7 @@ alice@oci:~$ ip link | grep -A1 zt
     link/ether 5e:19:d5:76:be:24 brd ff:ff:ff:ff:ff:ff
 ```
 
-## Ethernet Tapping and Tshark
+## Ethernet Tapping
 
 You may have noticed the "flow_rules" section in the `zerotier_network` while examining [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf) earlier.
 
@@ -577,4 +577,10 @@ resource "zerotier_network" "demolab" {
   })
 }
 ```
+
+You may have noticed the [flow_rules](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/flow_rules.tpl)
+section in the `zerotier_network` while examining [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
+earlier.
+
+
 
