@@ -611,7 +611,7 @@ your network's ZeroTier interface.
 sudo tshark -i zt2lr3wbun not port ssh
 ```
 
-Open another terminal log into AWS, and ping GCP.
+Open another terminal window, log into AWS, and ping GCP.
 
 ```
 alice@aws:~$ ping -4 -c 1 gcp.demo.lab
@@ -630,4 +630,21 @@ You will be able to observe the traffic from Digital Ocean.
 38 67.551676229     10.0.2.1 → 10.0.3.1     ICMP 98 Echo (ping) request  id=0x0005, seq=1/256, ttl=64
 39 67.551728848     10.0.3.1 → 10.0.2.1     ICMP 98 Echo (ping) reply    id=0x0005, seq=1/256, ttl=64 (request in 38)
 40 67.551933296     10.0.3.1 → 10.0.2.1     ICMP 98 Echo (ping) reply    id=0x0005, seq=1/256, ttl=64
+```
+
+You'll notice duplicates, as the `tee` is picking up both the incoming
+and outgoing packets from both nodes.
+
+Edit `flow_rules.tpl` again, this time using the `watch` rule.
+
+```
+# drop not ethertype ipv4 and not ethertype arp and not ethertype ipv6;
+# tee -1 ${ethertap};
+watch -1 ${ethertap} chr inbound;
+accept;
+```
+Then apply
+
+```bash
+terraform apply -target 'zerotier_network.demolab' -auto-approve
 ```
