@@ -475,7 +475,7 @@ networks = {
 <img src="https://i.imgur.com/i3OpSpF.png" alt="join network" /><br/>
 </p>
 
-## View the web page running on the nodes
+## Hit the web servers
 
 Each node is running a web server with an example nginx page,
 accessible with an internal DNS address.
