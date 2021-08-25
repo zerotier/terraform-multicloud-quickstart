@@ -483,10 +483,12 @@ accessible with an internal DNS address.
 For example,  [http://aws.demo.lab](http://aws.demo.lab/).  
 
 <p align="center">
-<img src="https://i.imgur.com/tALURIZ.png" alt="join network" /><br/>
+<img src="https://i.imgur.com/UHe6UXq.png" alt="join network" /><br/>
 </p>
 
 # Log into and take a look around
+
+Now that we've got our lab up, the real fun begins.
 
 ```bash
 laptop:~$ ssh do.demo.lab
