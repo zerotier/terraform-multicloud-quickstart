@@ -604,6 +604,9 @@ terraform apply -target 'zerotier_network.demolab' -auto-approve
 
 # Fire up tshark
 
+On the Digital Ocean machine, view the traffice by running tshark on
+your network's ZeroTier interface.
+
 ```
 sudo tshark -i zt2lr3wbun not port ssh
 ```
