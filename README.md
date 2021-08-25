@@ -544,7 +544,7 @@ alice@aws:~$ ip link | grep  -A1 zt
 ```
 
 The name of the interface is derived from the network ID it is joined
-to. Notice that the name of the interface is the same on each machine.
+to. Note that the name of the interface is the same on each machine.
 
 ```bash
 alice@oci:~$ ip link | grep -A1 zt
