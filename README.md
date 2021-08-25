@@ -689,8 +689,8 @@ alice@aws:~$ ip -4 addr
 ```
 
 Our network is configured as a `/16`, which means we can add any of
-the 65,536 available IPv4 addresses to any zerotier interface, and it
-will work as expected via ARP resolution.
+the 65,536 available IPv4 addresses to any zerotier interface, on any
+machine, and it will work as expected via ARP resolution.
 
 Experiment with this by adding ip addresses from the command line.
 
