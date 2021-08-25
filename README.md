@@ -510,15 +510,15 @@ alice@do:~$ for i in laptop aws gcp azu oci ali ibm vul eqx ; do ping -4 -c 1 $i
 ## Examine the ARP cache
 
 ```bash
-alice@do:~$ arp -a | grep demo
-azu.demo.lab (10.4.2.4) at 5e:8a:89:82:20:d3 [ether] on zt2lr3wbun
-ali.demo.lab (10.4.2.8) at 5e:d5:83:78:15:8d [ether] on zt2lr3wbun
-oci.demo.lab (10.4.2.5) at 5e:62:25:0f:14:e5 [ether] on zt2lr3wbun
-eqx.demo.lab (10.4.2.9) at 5e:95:dd:c1:16:a0 [ether] on zt2lr3wbun
-aws.demo.lab (10.4.2.2) at 5e:10:27:5e:12:6b [ether] on zt2lr3wbun
-gcp.demo.lab (10.4.2.3) at 5e:1f:34:46:c8:ee [ether] on zt2lr3wbun
-laptop.demo.lab (10.4.2.83) at 5e:27:8a:8d:21:51 [ether] on zt2lr3wbun
-ibm.demo.lab (10.4.2.6) at 5e:71:18:e3:92:82 [ether] on zt2lr3wbun
-vul.demo.lab (10.4.2.7) at 5e:72:45:fa:bb:54 [ether] on zt2lr3wbun
+alice@do:~$ arp -a | grep demo | sort
+ali.demo.lab (10.0.8.1) at 5e:1e:72:fb:14:e4 [ether] on zt2lr3wbun
+aws.demo.lab (10.0.2.1) at 5e:6c:4b:3a:05:4f [ether] on zt2lr3wbun
+azu.demo.lab (10.0.4.1) at 5e:d5:43:77:15:62 [ether] on zt2lr3wbun
+eqx.demo.lab (10.0.9.1) at 5e:11:0c:5d:cd:44 [ether] on zt2lr3wbun
+gcp.demo.lab (10.0.3.1) at 5e:5f:43:6c:9a:58 [ether] on zt2lr3wbun
+ibm.demo.lab (10.0.6.1) at 5e:38:83:97:55:1a [ether] on zt2lr3wbun
+laptop.demo.lab (10.0.0.83) at 5e:27:8a:8d:21:51 [ether] on zt2lr3wbun
+oci.demo.lab (10.0.5.1) at 5e:19:d5:76:be:24 [ether] on zt2lr3wbun
+vul.demo.lab (10.0.7.1) at 5e:3c:36:a8:9f:9d [ether] on zt2lr3wbun
 ```
 
