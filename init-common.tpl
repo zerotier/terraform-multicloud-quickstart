@@ -69,6 +69,7 @@ docker run -d -it --rm --network host nginxdemos/hello
 
 echo "-- various packages --"
 
+export DEBIAN_FRONTEND=noninteractive
 apt-get -qq install \
         emacs-nox \
         curl \
