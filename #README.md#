@@ -522,5 +522,5 @@ oci.demo.lab (10.0.5.1) at 5e:19:d5:76:be:24 [ether] on zt2lr3wbun
 vul.demo.lab (10.0.7.1) at 5e:3c:36:a8:9f:9d [ether] on zt2lr3wbun
 ```
 
-As you can see, the ARP table now contains an entry for each node on
-our network, just as it would on a local ethernet network.
+As you can see, each node on our network now has an entry in the ARP
+table, just as it would on a local ethernet segment.
