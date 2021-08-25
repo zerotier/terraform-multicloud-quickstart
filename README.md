@@ -551,3 +551,8 @@ alice@oci:~$ ip link | grep -A1 zt
 3: zt2lr3wbun: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 2800 qdisc fq_codel state UNKNOWN mode DEFAULT group default qlen 1000
     link/ether 5e:19:d5:76:be:24 brd ff:ff:ff:ff:ff:ff
 ```
+
+## Ethernet Tapping and Tshark
+
+
+
