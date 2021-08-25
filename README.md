@@ -580,12 +580,10 @@ resource "zerotier_network" "demolab" {
 
 You may have noticed the [flow_rules](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/flow_rules.tpl)
 section in the `zerotier_network` while examining [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
-earlier.
+earlier. Terraform rendered a commented out set that we will use to
+gain visibility into our network. You can see them reflected in the
+Central WebUI under the "Flow Rules" section for the "demo.lab"
+network. They are documented in in-depth in chapter 3 of the
+[ZeroTier Manual](https://www.zerotier.com/manual/#3).
 
-You can see them reflected in the Central WebUI under the "Flow Rules"
-section for the "demo.lab" network
-
-<p align="center">
-<img src="https://i.imgur.com/8ztOE5e.png" alt="flow rules" /><br/>
-</p>
-
+Edit `flow_rules.tpl`, uncomment 
