@@ -610,3 +610,23 @@ your network's ZeroTier interface.
 ```
 sudo tshark -i zt2lr3wbun not port ssh
 ```
+
+If you ping between Amazon and Google, you will be able to observe the
+traffic from Digital Ocean.
+
+```
+alice@aws:~$ ping -4 -c 1 gcp.demo.lab
+PING gcp.demo.lab (10.0.3.1) 56(84) bytes of data.
+64 bytes from gcp.demo.lab (10.0.3.1): icmp_seq=1 ttl=64 time=2.02 ms
+
+--- gcp.demo.lab ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 2.016/2.016/2.016/0.000 ms
+```
+
+```
+   37 67.550026693     10.0.2.1 → 10.0.3.1     ICMP 98 Echo (ping) request  id=0x0005, seq=1/256, ttl=64
+   38 67.551676229     10.0.2.1 → 10.0.3.1     ICMP 98 Echo (ping) request  id=0x0005, seq=1/256, ttl=64
+   39 67.551728848     10.0.3.1 → 10.0.2.1     ICMP 98 Echo (ping) reply    id=0x0005, seq=1/256, ttl=64 (request in 38)
+   40 67.551933296     10.0.3.1 → 10.0.2.1     ICMP 98 Echo (ping) reply    id=0x0005, seq=1/256, ttl=64
+```
