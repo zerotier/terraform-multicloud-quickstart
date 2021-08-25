@@ -676,8 +676,8 @@ observe the traffic in your Digital Ocean terminal.
 ## More IP addresses!
 
 Because ZeroTier behaves like a flat ethernet segment, we can assign
-multiple IP addresses to the interfaces, just like we would on a
-regular network.
+multiple IP addresses to an interfaces, just like on a physical
+ethernet network.
 
 ```
 someara@aws:~$ ip -4 addr
