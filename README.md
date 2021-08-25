@@ -582,5 +582,12 @@ You may have noticed the [flow_rules](https://github.com/zerotier/zerotier-terra
 section in the `zerotier_network` while examining [main.tf](https://github.com/zerotier/zerotier-terraform-quickstart/blob/main/main.tf)
 earlier.
 
+You can see them reflected in the Central WebUI under the "Flow Rules"
+section for the "demo.lab" network
 
+![](https://i.imgur.com/8ztOE5e.png)
+
+<p align="center">
+<img src="https://i.imgur.com/8ztOE5e.png" alt="flow rules" /><br/>
+</p>
 
