@@ -416,8 +416,7 @@ Initializing provider plugins...
 <snip>
 ```
 
-You will see a whole lot of text scoll by, ending with something that
-looks like this.
+(lots of text scrolling by...)
 
 ```bash
 <snip>
