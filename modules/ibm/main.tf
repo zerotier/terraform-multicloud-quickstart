@@ -1,0 +1,112 @@
+
+data "ibm_resource_group" "this" {
+  name = "Default"
+}
+
+data "ibm_is_image" "this" {
+  name = var.image
+}
+
+data "ibm_is_instance_profiles" "this" {}
+
+resource "ibm_is_vpc" "this" {
+  name                      = var.name
+  resource_group            = data.ibm_resource_group.this.id
+  address_prefix_management = "manual"
+}
+
+resource "ibm_is_vpc_address_prefix" "this" {
+  name = var.name
+  zone = var.zone
+  vpc  = ibm_is_vpc.this.id
+  cidr = var.vpc_cidr
+}
+
+resource "ibm_is_public_gateway" "this" {
+  name = var.name
+  vpc  = ibm_is_vpc.this.id
+  zone = var.zone
+}
+
+resource "ibm_is_subnet" "this" {
+  name            = var.name
+  vpc             = ibm_is_vpc.this.id
+  zone            = var.zone
+  ipv4_cidr_block = var.subnet_cidr
+  public_gateway  = ibm_is_public_gateway.this.id
+  depends_on      = [ibm_is_vpc_address_prefix.this]
+}
+
+resource "ibm_is_security_group" "this" {
+  name           = var.name
+  vpc            = ibm_is_vpc.this.id
+  resource_group = data.ibm_resource_group.this.id
+}
+
+resource "ibm_is_security_group_rule" "inbound_udp" {
+  group     = ibm_is_security_group.this.id
+  remote    = "0.0.0.0/0"
+  direction = "inbound"
+  udp {
+    port_min = 9993
+    port_max = 9993
+  }
+}
+
+resource "ibm_is_security_group_rule" "outbound_udp" {
+  group     = ibm_is_security_group.this.id
+  remote    = "0.0.0.0/0"
+  direction = "outbound"
+  udp {
+    port_min = 1
+    port_max = 65535
+  }
+}
+
+resource "ibm_is_security_group_rule" "outbound_tcp" {
+  group     = ibm_is_security_group.this.id
+  remote    = "0.0.0.0/0"
+  direction = "outbound"
+  tcp {
+    port_min = 1
+    port_max = 65535
+  }
+}
+
+resource "ibm_is_instance" "this" {
+  name    = var.name
+  image   = data.ibm_is_image.this.id
+  profile = var.instance_profile
+
+  primary_network_interface {
+    subnet            = ibm_is_subnet.this.id
+    security_groups   = [ibm_is_security_group.this.id]
+    allow_ip_spoofing = false
+  }
+
+  vpc            = ibm_is_vpc.this.id
+  zone           = var.zone
+  keys           = []
+  resource_group = data.ibm_resource_group.this.id
+  user_data      = data.cloudinit_config.this.rendered
+}
+
+data "cloudinit_config" "this" {
+  gzip          = false
+  base64_encode = false
+
+  part {
+    filename     = "init.sh"
+    content_type = "text/x-shellscript"
+    content = templatefile("${path.root}/${var.script}", {
+      "dnsdomain"   = var.dnsdomain
+      "hostname"    = var.name
+      "pod_cidr"    = var.pod_cidr
+      "svc"         = var.svc
+      "zeronsd"     = var.zeronsd
+      "zt_identity" = var.zt_identity
+      "zt_network"  = var.zt_network
+      "zt_token"    = var.zt_token
+    })
+  }
+}
