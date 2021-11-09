@@ -47,7 +47,7 @@ variable "instances" {
     ibm = {
       description   = "IBM Cloud"
       ip_assignment = "10.0.6.1"
-      enabled       = true
+      enabled       = false
     }
     vul = {
       description   = "Vultr"
