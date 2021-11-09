@@ -26,6 +26,8 @@ resource "google_compute_firewall" "ingress" {
   name    = "${var.name}-ingress"
   network = google_compute_network.this.self_link
 
+  source_ranges = ["0.0.0.0/0"]
+
   direction = "INGRESS"
   allow {
     protocol = "udp"
