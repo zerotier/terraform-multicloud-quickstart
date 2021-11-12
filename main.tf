@@ -111,21 +111,21 @@ module "gcp" {
 # Microsoft Azure
 #
 
-# module "azu" {
-#   source              = "./modules/azu"
-#   for_each            = { for k, v in var.instances : k => v if k == "azu" && v.enabled }
-#   name                = "azu"
-#   address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
-#   v4_address_prefixes = ["192.168.1.0/24"]
-#   v6_address_prefixes = ["ace:cab:deca:deed::/64"]
-#   location            = "eastus"
-#   dnsdomain           = zerotier_network.demolab.name
-#   pod_cidr            = "10.42.4.1/24"
-#   script              = "init-demolab.tpl"
-#   svc                 = var.users
-#   zt_identity         = zerotier_identity.instances["azu"]
-#   zt_network          = zerotier_network.demolab.id
-# }
+module "azu" {
+  source              = "./modules/azu"
+  for_each            = { for k, v in var.instances : k => v if k == "azu" && v.enabled }
+  name                = "azu"
+  address_space       = ["192.168.0.0/16", "ace:cab:deca::/48"]
+  v4_address_prefixes = ["192.168.1.0/24"]
+  v6_address_prefixes = ["ace:cab:deca:deed::/64"]
+  location            = "eastus"
+  dnsdomain           = zerotier_network.demolab.name
+  pod_cidr            = "10.42.4.1/24"
+  script              = "init-demolab.tpl"
+  svc                 = var.users
+  zt_identity         = zerotier_identity.instances["azu"]
+  zt_network          = zerotier_network.demolab.id
+}
 
 #
 # Oracle Cloud Infrastructure
