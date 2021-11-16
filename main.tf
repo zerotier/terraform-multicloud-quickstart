@@ -22,7 +22,7 @@ resource "zerotier_network" "demolab" {
     target = "10.0.0.0/16"
   }
   # flow_rules = templatefile("${path.module}/flow_rules.tpl", {
-  #   ethertap = zerotier_identity.instances["do"].id
+  #   ethertap = zerotier_identity.instances["ibm"].id
   # })
 }
 
