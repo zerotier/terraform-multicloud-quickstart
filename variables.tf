@@ -22,12 +22,12 @@ variable "instances" {
     do = {
       description   = "Digital Ocean"
       ip_assignment = "10.0.1.1"
-      enabled       = false
+      enabled       = true
     }
     aws = {
       description   = "Amazon Web Services"
       ip_assignment = "10.0.2.1"
-      enabled       = false
+      enabled       = true
     }
     gcp = {
       description   = "Google Compute Platform"
