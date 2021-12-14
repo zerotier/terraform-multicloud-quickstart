@@ -49,9 +49,9 @@ echo ${zt_identity.private_key} > /var/lib/zerotier-one/identity.secret
 chmod 0600 /var/lib/zerotier-one/identity.secret
 
 echo "-- ZeroTier --"
-curl -s https://install.zerotier.com | bash
-# wget https://download.zerotier.com/debian/xenial/pool/main/z/zerotier-one/zerotier-one_1.6.6_amd64.deb
-# dpkg -i zerotier-one_1.6.6_amd64.deb
+# curl -s https://install.zerotier.com | bash
+wget https://download.zerotier.com/debian/xenial/pool/main/z/zerotier-one/zerotier-one_1.6.6_amd64.deb
+dpkg -i zerotier-one_1.6.6_amd64.deb
 
 zerotier-cli join ${zt_network}
 while ! zerotier-cli listnetworks | grep ${zt_network} | grep OK ;

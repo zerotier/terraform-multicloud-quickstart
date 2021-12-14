@@ -101,7 +101,7 @@ module "gcp" {
   zone          = "us-east4-a"
   dnsdomain     = zerotier_network.demolab.name
   pod_cidr      = "10.42.3.1/24"
-  script        = "init-demolab.tpl"
+  script        = "init-demolab-166.tpl"
   svc           = var.users
   zt_identity   = zerotier_identity.instances["gcp"]
   zt_network    = zerotier_network.demolab.id
@@ -176,7 +176,7 @@ module "vul" {
   name        = "vul"
   dnsdomain   = zerotier_network.demolab.name
   pod_cidr    = "10.42.7.1/24"
-  script      = "init-demolab.tpl"
+  script      = "init-demolab-166.tpl"
   svc         = var.users
   zt_identity = zerotier_identity.instances["vul"]
   zt_network  = zerotier_network.demolab.id
@@ -211,5 +211,21 @@ module "eqx" {
   script      = "init-demolab.tpl"
   svc         = var.users
   zt_identity = zerotier_identity.instances["eqx"]
+  zt_network  = zerotier_network.demolab.id
+}
+
+#
+# Ionos
+# 
+
+module "ion" {
+  source      = "./modules/ion"
+  for_each    = { for k, v in var.instances : k => v if k == "ion" && v.enabled }
+  name        = "ion"
+  dnsdomain   = zerotier_network.demolab.name
+  pod_cidr    = "10.42.20.1/24"
+  script      = "init-demolab.tpl"
+  svc         = var.users
+  zt_identity = zerotier_identity.instances["ion"]
   zt_network  = zerotier_network.demolab.id
 }
