@@ -30,7 +30,7 @@ variable "instances" {
     do = {
       description   = "Digital Ocean"
       ip_assignment = "10.0.1.1"
-      enabled       = true
+      enabled       = false
     }
     aws = {
       description   = "Amazon Web Services"
@@ -75,7 +75,7 @@ variable "instances" {
     ion = {
       description   = "Ionos Cloud"
       ip_assignment = "10.0.10.1"
-      enabled       = true
+      enabled       = false
     }
   }
 }
